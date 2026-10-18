@@ -1,0 +1,84 @@
+{
+ "_note": "Club logos and websites. 'match' is text found in the team name on basketplan. 'logoBg' (optional) sets the tile colour behind a light logo.",
+ "clubs": [
+  {
+   "match": "KSC Wiedikon",
+   "name": "KSC Wiedikon",
+   "logo": "assets/kscw-crest.png",
+   "website": "https://kscw.ch/"
+  },
+  {
+   "match": "BBC Schaan",
+   "name": "BBC Schaan Woodchucks",
+   "logo": "assets/teams/schaan.png",
+   "website": "https://woodchucks.li/"
+  },
+  {
+   "match": "BZO",
+   "name": "Basketball Zürich Oberland",
+   "logo": "assets/teams/bzo.png",
+   "website": "https://www.bzo-basket.ch/"
+  },
+  {
+   "match": "Frauenfeld",
+   "name": "CVJM Basketball Frauenfeld",
+   "logo": "assets/teams/frauenfeld.png",
+   "website": "https://basket-frauenfeld.ch/"
+  },
+  {
+   "match": "GRBB",
+   "name": "Graubünden Basketball",
+   "logo": "assets/teams/grbb.png",
+   "website": "https://grbb.ch/",
+   "logoBg": "#1c2a5e"
+  },
+  {
+   "match": "Opfikon",
+   "name": "Opfikon Basket",
+   "logo": "assets/teams/opfikon.png",
+   "website": "https://www.opfikonbasket.ch/"
+  },
+  {
+   "match": "Unicorn 02",
+   "name": "Unicorn 02 Spreitenbach",
+   "logo": "assets/teams/unicorn.png",
+   "website": "https://unicorn02.ch/"
+  },
+  {
+   "match": "Wohlen",
+   "name": "Wohlen Basket",
+   "logo": "assets/teams/wohlen.png",
+   "website": "https://www.wohlen-basket.ch/"
+  },
+  {
+   "match": "Zug Basket",
+   "name": "Zug Basket",
+   "logo": "assets/teams/zug.png",
+   "website": "https://zugbasket.ch/"
+  },
+  {
+   "match": "Aarau Basket",
+   "name": "Aarau Basket",
+   "logo": "assets/teams/aarau.png",
+   "website": "https://aaraubasket.ch/"
+  },
+  {
+   "match": "BBZU",
+   "name": "BBZU Basketball Zürich Unterland",
+   "logo": "assets/teams/bbzu.png",
+   "website": "https://www.bbzu.ch/"
+  },
+  {
+   "match": "Emmen",
+   "name": "Emmen Basket",
+   "logo": "assets/teams/emmen.png",
+   "website": "https://emmenbasket.ch/"
+  },
+  {
+   "match": "Mutschellen",
+   "name": "Mutschellen Basketball",
+   "logo": "assets/teams/mutschellen.png",
+   "website": "https://mutschellen-basketball.ch/"
+  }
+ ]
+}

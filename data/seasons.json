@@ -1,0 +1,7 @@
+{
+ "federationId": 10,
+ "seasons": [
+  { "id": 31, "label": "2026/27", "league": "H2LR", "team": "KSC Wiedikon Herren 2 H2" },
+  { "id": 30, "label": "2025/26", "league": "H3LS", "team": "KSC Wiedikon Herren 2 H3" }
+ ]
+}

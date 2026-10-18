@@ -1,0 +1,5631 @@
+{
+ "updated": "2026-10-18T18:08:39+00:00",
+ "seasons": [
+  {
+   "season": "2026/27",
+   "team": "KSC Wiedikon Herren 2 H2",
+   "league": "H2LR Saison 26/27",
+   "leagueHoldingId": "11455",
+   "sourceUrl": "https://www.basketplan.ch/showLeagueSchedule.do?leagueHoldingId=11455",
+   "games": [
+    {
+     "id": "373219",
+     "number": "26-04576",
+     "date": "2026-09-26",
+     "time": "20:00",
+     "round": 1,
+     "home": "Frauenfeld Herren 1 H2",
+     "away": "Zug Basket H2",
+     "homeClub": "CVJM Frauenfeld",
+     "awayClub": "Zug Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Kantonsschule Frauenfeld 3F",
+      "address": "Sternwartestrasse 5",
+      "zip": "8500",
+      "city": "Frauenfeld"
+     },
+     "referees": [
+      "Castro Nicolas",
+      "Braun David"
+     ],
+     "score": [
+      60,
+      56
+     ],
+     "quarters": [
+      [
+       11,
+       13
+      ],
+      [
+       8,
+       13
+      ],
+      [
+       13,
+       11
+      ],
+      [
+       21,
+       16
+      ],
+      [
+       7,
+       3
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "373267",
+     "number": "26-04624",
+     "date": "2026-09-29",
+     "time": "20:30",
+     "round": 2,
+     "home": "Opfikon Basket Rams H2",
+     "away": "Opfikon Basket Wolves H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "Opfikon Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": [
+      "Manojlovic Petar",
+      "Pascu Andrei-Cosmin"
+     ],
+     "score": [
+      58,
+      68
+     ],
+     "quarters": [],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "373222",
+     "number": "26-04579",
+     "date": "2026-10-06",
+     "time": "20:30",
+     "round": 1,
+     "home": "Opfikon Basket Wolves H2",
+     "away": "Opfikon Basket Rams H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "Opfikon Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": [
+      "Basini Halis",
+      "Braun David"
+     ],
+     "score": [
+      90,
+      80
+     ],
+     "quarters": [],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "373256",
+     "number": "26-04613",
+     "date": "2026-10-09",
+     "time": "20:00",
+     "round": 2,
+     "home": "GRBB Chur Herren 1 H2",
+     "away": "Frauenfeld Herren 1 H2",
+     "homeClub": "GRBB",
+     "awayClub": "CVJM Frauenfeld",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Türligarten A",
+      "address": "Bodmerstrasse 10",
+      "zip": "7000",
+      "city": "Chur"
+     },
+     "referees": [
+      "Lutviu Mesut",
+      "Dimakopoulos Papazoglou Orestis"
+     ],
+     "score": [
+      76,
+      68
+     ],
+     "quarters": [
+      [
+       16,
+       15
+      ],
+      [
+       26,
+       8
+      ],
+      [
+       15,
+       22
+      ],
+      [
+       19,
+       23
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "373203",
+     "number": "26-04560",
+     "date": "2026-10-17",
+     "time": "20:00",
+     "round": 1,
+     "home": "Frauenfeld Herren 1 H2",
+     "away": "Wohlen Basket H2",
+     "homeClub": "CVJM Frauenfeld",
+     "awayClub": "Wohlen Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Frauenfeld 3F",
+      "address": "Sternwartestrasse 5",
+      "zip": "8500",
+      "city": "Frauenfeld"
+     },
+     "referees": [
+      "Frischknecht Thomas",
+      "Luma Ersun"
+     ]
+    },
+    {
+     "id": "373197",
+     "number": "26-04554",
+     "date": "2026-10-22",
+     "time": "20:30",
+     "round": 1,
+     "home": "Zug Basket H2",
+     "away": "Opfikon Basket Rams H2",
+     "homeClub": "Zug Basket",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Zug",
+      "address": "Lüssiweg 24",
+      "zip": "6300",
+      "city": "Zug"
+     },
+     "referees": [
+      "Sakotic Dragan",
+      "Pascu Andrei-Cosmin"
+     ]
+    },
+    {
+     "id": "373196",
+     "number": "26-04553",
+     "date": "2026-10-23",
+     "time": "20:00",
+     "round": 1,
+     "home": "KSC Wiedikon Herren 2 H2",
+     "away": "Wohlen Basket H2",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "Wohlen Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Krasniqi Fisnik",
+      "Pascu Andrei-Cosmin"
+     ]
+    },
+    {
+     "id": "373270",
+     "number": "26-04627",
+     "date": "2026-10-23",
+     "time": "20:30",
+     "round": 2,
+     "home": "BZO Highlanders H2",
+     "away": "Unicorn 02 Basket H2",
+     "homeClub": "BZO",
+     "awayClub": "Unicorn 02 Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sportzentrum Zürich A H1",
+      "address": "Dübendorfstrasse 48",
+      "zip": "8602",
+      "city": "Wangen bei Dübendorf"
+     },
+     "referees": [
+      "Rakic Bratislav",
+      "Luma Ersun"
+     ]
+    },
+    {
+     "id": "373236",
+     "number": "26-04593",
+     "date": "2026-10-24",
+     "time": "17:00",
+     "round": 2,
+     "home": "Frauenfeld Herren 1 H2",
+     "away": "BBC Schaan H2",
+     "homeClub": "CVJM Frauenfeld",
+     "awayClub": "BBC Schaan",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Frauenfeld 3F",
+      "address": "Sternwartestrasse 5",
+      "zip": "8500",
+      "city": "Frauenfeld"
+     },
+     "referees": [
+      "Castro Nicolas",
+      "Rakic Bratislav"
+     ]
+    },
+    {
+     "id": "373201",
+     "number": "26-04558",
+     "date": "2026-10-27",
+     "time": "20:30",
+     "round": 1,
+     "home": "Opfikon Basket Rams H2",
+     "away": "KSC Wiedikon Herren 2 H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "KSC Wiedikon",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": [
+      "Tomus Alexandru",
+      "Luma Ersun"
+     ]
+    },
+    {
+     "id": "373251",
+     "number": "26-04608",
+     "date": "2026-10-28",
+     "time": "20:30",
+     "round": 2,
+     "home": "Unicorn 02 Basket H2",
+     "away": "Zug Basket H2",
+     "homeClub": "Unicorn 02 Basket",
+     "awayClub": "Zug Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sporthalle Seefeld",
+      "address": "Schmittegass 100",
+      "zip": "8957",
+      "city": "Spreitenbach"
+     },
+     "referees": [
+      "Russo Alfio",
+      "Ponxha Bashkim"
+     ]
+    },
+    {
+     "id": "373240",
+     "number": "26-04597",
+     "date": "2026-10-30",
+     "time": "20:00",
+     "round": 2,
+     "home": "BZO Highlanders H2",
+     "away": "Frauenfeld Herren 1 H2",
+     "homeClub": "BZO",
+     "awayClub": "CVJM Frauenfeld",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wetzikon HE",
+      "address": "Kantonsschulstrasse",
+      "zip": "8620",
+      "city": "Wetzikon"
+     },
+     "referees": [
+      "Hüsler Felix",
+      "Fehr Michel"
+     ]
+    },
+    {
+     "id": "373243",
+     "number": "26-04600",
+     "date": "2026-10-30",
+     "time": "20:00",
+     "round": 2,
+     "home": "GRBB Chur Herren 1 H2",
+     "away": "Unicorn 02 Basket H2",
+     "homeClub": "GRBB",
+     "awayClub": "Unicorn 02 Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Türligarten A",
+      "address": "Bodmerstrasse 10",
+      "zip": "7000",
+      "city": "Chur"
+     },
+     "referees": [
+      "Turk Ivan",
+      "Castro Nicolas"
+     ]
+    },
+    {
+     "id": "373238",
+     "number": "26-04595",
+     "date": "2026-11-05",
+     "time": "20:30",
+     "round": 2,
+     "home": "Zug Basket H2",
+     "away": "Wohlen Basket H2",
+     "homeClub": "Zug Basket",
+     "awayClub": "Wohlen Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Zug",
+      "address": "Lüssiweg 24",
+      "zip": "6300",
+      "city": "Zug"
+     },
+     "referees": []
+    },
+    {
+     "id": "373255",
+     "number": "26-04612",
+     "date": "2026-11-06",
+     "time": "20:00",
+     "round": 2,
+     "home": "KSC Wiedikon Herren 2 H2",
+     "away": "Unicorn 02 Basket H2",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "Unicorn 02 Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": []
+    },
+    {
+     "id": "373262",
+     "number": "26-04619",
+     "date": "2026-11-06",
+     "time": "20:30",
+     "round": 2,
+     "home": "BZO Highlanders H2",
+     "away": "Opfikon Basket Rams H2",
+     "homeClub": "BZO",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sportzentrum Zürich A 3fach ",
+      "address": "Dübendorfstrasse 48",
+      "zip": "8602",
+      "city": "Wangen bei Dübendorf"
+     },
+     "referees": []
+    },
+    {
+     "id": "373245",
+     "number": "26-04602",
+     "date": "2026-11-08",
+     "time": "16:00",
+     "round": 2,
+     "home": "BBC Schaan H2",
+     "away": "BZO Highlanders H2",
+     "homeClub": "BBC Schaan",
+     "awayClub": "BZO",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Weiterführende Schulen (WSV)",
+      "address": "Marianumstrasse 43",
+      "zip": "9490",
+      "city": "Vaduz"
+     },
+     "referees": []
+    },
+    {
+     "id": "373223",
+     "number": "26-04580",
+     "date": "2026-11-13",
+     "time": "20:00",
+     "round": 1,
+     "home": "KSC Wiedikon Herren 2 H2",
+     "away": "Frauenfeld Herren 1 H2",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "CVJM Frauenfeld",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": []
+    },
+    {
+     "id": "373266",
+     "number": "26-04623",
+     "date": "2026-11-15",
+     "time": "17:15",
+     "round": 2,
+     "home": "GRBB Chur Herren 1 H2",
+     "away": "BZO Highlanders H2",
+     "homeClub": "GRBB",
+     "awayClub": "BZO",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Gewerbliche Berufsschule Chur 3fach",
+      "address": "Sennensteinstrasse 20",
+      "zip": "7000",
+      "city": "Chur"
+     },
+     "referees": []
+    },
+    {
+     "id": "373229",
+     "number": "26-04586",
+     "date": "2026-11-19",
+     "time": "20:30",
+     "round": 2,
+     "home": "Zug Basket H2",
+     "away": "BZO Highlanders H2",
+     "homeClub": "Zug Basket",
+     "awayClub": "BZO",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Zug",
+      "address": "Lüssiweg 24",
+      "zip": "6300",
+      "city": "Zug"
+     },
+     "referees": []
+    },
+    {
+     "id": "373187",
+     "number": "26-04544",
+     "date": "2026-11-22",
+     "time": "15:00",
+     "round": 1,
+     "home": "KSC Wiedikon Herren 2 H2",
+     "away": "BZO Highlanders H2",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "BZO",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": []
+    },
+    {
+     "id": "373189",
+     "number": "26-04546",
+     "date": "2026-11-22",
+     "time": "16:00",
+     "round": 1,
+     "home": "Unicorn 02 Basket H2",
+     "away": "Wohlen Basket H2",
+     "homeClub": "Unicorn 02 Basket",
+     "awayClub": "Wohlen Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sporthalle Seefeld",
+      "address": "Schmittegass 100",
+      "zip": "8957",
+      "city": "Spreitenbach"
+     },
+     "referees": []
+    },
+    {
+     "id": "373185",
+     "number": "26-04542",
+     "date": "2026-11-24",
+     "time": "20:30",
+     "round": 1,
+     "home": "Opfikon Basket Wolves H2",
+     "away": "Unicorn 02 Basket H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "Unicorn 02 Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373247",
+     "number": "26-04604",
+     "date": "2026-11-26",
+     "time": "20:30",
+     "round": 2,
+     "home": "Zug Basket H2",
+     "away": "GRBB Chur Herren 1 H2",
+     "homeClub": "Zug Basket",
+     "awayClub": "GRBB",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Zug",
+      "address": "Lüssiweg 24",
+      "zip": "6300",
+      "city": "Zug"
+     },
+     "referees": []
+    },
+    {
+     "id": "373215",
+     "number": "26-04572",
+     "date": "2026-11-27",
+     "time": "20:30",
+     "round": 1,
+     "home": "Unicorn 02 Basket H2",
+     "away": "Frauenfeld Herren 1 H2",
+     "homeClub": "Unicorn 02 Basket",
+     "awayClub": "CVJM Frauenfeld",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sporthalle Seefeld",
+      "address": "Schmittegass 100",
+      "zip": "8957",
+      "city": "Spreitenbach"
+     },
+     "referees": []
+    },
+    {
+     "id": "373183",
+     "number": "26-04540",
+     "date": "2026-11-29",
+     "time": "16:00",
+     "round": 1,
+     "home": "BBC Schaan H2",
+     "away": "KSC Wiedikon Herren 2 H2",
+     "homeClub": "BBC Schaan",
+     "awayClub": "KSC Wiedikon",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Weiterführende Schulen (WSV)",
+      "address": "Marianumstrasse 43",
+      "zip": "9490",
+      "city": "Vaduz"
+     },
+     "referees": []
+    },
+    {
+     "id": "373239",
+     "number": "26-04596",
+     "date": "2026-12-02",
+     "time": "20:30",
+     "round": 2,
+     "home": "Unicorn 02 Basket H2",
+     "away": "Opfikon Basket Rams H2",
+     "homeClub": "Unicorn 02 Basket",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sporthalle Seefeld",
+      "address": "Schmittegass 100",
+      "zip": "8957",
+      "city": "Spreitenbach"
+     },
+     "referees": []
+    },
+    {
+     "id": "373259",
+     "number": "26-04616",
+     "date": "2026-12-03",
+     "time": "20:30",
+     "round": 2,
+     "home": "Zug Basket H2",
+     "away": "KSC Wiedikon Herren 2 H2",
+     "homeClub": "Zug Basket",
+     "awayClub": "KSC Wiedikon",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Zug",
+      "address": "Lüssiweg 24",
+      "zip": "6300",
+      "city": "Zug"
+     },
+     "referees": []
+    },
+    {
+     "id": "373258",
+     "number": "26-04615",
+     "date": "2026-12-04",
+     "time": "20:30",
+     "round": 2,
+     "home": "Wohlen Basket H2",
+     "away": "BZO Highlanders H2",
+     "homeClub": "Wohlen Basket",
+     "awayClub": "BZO",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wohlen T3",
+      "address": "Allmendstrasse 26",
+      "zip": "5610",
+      "city": "Wohlen"
+     },
+     "referees": []
+    },
+    {
+     "id": "373269",
+     "number": "26-04626",
+     "date": "2026-12-06",
+     "time": "16:00",
+     "round": 2,
+     "home": "BBC Schaan H2",
+     "away": "Zug Basket H2",
+     "homeClub": "BBC Schaan",
+     "awayClub": "Zug Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Weiterführende Schulen (WSV)",
+      "address": "Marianumstrasse 43",
+      "zip": "9490",
+      "city": "Vaduz"
+     },
+     "referees": []
+    },
+    {
+     "id": "373226",
+     "number": "26-04583",
+     "date": "2026-12-06",
+     "time": "17:15",
+     "round": 1,
+     "home": "GRBB Chur Herren 1 H2",
+     "away": "Opfikon Basket Wolves H2",
+     "homeClub": "GRBB",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Gewerbliche Berufsschule Chur 3fach",
+      "address": "Sennensteinstrasse 20",
+      "zip": "7000",
+      "city": "Chur"
+     },
+     "referees": []
+    },
+    {
+     "id": "373217",
+     "number": "26-04574",
+     "date": "2026-12-08",
+     "time": "20:30",
+     "round": 1,
+     "home": "Opfikon Basket Rams H2",
+     "away": "BZO Highlanders H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "BZO",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373235",
+     "number": "26-04592",
+     "date": "2026-12-12",
+     "time": "16:15",
+     "round": 2,
+     "home": "Opfikon Basket Rams H2",
+     "away": "GRBB Chur Herren 1 H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "GRBB",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373268",
+     "number": "26-04625",
+     "date": "2026-12-12",
+     "time": "17:00",
+     "round": 2,
+     "home": "Frauenfeld Herren 1 H2",
+     "away": "KSC Wiedikon Herren 2 H2",
+     "homeClub": "CVJM Frauenfeld",
+     "awayClub": "KSC Wiedikon",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Frauenfeld 3F",
+      "address": "Sternwartestrasse 5",
+      "zip": "8500",
+      "city": "Frauenfeld"
+     },
+     "referees": []
+    },
+    {
+     "id": "373208",
+     "number": "26-04565",
+     "date": "2026-12-13",
+     "time": "17:30",
+     "round": 1,
+     "home": "Wohlen Basket H2",
+     "away": "BBC Schaan H2",
+     "homeClub": "Wohlen Basket",
+     "awayClub": "BBC Schaan",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wohlen T3",
+      "address": "Allmendstrasse 26",
+      "zip": "5610",
+      "city": "Wohlen"
+     },
+     "referees": []
+    },
+    {
+     "id": "373272",
+     "number": "26-04629",
+     "date": "2026-12-16",
+     "time": "20:30",
+     "round": 2,
+     "home": "Wohlen Basket H2",
+     "away": "Opfikon Basket Rams H2",
+     "homeClub": "Wohlen Basket",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wohlen T3",
+      "address": "Allmendstrasse 26",
+      "zip": "5610",
+      "city": "Wohlen"
+     },
+     "referees": []
+    },
+    {
+     "id": "373209",
+     "number": "26-04566",
+     "date": "2026-12-17",
+     "time": "20:30",
+     "round": 1,
+     "home": "Opfikon Basket Wolves H2",
+     "away": "BZO Highlanders H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "BZO",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373242",
+     "number": "26-04599",
+     "date": "2027-01-12",
+     "time": "20:30",
+     "round": 2,
+     "home": "Opfikon Basket Rams H2",
+     "away": "Zug Basket H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "Zug Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373241",
+     "number": "26-04598",
+     "date": "2027-01-13",
+     "time": "20:30",
+     "round": 2,
+     "home": "Wohlen Basket H2",
+     "away": "KSC Wiedikon Herren 2 H2",
+     "homeClub": "Wohlen Basket",
+     "awayClub": "KSC Wiedikon",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wohlen T3",
+      "address": "Allmendstrasse 26",
+      "zip": "5610",
+      "city": "Wohlen"
+     },
+     "referees": []
+    },
+    {
+     "id": "373198",
+     "number": "26-04555",
+     "date": "2027-01-15",
+     "time": "20:30",
+     "round": 1,
+     "home": "Unicorn 02 Basket H2",
+     "away": "GRBB Chur Herren 1 H2",
+     "homeClub": "Unicorn 02 Basket",
+     "awayClub": "GRBB",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sporthalle Seefeld",
+      "address": "Schmittegass 100",
+      "zip": "8957",
+      "city": "Spreitenbach"
+     },
+     "referees": []
+    },
+    {
+     "id": "373191",
+     "number": "26-04548",
+     "date": "2027-01-17",
+     "time": "16:00",
+     "round": 1,
+     "home": "BBC Schaan H2",
+     "away": "Frauenfeld Herren 1 H2",
+     "homeClub": "BBC Schaan",
+     "awayClub": "CVJM Frauenfeld",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Weiterführende Schulen (WSV)",
+      "address": "Marianumstrasse 43",
+      "zip": "9490",
+      "city": "Vaduz"
+     },
+     "referees": []
+    },
+    {
+     "id": "373188",
+     "number": "26-04545",
+     "date": "2027-01-21",
+     "time": "20:30",
+     "round": 1,
+     "home": "Zug Basket H2",
+     "away": "Opfikon Basket Wolves H2",
+     "homeClub": "Zug Basket",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Zug",
+      "address": "Lüssiweg 24",
+      "zip": "6300",
+      "city": "Zug"
+     },
+     "referees": []
+    },
+    {
+     "id": "373228",
+     "number": "26-04585",
+     "date": "2027-01-23",
+     "time": "18:30",
+     "round": 2,
+     "home": "KSC Wiedikon Herren 2 H2",
+     "away": "BBC Schaan H2",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "BBC Schaan",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": []
+    },
+    {
+     "id": "373231",
+     "number": "26-04588",
+     "date": "2027-01-24",
+     "time": "15:00",
+     "round": 2,
+     "home": "GRBB Chur Herren 1 H2",
+     "away": "Wohlen Basket H2",
+     "homeClub": "GRBB",
+     "awayClub": "Wohlen Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Gewerbliche Berufsschule Chur 3fach",
+      "address": "Sennensteinstrasse 20",
+      "zip": "7000",
+      "city": "Chur"
+     },
+     "referees": []
+    },
+    {
+     "id": "373244",
+     "number": "26-04601",
+     "date": "2027-01-24",
+     "time": "20:00",
+     "round": 2,
+     "home": "Frauenfeld Herren 1 H2",
+     "away": "Opfikon Basket Wolves H2",
+     "homeClub": "CVJM Frauenfeld",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Frauenfeld 3F",
+      "address": "Sternwartestrasse 5",
+      "zip": "8500",
+      "city": "Frauenfeld"
+     },
+     "referees": []
+    },
+    {
+     "id": "373214",
+     "number": "26-04571",
+     "date": "2027-01-29",
+     "time": "20:00",
+     "round": 1,
+     "home": "KSC Wiedikon Herren 2 H2",
+     "away": "Zug Basket H2",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "Zug Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": []
+    },
+    {
+     "id": "373252",
+     "number": "26-04609",
+     "date": "2027-01-29",
+     "time": "20:00",
+     "round": 2,
+     "home": "Frauenfeld Herren 1 H2",
+     "away": "Opfikon Basket Rams H2",
+     "homeClub": "CVJM Frauenfeld",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Militärsporthalle Frauenfeld",
+      "address": "Waffenplatzstrasse /  Militärstrasse",
+      "zip": "8500",
+      "city": "Frauenfeld"
+     },
+     "referees": []
+    },
+    {
+     "id": "373265",
+     "number": "26-04622",
+     "date": "2027-01-29",
+     "time": "20:30",
+     "round": 2,
+     "home": "Unicorn 02 Basket H2",
+     "away": "BBC Schaan H2",
+     "homeClub": "Unicorn 02 Basket",
+     "awayClub": "BBC Schaan",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sporthalle Seefeld",
+      "address": "Schmittegass 100",
+      "zip": "8957",
+      "city": "Spreitenbach"
+     },
+     "referees": []
+    },
+    {
+     "id": "373218",
+     "number": "26-04575",
+     "date": "2027-01-30",
+     "time": "17:30",
+     "round": 1,
+     "home": "Wohlen Basket H2",
+     "away": "Opfikon Basket Wolves H2",
+     "homeClub": "Wohlen Basket",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wohlen T3",
+      "address": "Allmendstrasse 26",
+      "zip": "5610",
+      "city": "Wohlen"
+     },
+     "referees": []
+    },
+    {
+     "id": "373233",
+     "number": "26-04590",
+     "date": "2027-02-02",
+     "time": "20:30",
+     "round": 2,
+     "home": "Opfikon Basket Wolves H2",
+     "away": "Zug Basket H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "Zug Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373206",
+     "number": "26-04563",
+     "date": "2027-02-04",
+     "time": "20:30",
+     "round": 1,
+     "home": "Zug Basket H2",
+     "away": "Unicorn 02 Basket H2",
+     "homeClub": "Zug Basket",
+     "awayClub": "Unicorn 02 Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Zug",
+      "address": "Lüssiweg 24",
+      "zip": "6300",
+      "city": "Zug"
+     },
+     "referees": []
+    },
+    {
+     "id": "373200",
+     "number": "26-04557",
+     "date": "2027-02-05",
+     "time": "20:00",
+     "round": 1,
+     "home": "BZO Highlanders H2",
+     "away": "BBC Schaan H2",
+     "homeClub": "BZO",
+     "awayClub": "BBC Schaan",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wetzikon HE",
+      "address": "Kantonsschulstrasse",
+      "zip": "8620",
+      "city": "Wetzikon"
+     },
+     "referees": []
+    },
+    {
+     "id": "373250",
+     "number": "26-04607",
+     "date": "2027-02-07",
+     "time": "15:00",
+     "round": 2,
+     "home": "GRBB Chur Herren 1 H2",
+     "away": "KSC Wiedikon Herren 2 H2",
+     "homeClub": "GRBB",
+     "awayClub": "KSC Wiedikon",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Türligarten A",
+      "address": "Bodmerstrasse 10",
+      "zip": "7000",
+      "city": "Chur"
+     },
+     "referees": []
+    },
+    {
+     "id": "373253",
+     "number": "26-04610",
+     "date": "2027-02-07",
+     "time": "16:00",
+     "round": 2,
+     "home": "BBC Schaan H2",
+     "away": "Wohlen Basket H2",
+     "homeClub": "BBC Schaan",
+     "awayClub": "Wohlen Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Weiterführende Schulen (WSV)",
+      "address": "Marianumstrasse 43",
+      "zip": "9490",
+      "city": "Vaduz"
+     },
+     "referees": []
+    },
+    {
+     "id": "373195",
+     "number": "26-04552",
+     "date": "2027-02-12",
+     "time": "20:00",
+     "round": 1,
+     "home": "Frauenfeld Herren 1 H2",
+     "away": "BZO Highlanders H2",
+     "homeClub": "CVJM Frauenfeld",
+     "awayClub": "BZO",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Militärsporthalle Frauenfeld",
+      "address": "Waffenplatzstrasse /  Militärstrasse",
+      "zip": "8500",
+      "city": "Frauenfeld"
+     },
+     "referees": []
+    },
+    {
+     "id": "373257",
+     "number": "26-04614",
+     "date": "2027-02-13",
+     "time": "14:00",
+     "round": 2,
+     "home": "Opfikon Basket Rams H2",
+     "away": "BBC Schaan H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "BBC Schaan",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373261",
+     "number": "26-04618",
+     "date": "2027-02-14",
+     "time": "16:00",
+     "round": 2,
+     "home": "BBC Schaan H2",
+     "away": "GRBB Chur Herren 1 H2",
+     "homeClub": "BBC Schaan",
+     "awayClub": "GRBB",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Weiterführende Schulen (WSV)",
+      "address": "Marianumstrasse 43",
+      "zip": "9490",
+      "city": "Vaduz"
+     },
+     "referees": []
+    },
+    {
+     "id": "373227",
+     "number": "26-04584",
+     "date": "2027-02-20",
+     "time": "14:00",
+     "round": 1,
+     "home": "Opfikon Basket Rams H2",
+     "away": "Wohlen Basket H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "Wohlen Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373271",
+     "number": "26-04628",
+     "date": "2027-02-20",
+     "time": "16:15",
+     "round": 2,
+     "home": "Opfikon Basket Wolves H2",
+     "away": "GRBB Chur Herren 1 H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "GRBB",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373234",
+     "number": "26-04591",
+     "date": "2027-02-24",
+     "time": "20:30",
+     "round": 2,
+     "home": "Wohlen Basket H2",
+     "away": "Unicorn 02 Basket H2",
+     "homeClub": "Wohlen Basket",
+     "awayClub": "Unicorn 02 Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wohlen T3",
+      "address": "Allmendstrasse 26",
+      "zip": "5610",
+      "city": "Wohlen"
+     },
+     "referees": []
+    },
+    {
+     "id": "373202",
+     "number": "26-04559",
+     "date": "2027-02-28",
+     "time": "15:00",
+     "round": 1,
+     "home": "GRBB Chur Herren 1 H2",
+     "away": "Zug Basket H2",
+     "homeClub": "GRBB",
+     "awayClub": "Zug Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Gewerbliche Berufsschule Chur 3fach",
+      "address": "Sennensteinstrasse 20",
+      "zip": "7000",
+      "city": "Chur"
+     },
+     "referees": []
+    },
+    {
+     "id": "373204",
+     "number": "26-04561",
+     "date": "2027-02-28",
+     "time": "16:00",
+     "round": 1,
+     "home": "BBC Schaan H2",
+     "away": "Opfikon Basket Wolves H2",
+     "homeClub": "BBC Schaan",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Weiterführende Schulen (WSV)",
+      "address": "Marianumstrasse 43",
+      "zip": "9490",
+      "city": "Vaduz"
+     },
+     "referees": []
+    },
+    {
+     "id": "373210",
+     "number": "26-04567",
+     "date": "2027-03-03",
+     "time": "20:30",
+     "round": 1,
+     "home": "Unicorn 02 Basket H2",
+     "away": "KSC Wiedikon Herren 2 H2",
+     "homeClub": "Unicorn 02 Basket",
+     "awayClub": "KSC Wiedikon",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sporthalle Seefeld",
+      "address": "Schmittegass 100",
+      "zip": "8957",
+      "city": "Spreitenbach"
+     },
+     "referees": []
+    },
+    {
+     "id": "373224",
+     "number": "26-04581",
+     "date": "2027-03-04",
+     "time": "20:30",
+     "round": 1,
+     "home": "Zug Basket H2",
+     "away": "BBC Schaan H2",
+     "homeClub": "Zug Basket",
+     "awayClub": "BBC Schaan",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Zug",
+      "address": "Lüssiweg 24",
+      "zip": "6300",
+      "city": "Zug"
+     },
+     "referees": []
+    },
+    {
+     "id": "373232",
+     "number": "26-04589",
+     "date": "2027-03-05",
+     "time": "20:00",
+     "round": 2,
+     "home": "BZO Highlanders H2",
+     "away": "KSC Wiedikon Herren 2 H2",
+     "homeClub": "BZO",
+     "awayClub": "KSC Wiedikon",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wetzikon HE",
+      "address": "Kantonsschulstrasse",
+      "zip": "8620",
+      "city": "Wetzikon"
+     },
+     "referees": []
+    },
+    {
+     "id": "373263",
+     "number": "26-04620",
+     "date": "2027-03-06",
+     "time": "16:15",
+     "round": 2,
+     "home": "Opfikon Basket Wolves H2",
+     "away": "Wohlen Basket H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "Wohlen Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373211",
+     "number": "26-04568",
+     "date": "2027-03-06",
+     "time": "20:00",
+     "round": 1,
+     "home": "Frauenfeld Herren 1 H2",
+     "away": "GRBB Chur Herren 1 H2",
+     "homeClub": "CVJM Frauenfeld",
+     "awayClub": "GRBB",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Frauenfeld 3F",
+      "address": "Sternwartestrasse 5",
+      "zip": "8500",
+      "city": "Frauenfeld"
+     },
+     "referees": []
+    },
+    {
+     "id": "373194",
+     "number": "26-04551",
+     "date": "2027-03-09",
+     "time": "20:30",
+     "round": 1,
+     "home": "Opfikon Basket Rams H2",
+     "away": "Unicorn 02 Basket H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "Unicorn 02 Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373184",
+     "number": "26-04541",
+     "date": "2027-03-12",
+     "time": "20:00",
+     "round": 1,
+     "home": "BZO Highlanders H2",
+     "away": "Zug Basket H2",
+     "homeClub": "BZO",
+     "awayClub": "Zug Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sportzentrum Zürich A 3fach ",
+      "address": "Dübendorfstrasse 48",
+      "zip": "8602",
+      "city": "Wangen bei Dübendorf"
+     },
+     "referees": []
+    },
+    {
+     "id": "373199",
+     "number": "26-04556",
+     "date": "2027-03-13",
+     "time": "16:15",
+     "round": 1,
+     "home": "Opfikon Basket Wolves H2",
+     "away": "Frauenfeld Herren 1 H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "CVJM Frauenfeld",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373212",
+     "number": "26-04569",
+     "date": "2027-03-14",
+     "time": "16:00",
+     "round": 1,
+     "home": "BBC Schaan H2",
+     "away": "Opfikon Basket Rams H2",
+     "homeClub": "BBC Schaan",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Weiterführende Schulen (WSV)",
+      "address": "Marianumstrasse 43",
+      "zip": "9490",
+      "city": "Vaduz"
+     },
+     "referees": []
+    },
+    {
+     "id": "373186",
+     "number": "26-04543",
+     "date": "2027-03-14",
+     "time": "17:30",
+     "round": 1,
+     "home": "Wohlen Basket H2",
+     "away": "GRBB Chur Herren 1 H2",
+     "homeClub": "Wohlen Basket",
+     "awayClub": "GRBB",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wohlen T3",
+      "address": "Allmendstrasse 26",
+      "zip": "5610",
+      "city": "Wohlen"
+     },
+     "referees": []
+    },
+    {
+     "id": "373264",
+     "number": "26-04621",
+     "date": "2027-03-18",
+     "time": null,
+     "round": 2,
+     "home": "Zug Basket H2",
+     "away": "Frauenfeld Herren 1 H2",
+     "homeClub": "Zug Basket",
+     "awayClub": "CVJM Frauenfeld",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Zug",
+      "address": "Lüssiweg 24",
+      "zip": "6300",
+      "city": "Zug"
+     },
+     "referees": []
+    },
+    {
+     "id": "373213",
+     "number": "26-04570",
+     "date": "2027-03-19",
+     "time": "20:00",
+     "round": 1,
+     "home": "BZO Highlanders H2",
+     "away": "Wohlen Basket H2",
+     "homeClub": "BZO",
+     "awayClub": "Wohlen Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wetzikon HE",
+      "address": "Kantonsschulstrasse",
+      "zip": "8620",
+      "city": "Wetzikon"
+     },
+     "referees": []
+    },
+    {
+     "id": "373190",
+     "number": "26-04547",
+     "date": "2027-03-21",
+     "time": "17:15",
+     "round": 1,
+     "home": "GRBB Chur Herren 1 H2",
+     "away": "Opfikon Basket Rams H2",
+     "homeClub": "GRBB",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Gewerbliche Berufsschule Chur 3fach",
+      "address": "Sennensteinstrasse 20",
+      "zip": "7000",
+      "city": "Chur"
+     },
+     "referees": []
+    },
+    {
+     "id": "373260",
+     "number": "26-04617",
+     "date": "2027-03-21",
+     "time": "20:00",
+     "round": 2,
+     "home": "Frauenfeld Herren 1 H2",
+     "away": "Unicorn 02 Basket H2",
+     "homeClub": "CVJM Frauenfeld",
+     "awayClub": "Unicorn 02 Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Frauenfeld 3F",
+      "address": "Sternwartestrasse 5",
+      "zip": "8500",
+      "city": "Frauenfeld"
+     },
+     "referees": []
+    },
+    {
+     "id": "373230",
+     "number": "26-04587",
+     "date": "2027-03-24",
+     "time": "20:30",
+     "round": 2,
+     "home": "Unicorn 02 Basket H2",
+     "away": "Opfikon Basket Wolves H2",
+     "homeClub": "Unicorn 02 Basket",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sporthalle Seefeld",
+      "address": "Schmittegass 100",
+      "zip": "8957",
+      "city": "Spreitenbach"
+     },
+     "referees": []
+    },
+    {
+     "id": "373248",
+     "number": "26-04605",
+     "date": "2027-03-27",
+     "time": "17:30",
+     "round": 2,
+     "home": "Wohlen Basket H2",
+     "away": "Frauenfeld Herren 1 H2",
+     "homeClub": "Wohlen Basket",
+     "awayClub": "CVJM Frauenfeld",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wohlen T3",
+      "address": "Allmendstrasse 26",
+      "zip": "5610",
+      "city": "Wohlen"
+     },
+     "referees": []
+    },
+    {
+     "id": "373192",
+     "number": "26-04549",
+     "date": "2027-03-30",
+     "time": "20:30",
+     "round": 1,
+     "home": "Opfikon Basket Wolves H2",
+     "away": "KSC Wiedikon Herren 2 H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "KSC Wiedikon",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373193",
+     "number": "26-04550",
+     "date": "2027-03-31",
+     "time": "20:30",
+     "round": 1,
+     "home": "Wohlen Basket H2",
+     "away": "Zug Basket H2",
+     "homeClub": "Wohlen Basket",
+     "awayClub": "Zug Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wohlen T3",
+      "address": "Allmendstrasse 26",
+      "zip": "5610",
+      "city": "Wohlen"
+     },
+     "referees": []
+    },
+    {
+     "id": "373225",
+     "number": "26-04582",
+     "date": "2027-03-31",
+     "time": "20:30",
+     "round": 1,
+     "home": "Unicorn 02 Basket H2",
+     "away": "BZO Highlanders H2",
+     "homeClub": "Unicorn 02 Basket",
+     "awayClub": "BZO",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Sporthalle Seefeld",
+      "address": "Schmittegass 100",
+      "zip": "8957",
+      "city": "Spreitenbach"
+     },
+     "referees": []
+    },
+    {
+     "id": "373205",
+     "number": "26-04562",
+     "date": "2027-04-03",
+     "time": "16:00",
+     "round": 1,
+     "home": "KSC Wiedikon Herren 2 H2",
+     "away": "GRBB Chur Herren 1 H2",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "GRBB",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": []
+    },
+    {
+     "id": "373220",
+     "number": "26-04577",
+     "date": "2027-04-04",
+     "time": "16:00",
+     "round": 1,
+     "home": "BBC Schaan H2",
+     "away": "Unicorn 02 Basket H2",
+     "homeClub": "BBC Schaan",
+     "awayClub": "Unicorn 02 Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Weiterführende Schulen (WSV)",
+      "address": "Marianumstrasse 43",
+      "zip": "9490",
+      "city": "Vaduz"
+     },
+     "referees": []
+    },
+    {
+     "id": "373254",
+     "number": "26-04611",
+     "date": "2027-04-05",
+     "time": "20:00",
+     "round": 2,
+     "home": "BZO Highlanders H2",
+     "away": "Opfikon Basket Wolves H2",
+     "homeClub": "BZO",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wetzikon HE",
+      "address": "Kantonsschulstrasse",
+      "zip": "8620",
+      "city": "Wetzikon"
+     },
+     "referees": []
+    },
+    {
+     "id": "373216",
+     "number": "26-04573",
+     "date": "2027-04-09",
+     "time": "20:00",
+     "round": 1,
+     "home": "GRBB Chur Herren 1 H2",
+     "away": "BBC Schaan H2",
+     "homeClub": "GRBB",
+     "awayClub": "BBC Schaan",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Türligarten A",
+      "address": "Bodmerstrasse 10",
+      "zip": "7000",
+      "city": "Chur"
+     },
+     "referees": []
+    },
+    {
+     "id": "373237",
+     "number": "26-04594",
+     "date": "2027-04-10",
+     "time": "18:30",
+     "round": 2,
+     "home": "KSC Wiedikon Herren 2 H2",
+     "away": "Opfikon Basket Wolves H2",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": []
+    },
+    {
+     "id": "373221",
+     "number": "26-04578",
+     "date": "2027-04-16",
+     "time": "20:00",
+     "round": 1,
+     "home": "BZO Highlanders H2",
+     "away": "GRBB Chur Herren 1 H2",
+     "homeClub": "BZO",
+     "awayClub": "GRBB",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wetzikon HE",
+      "address": "Kantonsschulstrasse",
+      "zip": "8620",
+      "city": "Wetzikon"
+     },
+     "referees": []
+    },
+    {
+     "id": "373246",
+     "number": "26-04603",
+     "date": "2027-04-16",
+     "time": "20:00",
+     "round": 2,
+     "home": "KSC Wiedikon Herren 2 H2",
+     "away": "Opfikon Basket Rams H2",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "Opfikon Basket",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": []
+    },
+    {
+     "id": "373249",
+     "number": "26-04606",
+     "date": "2027-04-17",
+     "time": "18:30",
+     "round": 2,
+     "home": "Opfikon Basket Wolves H2",
+     "away": "BBC Schaan H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "BBC Schaan",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    },
+    {
+     "id": "373207",
+     "number": "26-04564",
+     "date": "2027-04-24",
+     "time": "14:00",
+     "round": 1,
+     "home": "Opfikon Basket Rams H2",
+     "away": "Frauenfeld Herren 1 H2",
+     "homeClub": "Opfikon Basket",
+     "awayClub": "CVJM Frauenfeld",
+     "final": false,
+     "withdrawn": false,
+     "counts": true,
+     "state": "noch nicht gespielt",
+     "venue": {
+      "name": "Schulhaus Lättenwiesen",
+      "address": "Giebeleichstrasse 48",
+      "zip": "8152",
+      "city": "Glattbrugg"
+     },
+     "referees": []
+    }
+   ]
+  },
+  {
+   "season": "2025/26",
+   "team": "KSC Wiedikon Herren 2 H3",
+   "league": "H3LS Saison 25/26",
+   "leagueHoldingId": "10677",
+   "sourceUrl": "https://www.basketplan.ch/showLeagueSchedule.do?leagueHoldingId=10677",
+   "games": [
+    {
+     "id": "345452",
+     "number": "25-03600",
+     "date": null,
+     "time": null,
+     "round": 2,
+     "home": "BC Sarnen H3",
+     "away": "KSC Wiedikon Herren 2 H3",
+     "homeClub": "BC Sarnen",
+     "awayClub": "KSC Wiedikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": null,
+     "referees": [],
+     "score": [
+      0,
+      20
+     ],
+     "quarters": [],
+     "points": [
+      -2,
+      2
+     ]
+    },
+    {
+     "id": "345405",
+     "number": "25-03553",
+     "date": "2025-10-17",
+     "time": "20:30",
+     "round": 1,
+     "home": "Aarau Basket H3",
+     "away": "BC Sarnen H3",
+     "homeClub": "Aarau Basket",
+     "awayClub": "BC Sarnen",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Sporthalle Aarau Rohr",
+      "address": "Kirchweg",
+      "zip": "5032",
+      "city": "Aarau Rohr"
+     },
+     "referees": [
+      "Russo Alfio",
+      "Kühni Philippe"
+     ],
+     "score": [
+      72,
+      49
+     ],
+     "quarters": [
+      [
+       17,
+       17
+      ],
+      [
+       19,
+       13
+      ],
+      [
+       23,
+       10
+      ],
+      [
+       13,
+       9
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345451",
+     "number": "25-03599",
+     "date": "2025-10-20",
+     "time": "20:30",
+     "round": 2,
+     "home": "Baden Basket 54 Herren 3 H3",
+     "away": "Mutschellen Herren 1 H3",
+     "homeClub": "Baden Basket 54",
+     "awayClub": "Mutschellen Basketball",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "BerufsBildung (BBB) H4",
+      "address": "Schmiedestrasse 13",
+      "zip": "5400",
+      "city": "Baden"
+     },
+     "referees": [
+      "Njueya Thierry",
+      "Janjetovic Goran"
+     ],
+     "score": [
+      71,
+      63
+     ],
+     "quarters": [
+      [
+       9,
+       15
+      ],
+      [
+       8,
+       20
+      ],
+      [
+       22,
+       11
+      ],
+      [
+       32,
+       17
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345434",
+     "number": "25-03582",
+     "date": "2025-10-23",
+     "time": "20:30",
+     "round": 1,
+     "home": "BCBE Team one H3",
+     "away": "Baden Basket 54 Herren 3 H3",
+     "homeClub": "BC Buchrain-Ebikon",
+     "awayClub": "Baden Basket 54",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Oberstufenzentrum Hinterleisibach H3",
+      "address": "Hinterleisibachstrasse 10",
+      "zip": "6033",
+      "city": "Buchrain"
+     },
+     "referees": [
+      "Dreifürst Julius",
+      "Bissig Diana Marion"
+     ],
+     "score": [
+      92,
+      66
+     ],
+     "quarters": [],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345464",
+     "number": "25-03612",
+     "date": "2025-10-23",
+     "time": "20:30",
+     "round": 2,
+     "home": "Emmen Basket H3",
+     "away": "BC Sarnen H3",
+     "homeClub": "Emmen Basket",
+     "awayClub": "BC Sarnen",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulanlage Erlen ",
+      "address": "Erlenmatte 80",
+      "zip": "6020",
+      "city": "Emmenbrücke"
+     },
+     "referees": [
+      "Ponxha Bashkim",
+      "Enkhtsetseg Temuulen"
+     ],
+     "score": [
+      63,
+      61
+     ],
+     "quarters": [
+      [
+       19,
+       19
+      ],
+      [
+       8,
+       10
+      ],
+      [
+       21,
+       20
+      ],
+      [
+       15,
+       12
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345400",
+     "number": "25-03548",
+     "date": "2025-10-24",
+     "time": "20:00",
+     "round": 1,
+     "home": "KSC Wiedikon Herren 2 H3",
+     "away": "BBZU Rockets H3",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "BBZU",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Kaelin Markus",
+      "Manojlovic Petar"
+     ],
+     "score": [
+      70,
+      51
+     ],
+     "quarters": [
+      [
+       16,
+       16
+      ],
+      [
+       21,
+       10
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       15,
+       13
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345440",
+     "number": "25-03588",
+     "date": "2025-10-31",
+     "time": "20:00",
+     "round": 2,
+     "home": "KSC Wiedikon Herren 2 H3",
+     "away": "BCBE Team one H3",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "BC Buchrain-Ebikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Castro Nicolas",
+      "Serifi Emir"
+     ],
+     "score": [
+      87,
+      56
+     ],
+     "quarters": [
+      [
+       10,
+       15
+      ],
+      [
+       23,
+       5
+      ],
+      [
+       22,
+       20
+      ],
+      [
+       32,
+       16
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345417",
+     "number": "25-03565",
+     "date": "2025-11-01",
+     "time": "18:00",
+     "round": 1,
+     "home": "Ikaros Zürich H3",
+     "away": "Aarau Basket H3",
+     "homeClub": "Ikaros Zürich BC",
+     "awayClub": "Aarau Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Leutschenbach",
+      "address": "Saatlen Fussweg 3",
+      "zip": "8050",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Zimmermann Nick",
+      "Janjetovic Goran"
+     ],
+     "score": [
+      62,
+      70
+     ],
+     "quarters": [
+      [
+       10,
+       16
+      ],
+      [
+       13,
+       15
+      ],
+      [
+       13,
+       15
+      ],
+      [
+       26,
+       24
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345437",
+     "number": "25-03585",
+     "date": "2025-11-06",
+     "time": "20:30",
+     "round": 2,
+     "home": "BCBE Team one H3",
+     "away": "BC Sarnen H3",
+     "homeClub": "BC Buchrain-Ebikon",
+     "awayClub": "BC Sarnen",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Oberstufenzentrum Hinterleisibach H3",
+      "address": "Hinterleisibachstrasse 10",
+      "zip": "6033",
+      "city": "Buchrain"
+     },
+     "referees": [
+      "Russo Alfio",
+      "Berceg Adrijana"
+     ],
+     "score": [
+      80,
+      57
+     ],
+     "quarters": [],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345408",
+     "number": "25-03556",
+     "date": "2025-11-09",
+     "time": "14:00",
+     "round": 1,
+     "home": "KSC Wiedikon Herren 2 H3",
+     "away": "Aarau Basket H3",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "Aarau Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 2fach",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Jaksic Miodrag",
+      "Enkhtsetseg Temuulen"
+     ],
+     "score": [
+      54,
+      43
+     ],
+     "quarters": [
+      [
+       15,
+       12
+      ],
+      [
+       11,
+       6
+      ],
+      [
+       7,
+       11
+      ],
+      [
+       21,
+       14
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345461",
+     "number": "25-03609",
+     "date": "2025-11-10",
+     "time": "20:30",
+     "round": 2,
+     "home": "Baden Basket 54 Herren 3 H3",
+     "away": "Emmen Basket H3",
+     "homeClub": "Baden Basket 54",
+     "awayClub": "Emmen Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "BerufsBildung (BBB) H4",
+      "address": "Schmiedestrasse 13",
+      "zip": "5400",
+      "city": "Baden"
+     },
+     "referees": [
+      "Enkhtsetseg Temuulen",
+      "Sosna Roman David"
+     ],
+     "score": [
+      56,
+      55
+     ],
+     "quarters": [
+      [
+       16,
+       12
+      ],
+      [
+       12,
+       9
+      ],
+      [
+       19,
+       15
+      ],
+      [
+       9,
+       19
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345467",
+     "number": "25-03615",
+     "date": "2025-11-12",
+     "time": "20:30",
+     "round": 2,
+     "home": "Mutschellen Herren 1 H3",
+     "away": "Ikaros Zürich H3",
+     "homeClub": "Mutschellen Basketball",
+     "awayClub": "Ikaros Zürich BC",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Burkertsmatt 1fach H2",
+      "address": "Burkertsmatt 11",
+      "zip": "8967",
+      "city": "Widen"
+     },
+     "referees": [
+      "Hohler Dejan",
+      "Enkhtsetseg Temuulen"
+     ],
+     "score": [
+      67,
+      61
+     ],
+     "quarters": [
+      [
+       15,
+       19
+      ],
+      [
+       16,
+       21
+      ],
+      [
+       14,
+       11
+      ],
+      [
+       22,
+       10
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345410",
+     "number": "25-03558",
+     "date": "2025-11-16",
+     "time": "13:20",
+     "round": 1,
+     "home": "Ikaros Zürich H3",
+     "away": "BBZU Rockets H3",
+     "homeClub": "Ikaros Zürich BC",
+     "awayClub": "BBZU",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Leutschenbach",
+      "address": "Saatlen Fussweg 3",
+      "zip": "8050",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Benvenuti Nedis",
+      "Luma Ersun"
+     ],
+     "score": [
+      59,
+      36
+     ],
+     "quarters": [
+      [
+       15,
+       8
+      ],
+      [
+       14,
+       9
+      ],
+      [
+       13,
+       10
+      ],
+      [
+       17,
+       9
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345421",
+     "number": "25-03569",
+     "date": "2025-11-16",
+     "time": "14:30",
+     "round": 1,
+     "home": "Aarau Basket H3",
+     "away": "Emmen Basket H3",
+     "homeClub": "Aarau Basket",
+     "awayClub": "Emmen Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Sporthalle Aarau Rohr",
+      "address": "Kirchweg",
+      "zip": "5032",
+      "city": "Aarau Rohr"
+     },
+     "referees": [
+      "Kühni Philippe",
+      "Gafner Tobias"
+     ],
+     "score": [
+      81,
+      78
+     ],
+     "quarters": [
+      [
+       16,
+       16
+      ],
+      [
+       21,
+       16
+      ],
+      [
+       27,
+       21
+      ],
+      [
+       17,
+       25
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345419",
+     "number": "25-03567",
+     "date": "2025-11-16",
+     "time": "16:00",
+     "round": 1,
+     "home": "BC Sarnen H3",
+     "away": "Mutschellen Herren 1 H3",
+     "homeClub": "BC Sarnen",
+     "awayClub": "Mutschellen Basketball",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Vereinshalle",
+      "address": "Rütistrasse 3",
+      "zip": "6060",
+      "city": "Sarnen"
+     },
+     "referees": [
+      "Hangartner Diego",
+      "Dzaferagic-Dzabiroska Merita"
+     ],
+     "score": [
+      72,
+      63
+     ],
+     "quarters": [
+      [
+       17,
+       15
+      ],
+      [
+       17,
+       14
+      ],
+      [
+       18,
+       17
+      ],
+      [
+       20,
+       17
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345432",
+     "number": "25-03580",
+     "date": "2025-11-23",
+     "time": "14:00",
+     "round": 1,
+     "home": "Emmen Basket H3",
+     "away": "KSC Wiedikon Herren 2 H3",
+     "homeClub": "Emmen Basket",
+     "awayClub": "KSC Wiedikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulanlage Erlen ",
+      "address": "Erlenmatte 80",
+      "zip": "6020",
+      "city": "Emmenbrücke"
+     },
+     "referees": [
+      "Hangartner Diego",
+      "Ibrahim Mohamed Idiris"
+     ],
+     "score": [
+      67,
+      93
+     ],
+     "quarters": [
+      [
+       19,
+       18
+      ],
+      [
+       14,
+       25
+      ],
+      [
+       26,
+       24
+      ],
+      [
+       8,
+       26
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345462",
+     "number": "25-03610",
+     "date": "2025-11-23",
+     "time": "14:30",
+     "round": 2,
+     "home": "Aarau Basket H3",
+     "away": "BBZU Rockets H3",
+     "homeClub": "Aarau Basket",
+     "awayClub": "BBZU",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Sporthalle Aarau Rohr",
+      "address": "Kirchweg",
+      "zip": "5032",
+      "city": "Aarau Rohr"
+     },
+     "referees": [
+      "Reci Fatlind",
+      "Müller Tobias"
+     ],
+     "score": [
+      77,
+      62
+     ],
+     "quarters": [
+      [
+       20,
+       14
+      ],
+      [
+       20,
+       13
+      ],
+      [
+       20,
+       10
+      ],
+      [
+       17,
+       25
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345460",
+     "number": "25-03608",
+     "date": "2025-11-23",
+     "time": "15:00",
+     "round": 2,
+     "home": "BC Sarnen H3",
+     "away": "Ikaros Zürich H3",
+     "homeClub": "BC Sarnen",
+     "awayClub": "Ikaros Zürich BC",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Vereinshalle",
+      "address": "Rütistrasse 3",
+      "zip": "6060",
+      "city": "Sarnen"
+     },
+     "referees": [
+      "Kanu Ricky",
+      "Dzaferagic-Dzabiroska Merita"
+     ],
+     "score": [
+      73,
+      69
+     ],
+     "quarters": [
+      [
+       17,
+       9
+      ],
+      [
+       12,
+       18
+      ],
+      [
+       18,
+       13
+      ],
+      [
+       14,
+       21
+      ],
+      [
+       12,
+       8
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345429",
+     "number": "25-03577",
+     "date": "2025-11-24",
+     "time": "20:30",
+     "round": 1,
+     "home": "Baden Basket 54 Herren 3 H3",
+     "away": "BBZU Rockets H3",
+     "homeClub": "Baden Basket 54",
+     "awayClub": "BBZU",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "BerufsBildung (BBB) H4",
+      "address": "Schmiedestrasse 13",
+      "zip": "5400",
+      "city": "Baden"
+     },
+     "referees": [
+      "Seeburger Michael",
+      "Sosna Roman David"
+     ],
+     "score": [
+      64,
+      60
+     ],
+     "quarters": [
+      [
+       21,
+       16
+      ],
+      [
+       12,
+       8
+      ],
+      [
+       18,
+       18
+      ],
+      [
+       13,
+       18
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345423",
+     "number": "25-03571",
+     "date": "2025-11-26",
+     "time": "20:30",
+     "round": 1,
+     "home": "Mutschellen Herren 1 H3",
+     "away": "KSC Wiedikon Herren 2 H3",
+     "homeClub": "Mutschellen Basketball",
+     "awayClub": "KSC Wiedikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Burkertsmatt 1fach H2",
+      "address": "Burkertsmatt 11",
+      "zip": "8967",
+      "city": "Widen"
+     },
+     "referees": [
+      "Lemonnier Alexandre",
+      "Montes Lopez David"
+     ],
+     "score": [
+      57,
+      53
+     ],
+     "quarters": [
+      [
+       17,
+       14
+      ],
+      [
+       10,
+       21
+      ],
+      [
+       10,
+       15
+      ],
+      [
+       20,
+       3
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345469",
+     "number": "25-03617",
+     "date": "2025-11-30",
+     "time": "14:00",
+     "round": 2,
+     "home": "BC Sarnen H3",
+     "away": "BBZU Rockets H3",
+     "homeClub": "BC Sarnen",
+     "awayClub": "BBZU",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Vereinshalle",
+      "address": "Rütistrasse 3",
+      "zip": "6060",
+      "city": "Sarnen"
+     },
+     "referees": [
+      "Vincent Sinthuyan",
+      "Dzaferagic-Dzabiroska Merita"
+     ],
+     "score": [
+      67,
+      55
+     ],
+     "quarters": [
+      [
+       14,
+       19
+      ],
+      [
+       25,
+       5
+      ],
+      [
+       13,
+       20
+      ],
+      [
+       15,
+       11
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345443",
+     "number": "25-03591",
+     "date": "2025-11-30",
+     "time": "14:30",
+     "round": 2,
+     "home": "BCBE Team one H3",
+     "away": "Mutschellen Herren 1 H3",
+     "homeClub": "BC Buchrain-Ebikon",
+     "awayClub": "Mutschellen Basketball",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Oberstufenzentrum Hinterleisibach H3",
+      "address": "Hinterleisibachstrasse 10",
+      "zip": "6033",
+      "city": "Buchrain"
+     },
+     "referees": [
+      "Hangartner Diego",
+      "Langwagen Frank"
+     ],
+     "score": [
+      84,
+      82
+     ],
+     "quarters": [],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345444",
+     "number": "25-03592",
+     "date": "2025-11-30",
+     "time": "14:30",
+     "round": 2,
+     "home": "Aarau Basket H3",
+     "away": "KSC Wiedikon Herren 2 H3",
+     "homeClub": "Aarau Basket",
+     "awayClub": "KSC Wiedikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Doppelturnhalle Mattenweg",
+      "address": "Mattenweg 5",
+      "zip": "5034",
+      "city": "Suhr"
+     },
+     "referees": [
+      "Russo Alfio",
+      "Njueya Thierry"
+     ],
+     "score": [
+      77,
+      68
+     ],
+     "quarters": [
+      [
+       23,
+       22
+      ],
+      [
+       17,
+       19
+      ],
+      [
+       19,
+       15
+      ],
+      [
+       18,
+       12
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345420",
+     "number": "25-03568",
+     "date": "2025-12-01",
+     "time": "20:30",
+     "round": 1,
+     "home": "Baden Basket 54 Herren 3 H3",
+     "away": "Ikaros Zürich H3",
+     "homeClub": "Baden Basket 54",
+     "awayClub": "Ikaros Zürich BC",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "BerufsBildung (BBB) H4",
+      "address": "Schmiedestrasse 13",
+      "zip": "5400",
+      "city": "Baden"
+     },
+     "referees": [
+      "Ljubanic Jovan",
+      "Ponxha Bashkim"
+     ],
+     "score": [
+      44,
+      67
+     ],
+     "quarters": [
+      [
+       12,
+       27
+      ],
+      [
+       9,
+       7
+      ],
+      [
+       13,
+       13
+      ],
+      [
+       10,
+       20
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345413",
+     "number": "25-03561",
+     "date": "2025-12-04",
+     "time": "20:30",
+     "round": 1,
+     "home": "BCBE Team one H3",
+     "away": "Ikaros Zürich H3",
+     "homeClub": "BC Buchrain-Ebikon",
+     "awayClub": "Ikaros Zürich BC",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Oberstufenzentrum Hinterleisibach H3",
+      "address": "Hinterleisibachstrasse 10",
+      "zip": "6033",
+      "city": "Buchrain"
+     },
+     "referees": [
+      "Sakotic Dragan",
+      "Mendes Pereira Miguel Angelo"
+     ],
+     "score": [
+      50,
+      65
+     ],
+     "quarters": [],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345404",
+     "number": "25-03552",
+     "date": "2025-12-11",
+     "time": "20:30",
+     "round": 1,
+     "home": "BCBE Team one H3",
+     "away": "KSC Wiedikon Herren 2 H3",
+     "homeClub": "BC Buchrain-Ebikon",
+     "awayClub": "KSC Wiedikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Oberstufenzentrum Hinterleisibach H3",
+      "address": "Hinterleisibachstrasse 10",
+      "zip": "6033",
+      "city": "Buchrain"
+     },
+     "referees": [
+      "Kanu Ricky",
+      "Dzaferagic-Dzabiroska Merita"
+     ],
+     "score": [
+      67,
+      74
+     ],
+     "quarters": [
+      [
+       15,
+       11
+      ],
+      [
+       12,
+       23
+      ],
+      [
+       18,
+       23
+      ],
+      [
+       22,
+       17
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345435",
+     "number": "25-03583",
+     "date": "2025-12-11",
+     "time": "20:30",
+     "round": 2,
+     "home": "Emmen Basket H3",
+     "away": "Mutschellen Herren 1 H3",
+     "homeClub": "Emmen Basket",
+     "awayClub": "Mutschellen Basketball",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulanlage Erlen ",
+      "address": "Erlenmatte 80",
+      "zip": "6020",
+      "city": "Emmenbrücke"
+     },
+     "referees": [
+      "Stojic Nikola",
+      "Mendes Pereira Miguel Angelo"
+     ],
+     "score": [
+      80,
+      63
+     ],
+     "quarters": [
+      [
+       19,
+       16
+      ],
+      [
+       13,
+       21
+      ],
+      [
+       21,
+       10
+      ],
+      [
+       27,
+       16
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345416",
+     "number": "25-03564",
+     "date": "2025-12-13",
+     "time": "18:30",
+     "round": 1,
+     "home": "KSC Wiedikon Herren 2 H3",
+     "away": "BC Sarnen H3",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "BC Sarnen",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Ljubanic Jovan",
+      "Manojlovic Petar"
+     ],
+     "score": [
+      82,
+      44
+     ],
+     "quarters": [
+      [
+       21,
+       7
+      ],
+      [
+       24,
+       15
+      ],
+      [
+       23,
+       11
+      ],
+      [
+       14,
+       11
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345402",
+     "number": "25-03550",
+     "date": "2025-12-15",
+     "time": "20:30",
+     "round": 1,
+     "home": "Baden Basket 54 Herren 3 H3",
+     "away": "Aarau Basket H3",
+     "homeClub": "Baden Basket 54",
+     "awayClub": "Aarau Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "BerufsBildung (BBB) H2",
+      "address": "Fabrikstrasse 7A ",
+      "zip": "5400",
+      "city": "Baden"
+     },
+     "referees": [
+      "Njueya Thierry",
+      "Brombacher Linus Jonathan"
+     ],
+     "score": [
+      69,
+      64
+     ],
+     "quarters": [
+      [
+       20,
+       17
+      ],
+      [
+       10,
+       21
+      ],
+      [
+       23,
+       11
+      ],
+      [
+       16,
+       15
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345407",
+     "number": "25-03555",
+     "date": "2025-12-17",
+     "time": "20:30",
+     "round": 1,
+     "home": "Mutschellen Herren 1 H3",
+     "away": "BCBE Team one H3",
+     "homeClub": "Mutschellen Basketball",
+     "awayClub": "BC Buchrain-Ebikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Burkertsmatt 1fach H2",
+      "address": "Burkertsmatt 11",
+      "zip": "8967",
+      "city": "Widen"
+     },
+     "referees": [
+      "Njueya Thierry",
+      "Brombacher Linus Jonathan"
+     ],
+     "score": [
+      69,
+      83
+     ],
+     "quarters": [
+      [
+       16,
+       25
+      ],
+      [
+       22,
+       21
+      ],
+      [
+       15,
+       15
+      ],
+      [
+       16,
+       22
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345433",
+     "number": "25-03581",
+     "date": "2026-01-09",
+     "time": "20:45",
+     "round": 1,
+     "home": "BBZU Rockets H3",
+     "away": "BC Sarnen H3",
+     "homeClub": "BBZU",
+     "awayClub": "BC Sarnen",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulhaus Hohfuri",
+      "address": "Unterweg 51",
+      "zip": "8180",
+      "city": "Bülach"
+     },
+     "referees": [
+      "Jaksic Miodrag",
+      "Braun David"
+     ],
+     "score": [
+      77,
+      48
+     ],
+     "quarters": [
+      [
+       18,
+       15
+      ],
+      [
+       16,
+       9
+      ],
+      [
+       22,
+       10
+      ],
+      [
+       21,
+       14
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345442",
+     "number": "25-03590",
+     "date": "2026-01-10",
+     "time": "18:00",
+     "round": 2,
+     "home": "Ikaros Zürich H3",
+     "away": "Emmen Basket H3",
+     "homeClub": "Ikaros Zürich BC",
+     "awayClub": "Emmen Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Leutschenbach",
+      "address": "Saatlen Fussweg 3",
+      "zip": "8050",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Welz Pierre",
+      "Langwagen Frank"
+     ],
+     "score": [
+      49,
+      35
+     ],
+     "quarters": [
+      [
+       14,
+       17
+      ],
+      [
+       13,
+       7
+      ],
+      [
+       8,
+       10
+      ],
+      [
+       14,
+       1
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345439",
+     "number": "25-03587",
+     "date": "2026-01-14",
+     "time": "20:30",
+     "round": 2,
+     "home": "Mutschellen Herren 1 H3",
+     "away": "BBZU Rockets H3",
+     "homeClub": "Mutschellen Basketball",
+     "awayClub": "BBZU",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Burkertsmatt 1fach H2",
+      "address": "Burkertsmatt 11",
+      "zip": "8967",
+      "city": "Widen"
+     },
+     "referees": [
+      "Njueya Thierry",
+      "Kunz Florian"
+     ],
+     "score": [
+      80,
+      53
+     ],
+     "quarters": [
+      [
+       15,
+       8
+      ],
+      [
+       18,
+       11
+      ],
+      [
+       17,
+       17
+      ],
+      [
+       30,
+       17
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345450",
+     "number": "25-03598",
+     "date": "2026-01-18",
+     "time": "16:00",
+     "round": 2,
+     "home": "Emmen Basket H3",
+     "away": "BBZU Rockets H3",
+     "homeClub": "Emmen Basket",
+     "awayClub": "BBZU",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulanlage Erlen ",
+      "address": "Erlenmatte 80",
+      "zip": "6020",
+      "city": "Emmenbrücke"
+     },
+     "referees": [
+      "Hangartner Diego",
+      "Bissig Diana Marion"
+     ],
+     "score": [
+      70,
+      56
+     ],
+     "quarters": [
+      [
+       24,
+       16
+      ],
+      [
+       6,
+       14
+      ],
+      [
+       24,
+       18
+      ],
+      [
+       16,
+       8
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345412",
+     "number": "25-03560",
+     "date": "2026-01-19",
+     "time": "20:30",
+     "round": 1,
+     "home": "Baden Basket 54 Herren 3 H3",
+     "away": "KSC Wiedikon Herren 2 H3",
+     "homeClub": "Baden Basket 54",
+     "awayClub": "KSC Wiedikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "BerufsBildung (BBB) H4",
+      "address": "Schmiedestrasse 13",
+      "zip": "5400",
+      "city": "Baden"
+     },
+     "referees": [
+      "Mojic Sinisa",
+      "Njueya Thierry"
+     ],
+     "score": [
+      47,
+      68
+     ],
+     "quarters": [
+      [
+       15,
+       18
+      ],
+      [
+       6,
+       16
+      ],
+      [
+       4,
+       18
+      ],
+      [
+       22,
+       16
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345455",
+     "number": "25-03603",
+     "date": "2026-01-21",
+     "time": "20:30",
+     "round": 2,
+     "home": "Mutschellen Herren 1 H3",
+     "away": "BC Sarnen H3",
+     "homeClub": "Mutschellen Basketball",
+     "awayClub": "BC Sarnen",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Burkertsmatt 1fach H2",
+      "address": "Burkertsmatt 11",
+      "zip": "8967",
+      "city": "Widen"
+     },
+     "referees": [
+      "Araya Cerda Cristian Fernando",
+      "Brombacher Linus Jonathan"
+     ],
+     "score": [
+      86,
+      77
+     ],
+     "quarters": [
+      [
+       19,
+       10
+      ],
+      [
+       17,
+       24
+      ],
+      [
+       23,
+       19
+      ],
+      [
+       27,
+       24
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345470",
+     "number": "25-03618",
+     "date": "2026-01-23",
+     "time": "20:30",
+     "round": 2,
+     "home": "Baden Basket 54 Herren 3 H3",
+     "away": "BCBE Team one H3",
+     "homeClub": "Baden Basket 54",
+     "awayClub": "BC Buchrain-Ebikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "BerufsBildung (BBB) H4",
+      "address": "Schmiedestrasse 13",
+      "zip": "5400",
+      "city": "Baden"
+     },
+     "referees": [
+      "Hüsler Felix",
+      "Kunz Florian"
+     ],
+     "score": [
+      60,
+      72
+     ],
+     "quarters": [
+      [
+       13,
+       19
+      ],
+      [
+       15,
+       19
+      ],
+      [
+       13,
+       12
+      ],
+      [
+       19,
+       22
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345427",
+     "number": "25-03575",
+     "date": "2026-01-24",
+     "time": "16:00",
+     "round": 1,
+     "home": "KSC Wiedikon Herren 2 H3",
+     "away": "Ikaros Zürich H3",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "Ikaros Zürich BC",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Jaksic Miodrag",
+      "Krasniqi Fisnik"
+     ],
+     "score": [
+      60,
+      58
+     ],
+     "quarters": [
+      [
+       18,
+       10
+      ],
+      [
+       10,
+       12
+      ],
+      [
+       15,
+       19
+      ],
+      [
+       17,
+       17
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345449",
+     "number": "25-03597",
+     "date": "2026-01-26",
+     "time": "19:45",
+     "round": 2,
+     "home": "Ikaros Zürich H3",
+     "away": "BCBE Team one H3",
+     "homeClub": "Ikaros Zürich BC",
+     "awayClub": "BC Buchrain-Ebikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Leutschenbach",
+      "address": "Saatlen Fussweg 3",
+      "zip": "8050",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Vasic Zoran",
+      "Araya Cerda Cristian Fernando"
+     ],
+     "score": [
+      49,
+      59
+     ],
+     "quarters": [
+      [
+       5,
+       19
+      ],
+      [
+       18,
+       11
+      ],
+      [
+       15,
+       12
+      ],
+      [
+       11,
+       17
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345436",
+     "number": "25-03584",
+     "date": "2026-01-30",
+     "time": "20:45",
+     "round": 2,
+     "home": "BBZU Rockets H3",
+     "away": "KSC Wiedikon Herren 2 H3",
+     "homeClub": "BBZU",
+     "awayClub": "KSC Wiedikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulhaus Hohfuri",
+      "address": "Unterweg 51",
+      "zip": "8180",
+      "city": "Bülach"
+     },
+     "referees": [
+      "Braun David",
+      "Vasic Zoran"
+     ],
+     "score": [
+      61,
+      73
+     ],
+     "quarters": [
+      [
+       12,
+       15
+      ],
+      [
+       15,
+       16
+      ],
+      [
+       16,
+       19
+      ],
+      [
+       18,
+       23
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345463",
+     "number": "25-03611",
+     "date": "2026-02-01",
+     "time": "13:20",
+     "round": 2,
+     "home": "Ikaros Zürich H3",
+     "away": "KSC Wiedikon Herren 2 H3",
+     "homeClub": "Ikaros Zürich BC",
+     "awayClub": "KSC Wiedikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Leutschenbach",
+      "address": "Saatlen Fussweg 3",
+      "zip": "8050",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Etter Patrick",
+      "Giermindl Michael"
+     ],
+     "score": [
+      47,
+      50
+     ],
+     "quarters": [
+      [
+       13,
+       14
+      ],
+      [
+       12,
+       9
+      ],
+      [
+       10,
+       11
+      ],
+      [
+       12,
+       16
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345422",
+     "number": "25-03570",
+     "date": "2026-02-01",
+     "time": "14:30",
+     "round": 1,
+     "home": "BCBE Team one H3",
+     "away": "BBZU Rockets H3",
+     "homeClub": "BC Buchrain-Ebikon",
+     "awayClub": "BBZU",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Oberstufenzentrum Hinterleisibach 2fach",
+      "address": "Hinterleisibachstrasse 10",
+      "zip": "6033",
+      "city": "Buchrain"
+     },
+     "referees": [
+      "Castro Nicolas",
+      "Hangartner Diego"
+     ],
+     "score": [
+      61,
+      42
+     ],
+     "quarters": [],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345428",
+     "number": "25-03576",
+     "date": "2026-02-01",
+     "time": "15:00",
+     "round": 1,
+     "home": "BC Sarnen H3",
+     "away": "Emmen Basket H3",
+     "homeClub": "BC Sarnen",
+     "awayClub": "Emmen Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Vereinshalle",
+      "address": "Rütistrasse 3",
+      "zip": "6060",
+      "city": "Sarnen"
+     },
+     "referees": [
+      "Langwagen Frank",
+      "Dzaferagic-Dzabiroska Merita"
+     ],
+     "score": [
+      75,
+      42
+     ],
+     "quarters": [
+      [
+       20,
+       6
+      ],
+      [
+       20,
+       10
+      ],
+      [
+       14,
+       8
+      ],
+      [
+       21,
+       18
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345454",
+     "number": "25-03602",
+     "date": "2026-02-05",
+     "time": "20:30",
+     "round": 2,
+     "home": "BCBE Team one H3",
+     "away": "Emmen Basket H3",
+     "homeClub": "BC Buchrain-Ebikon",
+     "awayClub": "Emmen Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Oberstufenzentrum Hinterleisibach H3",
+      "address": "Hinterleisibachstrasse 10",
+      "zip": "6033",
+      "city": "Buchrain"
+     },
+     "referees": [
+      "Sakotic Dragan",
+      "Berceg Adrijana"
+     ],
+     "score": [
+      93,
+      77
+     ],
+     "quarters": [],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345409",
+     "number": "25-03557",
+     "date": "2026-02-06",
+     "time": "19:00",
+     "round": 1,
+     "home": "BC Sarnen H3",
+     "away": "Baden Basket 54 Herren 3 H3",
+     "homeClub": "BC Sarnen",
+     "awayClub": "Baden Basket 54",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Vereinshalle",
+      "address": "Rütistrasse 3",
+      "zip": "6060",
+      "city": "Sarnen"
+     },
+     "referees": [
+      "Stojic Nikola",
+      "Stojic Luka"
+     ],
+     "score": [
+      62,
+      38
+     ],
+     "quarters": [
+      [
+       15,
+       9
+      ],
+      [
+       15,
+       13
+      ],
+      [
+       24,
+       10
+      ],
+      [
+       8,
+       6
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345446",
+     "number": "25-03594",
+     "date": "2026-02-06",
+     "time": "20:45",
+     "round": 2,
+     "home": "BBZU Rockets H3",
+     "away": "Ikaros Zürich H3",
+     "homeClub": "BBZU",
+     "awayClub": "Ikaros Zürich BC",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulhaus Hohfuri",
+      "address": "Unterweg 51",
+      "zip": "8180",
+      "city": "Bülach"
+     },
+     "referees": [
+      "Sani Fabrizio",
+      "Fehr Michel"
+     ],
+     "score": [
+      63,
+      60
+     ],
+     "quarters": [
+      [
+       12,
+       19
+      ],
+      [
+       22,
+       10
+      ],
+      [
+       22,
+       14
+      ],
+      [
+       7,
+       17
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345457",
+     "number": "25-03605",
+     "date": "2026-02-10",
+     "time": "20:30",
+     "round": 2,
+     "home": "Emmen Basket H3",
+     "away": "Aarau Basket H3",
+     "homeClub": "Emmen Basket",
+     "awayClub": "Aarau Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulanlage Erlen ",
+      "address": "Erlenmatte 80",
+      "zip": "6020",
+      "city": "Emmenbrücke"
+     },
+     "referees": [
+      "Vincent Sinthuyan",
+      "Hangartner Diego"
+     ],
+     "score": [
+      72,
+      68
+     ],
+     "quarters": [
+      [
+       17,
+       17
+      ],
+      [
+       15,
+       17
+      ],
+      [
+       18,
+       22
+      ],
+      [
+       22,
+       12
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345453",
+     "number": "25-03601",
+     "date": "2026-02-15",
+     "time": "14:30",
+     "round": 2,
+     "home": "Aarau Basket H3",
+     "away": "Ikaros Zürich H3",
+     "homeClub": "Aarau Basket",
+     "awayClub": "Ikaros Zürich BC",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Sporthalle Aarau Rohr",
+      "address": "Kirchweg",
+      "zip": "5032",
+      "city": "Aarau Rohr"
+     },
+     "referees": [
+      "Tomus Alexandru",
+      "Cacioppo Samuel"
+     ],
+     "score": [
+      70,
+      60
+     ],
+     "quarters": [
+      [
+       15,
+       12
+      ],
+      [
+       24,
+       14
+      ],
+      [
+       14,
+       12
+      ],
+      [
+       17,
+       22
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345438",
+     "number": "25-03586",
+     "date": "2026-02-20",
+     "time": "20:30",
+     "round": 2,
+     "home": "Aarau Basket H3",
+     "away": "Baden Basket 54 Herren 3 H3",
+     "homeClub": "Aarau Basket",
+     "awayClub": "Baden Basket 54",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Sporthalle Aarau Rohr",
+      "address": "Kirchweg",
+      "zip": "5032",
+      "city": "Aarau Rohr"
+     },
+     "referees": [
+      "Roos Christian",
+      "Graby Michel"
+     ],
+     "score": [
+      86,
+      81
+     ],
+     "quarters": [
+      [
+       28,
+       15
+      ],
+      [
+       16,
+       18
+      ],
+      [
+       20,
+       20
+      ],
+      [
+       22,
+       28
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345445",
+     "number": "25-03593",
+     "date": "2026-02-23",
+     "time": "20:30",
+     "round": 2,
+     "home": "Baden Basket 54 Herren 3 H3",
+     "away": "BC Sarnen H3",
+     "homeClub": "Baden Basket 54",
+     "awayClub": "BC Sarnen",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "BerufsBildung (BBB) H4",
+      "address": "Schmiedestrasse 13",
+      "zip": "5400",
+      "city": "Baden"
+     },
+     "referees": [
+      "Gönültas Ekrem",
+      "Janjetovic Goran"
+     ],
+     "score": [
+      87,
+      81
+     ],
+     "quarters": [
+      [
+       22,
+       15
+      ],
+      [
+       21,
+       20
+      ],
+      [
+       23,
+       28
+      ],
+      [
+       21,
+       18
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345406",
+     "number": "25-03554",
+     "date": "2026-02-24",
+     "time": "20:30",
+     "round": 1,
+     "home": "Emmen Basket H3",
+     "away": "Ikaros Zürich H3",
+     "homeClub": "Emmen Basket",
+     "awayClub": "Ikaros Zürich BC",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulanlage Erlen ",
+      "address": "Erlenmatte 80",
+      "zip": "6020",
+      "city": "Emmenbrücke"
+     },
+     "referees": [
+      "Stojic Nikola",
+      "Hangartner Diego"
+     ],
+     "score": [
+      51,
+      62
+     ],
+     "quarters": [
+      [
+       16,
+       17
+      ],
+      [
+       10,
+       13
+      ],
+      [
+       8,
+       13
+      ],
+      [
+       17,
+       19
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345466",
+     "number": "25-03614",
+     "date": "2026-02-26",
+     "time": "20:30",
+     "round": 2,
+     "home": "BCBE Team one H3",
+     "away": "Aarau Basket H3",
+     "homeClub": "BC Buchrain-Ebikon",
+     "awayClub": "Aarau Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Oberstufenzentrum Hinterleisibach H3",
+      "address": "Hinterleisibachstrasse 10",
+      "zip": "6033",
+      "city": "Buchrain"
+     },
+     "referees": [
+      "Hangartner Diego",
+      "Ibrahim Mohamed Idiris"
+     ],
+     "score": [
+      83,
+      37
+     ],
+     "quarters": [],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345456",
+     "number": "25-03604",
+     "date": "2026-03-01",
+     "time": "13:20",
+     "round": 2,
+     "home": "Ikaros Zürich H3",
+     "away": "Baden Basket 54 Herren 3 H3",
+     "homeClub": "Ikaros Zürich BC",
+     "awayClub": "Baden Basket 54",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Leutschenbach",
+      "address": "Saatlen Fussweg 3",
+      "zip": "8050",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Krasniqi Fisnik",
+      "Benvenuti Nedis"
+     ],
+     "score": [
+      63,
+      48
+     ],
+     "quarters": [
+      [
+       18,
+       9
+      ],
+      [
+       20,
+       8
+      ],
+      [
+       13,
+       22
+      ],
+      [
+       12,
+       9
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345447",
+     "number": "25-03595",
+     "date": "2026-03-04",
+     "time": "20:30",
+     "round": 2,
+     "home": "Mutschellen Herren 1 H3",
+     "away": "Aarau Basket H3",
+     "homeClub": "Mutschellen Basketball",
+     "awayClub": "Aarau Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Burkertsmatt 1fach H2",
+      "address": "Burkertsmatt 11",
+      "zip": "8967",
+      "city": "Widen"
+     },
+     "referees": [
+      "Cacioppo Samuel",
+      "Mojic Sinisa"
+     ],
+     "score": [
+      84,
+      69
+     ],
+     "quarters": [
+      [
+       13,
+       14
+      ],
+      [
+       30,
+       14
+      ],
+      [
+       18,
+       21
+      ],
+      [
+       23,
+       20
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345468",
+     "number": "25-03616",
+     "date": "2026-03-06",
+     "time": "20:00",
+     "round": 2,
+     "home": "KSC Wiedikon Herren 2 H3",
+     "away": "Emmen Basket H3",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "Emmen Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Rakic Bratislav",
+      "Araya Cerda Cristian Fernando"
+     ],
+     "score": [
+      93,
+      66
+     ],
+     "quarters": [
+      [
+       25,
+       11
+      ],
+      [
+       23,
+       16
+      ],
+      [
+       20,
+       19
+      ],
+      [
+       25,
+       20
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345458",
+     "number": "25-03606",
+     "date": "2026-03-06",
+     "time": "20:45",
+     "round": 2,
+     "home": "BBZU Rockets H3",
+     "away": "BCBE Team one H3",
+     "homeClub": "BBZU",
+     "awayClub": "BC Buchrain-Ebikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulhaus Hohfuri",
+      "address": "Unterweg 51",
+      "zip": "8180",
+      "city": "Bülach"
+     },
+     "referees": [
+      "Castro Nicolas",
+      "Kunz Florian"
+     ],
+     "score": [
+      63,
+      71
+     ],
+     "quarters": [
+      [
+       17,
+       19
+      ],
+      [
+       19,
+       18
+      ],
+      [
+       11,
+       13
+      ],
+      [
+       16,
+       21
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345426",
+     "number": "25-03574",
+     "date": "2026-03-09",
+     "time": "20:45",
+     "round": 1,
+     "home": "BBZU Rockets H3",
+     "away": "Aarau Basket H3",
+     "homeClub": "BBZU",
+     "awayClub": "Aarau Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulhaus Hohfuri",
+      "address": "Unterweg 51",
+      "zip": "8180",
+      "city": "Bülach"
+     },
+     "referees": [
+      "Braun David",
+      "Fehr Michel"
+     ],
+     "score": [
+      75,
+      72
+     ],
+     "quarters": [
+      [
+       19,
+       19
+      ],
+      [
+       24,
+       18
+      ],
+      [
+       17,
+       22
+      ],
+      [
+       15,
+       13
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345425",
+     "number": "25-03573",
+     "date": "2026-03-10",
+     "time": "20:30",
+     "round": 1,
+     "home": "Emmen Basket H3",
+     "away": "Baden Basket 54 Herren 3 H3",
+     "homeClub": "Emmen Basket",
+     "awayClub": "Baden Basket 54",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulanlage Erlen ",
+      "address": "Erlenmatte 80",
+      "zip": "6020",
+      "city": "Emmenbrücke"
+     },
+     "referees": [
+      "Sakotic Dragan",
+      "Berceg Adrijana"
+     ],
+     "score": [
+      60,
+      56
+     ],
+     "quarters": [
+      [
+       11,
+       14
+      ],
+      [
+       19,
+       13
+      ],
+      [
+       10,
+       11
+      ],
+      [
+       20,
+       18
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345424",
+     "number": "25-03572",
+     "date": "2026-03-15",
+     "time": "13:20",
+     "round": 1,
+     "home": "Ikaros Zürich H3",
+     "away": "BC Sarnen H3",
+     "homeClub": "Ikaros Zürich BC",
+     "awayClub": "BC Sarnen",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Leutschenbach",
+      "address": "Saatlen Fussweg 3",
+      "zip": "8050",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Jaksic Miodrag",
+      "Luma Ersun"
+     ],
+     "score": [
+      67,
+      75
+     ],
+     "quarters": [
+      [
+       17,
+       24
+      ],
+      [
+       17,
+       9
+      ],
+      [
+       12,
+       21
+      ],
+      [
+       21,
+       21
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345430",
+     "number": "25-03578",
+     "date": "2026-03-15",
+     "time": "14:30",
+     "round": 1,
+     "home": "Aarau Basket H3",
+     "away": "BCBE Team one H3",
+     "homeClub": "Aarau Basket",
+     "awayClub": "BC Buchrain-Ebikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Sporthalle Aarau Rohr",
+      "address": "Kirchweg",
+      "zip": "5032",
+      "city": "Aarau Rohr"
+     },
+     "referees": [
+      "Mojic Sinisa",
+      "Langwagen Frank"
+     ],
+     "score": [
+      50,
+      89
+     ],
+     "quarters": [
+      [
+       21,
+       20
+      ],
+      [
+       7,
+       17
+      ],
+      [
+       11,
+       28
+      ],
+      [
+       11,
+       24
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345399",
+     "number": "25-03547",
+     "date": "2026-03-18",
+     "time": "20:30",
+     "round": 1,
+     "home": "Mutschellen Herren 1 H3",
+     "away": "Emmen Basket H3",
+     "homeClub": "Mutschellen Basketball",
+     "awayClub": "Emmen Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Burkertsmatt 1fach H2",
+      "address": "Burkertsmatt 11",
+      "zip": "8967",
+      "city": "Widen"
+     },
+     "referees": [
+      "Gönültas Ekrem",
+      "Janjetovic Goran"
+     ],
+     "score": [
+      82,
+      50
+     ],
+     "quarters": [
+      [
+       19,
+       10
+      ],
+      [
+       24,
+       13
+      ],
+      [
+       19,
+       13
+      ],
+      [
+       20,
+       14
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345465",
+     "number": "25-03613",
+     "date": "2026-03-20",
+     "time": "20:45",
+     "round": 2,
+     "home": "BBZU Rockets H3",
+     "away": "Baden Basket 54 Herren 3 H3",
+     "homeClub": "BBZU",
+     "awayClub": "Baden Basket 54",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulhaus Hohfuri",
+      "address": "Unterweg 51",
+      "zip": "8180",
+      "city": "Bülach"
+     },
+     "referees": [
+      "Jaksic Miodrag",
+      "Manojlovic Petar"
+     ],
+     "score": [
+      45,
+      47
+     ],
+     "quarters": [
+      [
+       14,
+       9
+      ],
+      [
+       9,
+       22
+      ],
+      [
+       14,
+       11
+      ],
+      [
+       8,
+       5
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345441",
+     "number": "25-03589",
+     "date": "2026-03-22",
+     "time": "15:00",
+     "round": 2,
+     "home": "BC Sarnen H3",
+     "away": "Aarau Basket H3",
+     "homeClub": "BC Sarnen",
+     "awayClub": "Aarau Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Vereinshalle",
+      "address": "Rütistrasse 3",
+      "zip": "6060",
+      "city": "Sarnen"
+     },
+     "referees": [
+      "Baer Orlando",
+      "Bissig Diana Marion"
+     ],
+     "score": [
+      89,
+      80
+     ],
+     "quarters": [
+      [
+       28,
+       24
+      ],
+      [
+       21,
+       17
+      ],
+      [
+       24,
+       17
+      ],
+      [
+       16,
+       22
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345401",
+     "number": "25-03549",
+     "date": "2026-03-27",
+     "time": "19:00",
+     "round": 1,
+     "home": "BC Sarnen H3",
+     "away": "BCBE Team one H3",
+     "homeClub": "BC Sarnen",
+     "awayClub": "BC Buchrain-Ebikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Vereinshalle",
+      "address": "Rütistrasse 3",
+      "zip": "6060",
+      "city": "Sarnen"
+     },
+     "referees": [
+      "Sakotic Dragan",
+      "Dzaferagic-Dzabiroska Merita"
+     ],
+     "score": [
+      75,
+      76
+     ],
+     "quarters": [
+      [
+       11,
+       17
+      ],
+      [
+       25,
+       12
+      ],
+      [
+       15,
+       22
+      ],
+      [
+       24,
+       25
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345448",
+     "number": "25-03596",
+     "date": "2026-03-27",
+     "time": "20:00",
+     "round": 2,
+     "home": "KSC Wiedikon Herren 2 H3",
+     "away": "Baden Basket 54 Herren 3 H3",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "Baden Basket 54",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 2fach",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Kaelin Markus",
+      "Araya Cerda Cristian Fernando"
+     ],
+     "score": [
+      77,
+      56
+     ],
+     "quarters": [],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345414",
+     "number": "25-03562",
+     "date": "2026-03-27",
+     "time": "20:45",
+     "round": 1,
+     "home": "BBZU Rockets H3",
+     "away": "Emmen Basket H3",
+     "homeClub": "BBZU",
+     "awayClub": "Emmen Basket",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulhaus Hohfuri",
+      "address": "Unterweg 51",
+      "zip": "8180",
+      "city": "Bülach"
+     },
+     "referees": [
+      "Sani Fabrizio",
+      "Hüsler Felix"
+     ],
+     "score": [
+      52,
+      65
+     ],
+     "quarters": [
+      [
+       8,
+       12
+      ],
+      [
+       15,
+       15
+      ],
+      [
+       16,
+       16
+      ],
+      [
+       13,
+       22
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345411",
+     "number": "25-03559",
+     "date": "2026-03-29",
+     "time": "14:30",
+     "round": 1,
+     "home": "Aarau Basket H3",
+     "away": "Mutschellen Herren 1 H3",
+     "homeClub": "Aarau Basket",
+     "awayClub": "Mutschellen Basketball",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Sporthalle Aarau Rohr",
+      "address": "Kirchweg",
+      "zip": "5032",
+      "city": "Aarau Rohr"
+     },
+     "referees": [
+      "Ponxha Bashkim",
+      "Reci Fatlind"
+     ],
+     "score": [
+      86,
+      70
+     ],
+     "quarters": [
+      [
+       21,
+       14
+      ],
+      [
+       33,
+       23
+      ],
+      [
+       17,
+       16
+      ],
+      [
+       15,
+       17
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345415",
+     "number": "25-03563",
+     "date": "2026-04-01",
+     "time": "20:30",
+     "round": 1,
+     "home": "Mutschellen Herren 1 H3",
+     "away": "Baden Basket 54 Herren 3 H3",
+     "homeClub": "Mutschellen Basketball",
+     "awayClub": "Baden Basket 54",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Burkertsmatt 1fach H2",
+      "address": "Burkertsmatt 11",
+      "zip": "8967",
+      "city": "Widen"
+     },
+     "referees": [
+      "Stojic Nikola",
+      "Brombacher Linus Jonathan"
+     ],
+     "score": [
+      77,
+      69
+     ],
+     "quarters": [
+      [
+       14,
+       17
+      ],
+      [
+       11,
+       14
+      ],
+      [
+       23,
+       6
+      ],
+      [
+       29,
+       32
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345418",
+     "number": "25-03566",
+     "date": "2026-04-02",
+     "time": "20:30",
+     "round": 1,
+     "home": "Emmen Basket H3",
+     "away": "BCBE Team one H3",
+     "homeClub": "Emmen Basket",
+     "awayClub": "BC Buchrain-Ebikon",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulanlage Erlen ",
+      "address": "Erlenmatte 80",
+      "zip": "6020",
+      "city": "Emmenbrücke"
+     },
+     "referees": [
+      "Sakotic Dragan",
+      "Mendes Pereira Miguel Angelo"
+     ],
+     "score": [
+      66,
+      80
+     ],
+     "quarters": [
+      [
+       15,
+       18
+      ],
+      [
+       17,
+       24
+      ],
+      [
+       14,
+       16
+      ],
+      [
+       20,
+       22
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345403",
+     "number": "25-03551",
+     "date": "2026-04-10",
+     "time": "20:45",
+     "round": 1,
+     "home": "BBZU Rockets H3",
+     "away": "Mutschellen Herren 1 H3",
+     "homeClub": "BBZU",
+     "awayClub": "Mutschellen Basketball",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Schulhaus Hohfuri",
+      "address": "Unterweg 51",
+      "zip": "8180",
+      "city": "Bülach"
+     },
+     "referees": [
+      "Sorgon Ivano",
+      "Bozic Drazen"
+     ],
+     "score": [
+      76,
+      86
+     ],
+     "quarters": [
+      [
+       22,
+       22
+      ],
+      [
+       25,
+       14
+      ],
+      [
+       17,
+       27
+      ],
+      [
+       12,
+       23
+      ]
+     ],
+     "points": [
+      0,
+      2
+     ]
+    },
+    {
+     "id": "345431",
+     "number": "25-03579",
+     "date": "2026-04-13",
+     "time": "19:45",
+     "round": 1,
+     "home": "Ikaros Zürich H3",
+     "away": "Mutschellen Herren 1 H3",
+     "homeClub": "Ikaros Zürich BC",
+     "awayClub": "Mutschellen Basketball",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Leutschenbach",
+      "address": "Saatlen Fussweg 3",
+      "zip": "8050",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Krasniqi Fisnik",
+      "Kunz Florian"
+     ],
+     "score": [
+      58,
+      52
+     ],
+     "quarters": [
+      [
+       13,
+       20
+      ],
+      [
+       23,
+       4
+      ],
+      [
+       9,
+       13
+      ],
+      [
+       13,
+       15
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    },
+    {
+     "id": "345459",
+     "number": "25-03607",
+     "date": "2026-04-17",
+     "time": "20:00",
+     "round": 2,
+     "home": "KSC Wiedikon Herren 2 H3",
+     "away": "Mutschellen Herren 1 H3",
+     "homeClub": "KSC Wiedikon",
+     "awayClub": "Mutschellen Basketball",
+     "final": true,
+     "withdrawn": false,
+     "counts": true,
+     "state": "homologiert",
+     "venue": {
+      "name": "Kantonsschule Wiedikon 1fach Halle B",
+      "address": "Eingang Goldbrunnenstr. 80",
+      "zip": "8055",
+      "city": "Zürich"
+     },
+     "referees": [
+      "Castro Nicolas",
+      "Kunz Florian"
+     ],
+     "score": [
+      81,
+      60
+     ],
+     "quarters": [
+      [
+       25,
+       14
+      ],
+      [
+       18,
+       15
+      ],
+      [
+       20,
+       12
+      ],
+      [
+       18,
+       19
+      ]
+     ],
+     "points": [
+      2,
+      0
+     ]
+    }
+   ]
+  }
+ ]
+}

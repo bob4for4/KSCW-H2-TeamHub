@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KSCW H2 Team Hub</title>
+  <meta name="description" content="Team hub for KSC Wiedikon Herren 2: schedule, results, standings, roster and stats.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="icon" href="assets/kscw-crest.png">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <img class="crest" src="assets/kscw-crest.png" alt="KSC Wiedikon crest" width="478" height="510">
+      <div class="masthead-text">
+        <div class="eyebrow" id="league-name">&nbsp;</div>
+        <h1 id="team-name">Team Hub</h1>
+        <div class="chips" id="chips"></div>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Sections">
+      <div class="wrap tabs-inner" id="tabs">
+        <a href="#home">Home</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#standings">Standings</a>
+        <a href="#roster">Roster</a>
+        <a href="#stats">Stats</a>
+        <a href="#awards">Awards</a>
+        <a href="#league">League</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap" id="view" aria-live="polite">
+    <p class="muted">Loading…</p>
+  </main>
+
+  <footer class="wrap footer">
+    <span id="updated"></span>
+    <span>Games and results from <a href="https://www.probasket.ch/regionalligen" target="_blank" rel="noopener">ProBasket</a> / basketplan.ch. Standings are worked out from those results and are unofficial.</span>
+  </footer>
+
+  <script src="config.js?v=2"></script>
+  <script src="app.js?v=2"></script>
+</body>
+</html>
