@@ -47,7 +47,7 @@
   const dayYearFmt = new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
   const fmtDayYear = (d) => (d ? dayYearFmt.format(asDate(d)) : "Date TBA");
   // Stat cell: whole numbers as-is, estimates (from games without a score sheet) as ~0.5
-  const statCell = (v) => (v == null ? "–" : Number.isInteger(v) ? String(v) : '<span class="est" title="Estimated: no score sheet for this game">~' + fmt1(v) + "</span>");
+  const statCell = (v, est) => (v == null ? "–" : est || !Number.isInteger(v) ? '<span class="est" title="Estimated: no score sheet for this game">~' + (Number.isInteger(v) ? v : fmt1(v)) + "</span>" : String(v));
   const total = (v) => (Number.isInteger(v) ? String(v) : fmt1(v));
   const fmtLong = (d) => (d ? longFmt.format(asDate(d)) : "Date TBA");
   const initials = (name) => String(name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
@@ -163,6 +163,7 @@
       game: pick(r, "game", "game_number"),
       player: pick(r, "player", "name"),
       dnp: /^(yes|y|x|true|1|dnp)$/i.test(pick(r, "dnp")) || /^dnp$/i.test(pts),
+      est: /^(yes|y|x|true|1)$/i.test(pick(r, "est", "estimated")),
       gp: num(pick(r, "gp", "games")),
       pts: numOrNull(pts),
       tpm: numOrNull(pick(r, "3pm", "threes", "3p", "3s")),
@@ -389,7 +390,7 @@
     const t = trackedIn(rows);
     const cols = [["pts", "PTS"], ["tpm", "3PM"], ["ftm", "FTM"], ["pf", "PF"]].filter(([k]) => t[k]);
     return '<h3 style="margin-top:14px">H2 box score</h3><div class="table-wrap"><table><thead><tr><th>Player</th>' + cols.map((c) => "<th>" + c[1] + "</th>").join("") + "</tr></thead><tbody>" +
-      rows.map((r) => '<tr><td class="name">' + playerLink(r.player) + "</td>" + cols.map(([k], i) => '<td class="' + (i === 0 ? "hi" : "") + '">' + statCell(r[k]) + "</td>").join("") + "</tr>").join("") +
+      rows.map((r) => '<tr><td class="name">' + playerLink(r.player) + "</td>" + cols.map(([k], i) => '<td class="' + (i === 0 ? "hi" : "") + '">' + (k === "pts" ? statCell(r[k]) : statCell(r[k], r.est)) + "</td>").join("") + "</tr>").join("") +
       "</tbody></table></div>";
   }
 
@@ -604,7 +605,7 @@
           const g = gameForStat(r, sn);
           const v = g ? ourView(g, sn) : null;
           return '<tr><td class="left">' + esc(fmtDayYear(g ? g.date : r.date)) + '</td><td class="name">' + (v ? '<div class="teamcell">' + teamMark(v.opp, "sm") + "<span>" + (v.home ? "vs " : "@ ") + esc(short(v.opp)) + "</span></div>" : "") +
-            "</td><td>" + (v ? resultText(v).replace("</span>", "</span> ") : "") + '</td><td class="hi">' + r.pts + "</td>" + cols.map(([k]) => "<td>" + statCell(r[k]) + "</td>").join("") + "</tr>";
+            "</td><td>" + (v ? resultText(v).replace("</span>", "</span> ") : "") + '</td><td class="hi">' + r.pts + "</td>" + cols.map(([k]) => "<td>" + statCell(r[k], r.est) + "</td>").join("") + "</tr>";
         }).join("") + "</tbody></table></div></section>";
     });
     return html;
@@ -637,7 +638,7 @@
       : empty(isCur ? "No stats yet this season. They appear here after the first game is entered." : "No stats for this season yet.");
     return '<div class="toolbar"><h2>Stats</h2>' + seasonToggle() + '</div><section class="card">' + body +
       '<p class="small muted" style="margin:12px 0 0">' + esc(s.season) + ". Per-game numbers count only games a player played. Tap a column to sort." +
-      (list.some((o) => o.games.some((r) => ["tpm", "ftm", "pf"].some((k) => r[k] != null && !Number.isInteger(r[k])))) ? " Some 3PM/FTM totals include estimates for games without a score sheet." : "") + "</p></section>";
+      (list.some((o) => o.games.some((r) => r.est)) ? " 3PM/FTM for games without a score sheet are estimated (marked ~ in game logs)." : "") + "</p></section>";
   }
 
   const isMajor = (award) => /mvp|mip|sixth man|defensive player|clutch/i.test(award);
