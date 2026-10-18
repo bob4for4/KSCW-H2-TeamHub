@@ -11,8 +11,8 @@ window.HUB_CONFIG = {
   // Google Sheet with players, stats, awards and news.
   // Paste the ID from the sheet's address: docs.google.com/spreadsheets/d/<THIS PART>/edit
   // The sheet must be shared as "Anyone with the link can view".
-  // Leave it empty to use the CSV files in the data/ folder instead.
-  googleSheetId: "",
+  // If the sheet can't be read, the hub falls back to the CSV files in the data/ folder.
+  googleSheetId: "1uqdwqKDBaPhrfV_0vpxq2teJHUE5p9HwCo9FDXZT-z0",
 
   // Tab names inside the Google Sheet (or CSV files in data/ when no sheet is set).
   tabs: {
