@@ -1,0 +1,78 @@
+/* Shared "sports editorial" foundation for all design options.
+   Square geometry, hairline rules instead of floating cards, no pills, no gradients,
+   no emoji icons. Each option file sets its own colours and type on top of this. */
+
+:root[data-style] { --radius: 0px; }
+
+/* Geometry: everything square */
+[data-style] .card, [data-style] .hero, [data-style] .profile-hero, [data-style] .player-card,
+[data-style] .award, [data-style] .team-card, [data-style] .play, [data-style] .leader,
+[data-style] .statline, [data-style] .stat-tile, [data-style] .cal, [data-style] .cal-actions a,
+[data-style] .back, [data-style] .seg, [data-style] .seg button, [data-style] select, [data-style] .empty,
+[data-style] .badge, [data-style] .chip, [data-style] .box, [data-style] .lg-game.us,
+[data-style] img.mark.logo, [data-style] .mark, [data-style] .masthead h1 .badge-h2 { border-radius: 0 !important; box-shadow: none !important; }
+
+/* Header: flat, no diagonal stripe, crest without drop shadow */
+[data-style] .masthead { background: var(--head-bg); border-bottom: 0; }
+[data-style] .masthead::after { display: none; }
+[data-style] .crest { filter: none; }
+[data-style] .masthead h1 { letter-spacing: -0.01em; }
+[data-style] .eyebrow { letter-spacing: .16em; }
+/* Header facts as plain text separated by rules, not pills */
+[data-style] .chips { gap: 0; margin-top: 14px; }
+[data-style] .chip { background: none; border: 0; border-left: 1px solid var(--head-rule); padding: 0 14px; color: var(--head-ink); font-size: 13px; }
+[data-style] .chip:first-child { border-left: 0; padding-left: 0; }
+[data-style] .chip b { font-size: 18px; color: var(--head-strong); }
+
+/* Tabs: text only, accent rule under the active tab */
+[data-style] .tabs { background: var(--tabs-bg); border-bottom: 1px solid var(--line); }
+[data-style] .tabs a { text-transform: uppercase; font-size: 12px; letter-spacing: .1em; font-weight: 700; padding: 16px 14px 13px; }
+[data-style] .tabs a.active { border-bottom-color: var(--accent); }
+
+/* Section titles: small caps label over a rule */
+[data-style] h2 { font-size: 34px; }
+[data-style] .card-head { border-bottom: 1px solid var(--rule-strong); padding-bottom: 10px; margin-bottom: 14px; }
+[data-style] .card-head h3, [data-style] .label, [data-style] .round-head { color: var(--ink); letter-spacing: .14em; }
+[data-style] .card-head a { font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: .12em; }
+[data-style] .card-head a, [data-style] .card-head a * { text-decoration: none; }
+
+/* Season switch: two text labels, active one underlined */
+[data-style] .seg { background: none; border: 0; padding: 0; gap: 18px; }
+[data-style] .seg button { background: none !important; padding: 4px 0; min-height: 0; color: var(--muted); font-weight: 700; border-bottom: 2px solid transparent; }
+[data-style] .seg button.on { color: var(--ink); border-bottom-color: var(--accent); }
+[data-style] select { background: var(--card); }
+
+/* Avatars: numbers set in type, no rings */
+[data-style] .avatar { background: var(--num-bg); color: var(--num-ink); box-shadow: none; border-radius: 0; }
+[data-style] .avatar.big { width: auto; height: auto; min-width: 0; background: none; color: var(--hero-num); font-size: 120px; line-height: .8; padding: 0 8px 0 0; }
+
+/* Badges & chips become small text labels */
+[data-style] .badge { background: none !important; padding: 0; letter-spacing: .1em; }
+[data-style] .badge.home { border: 0; }
+
+/* Awards: no emoji, name over a rule */
+[data-style] .award .trophy { display: none; }
+[data-style] .award { border: 0; border-top: 3px solid var(--rule-strong); padding: 14px 0 0; background: none; }
+[data-style] .award.major { background: none; border-top-color: var(--accent); color: inherit; }
+[data-style] .award.major .aname { color: var(--muted); }
+[data-style] .award.major .winner a { color: var(--ink); }
+
+/* Tables: hairlines, our row marked by an accent bar */
+[data-style] tr.us td { background: var(--us-row); }
+[data-style] tr.us td:first-child { box-shadow: inset 3px 0 0 var(--accent) !important; }
+
+/* Back link as plain text */
+[data-style] .back { border: 0; background: none; padding: 0; min-height: 0; font-size: 12px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; color: var(--muted); }
+[data-style] .back:hover { color: var(--ink); }
+
+/* Calendar box: rule-framed strip */
+[data-style] .cal { border: 0; border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--line); background: none; padding: 14px 0; }
+[data-style] .cal-actions a { border-color: var(--rule-strong); }
+
+/* Leaders, tiles, plays, teams: rules instead of filled boxes */
+[data-style] .leader { background: none; border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; }
+[data-style] .leader:hover { background: none; }
+[data-style] .statline { border: 0; background: none; gap: 0; border-top: 1px solid var(--rule-strong); }
+[data-style] .stat-tile { background: none; text-align: left; padding: 12px 12px 6px 0; }
+[data-style] .play, [data-style] .team-card, [data-style] .player-card { border-color: var(--line); }
+[data-style] .player-card .jersey { color: var(--accent-ink); }

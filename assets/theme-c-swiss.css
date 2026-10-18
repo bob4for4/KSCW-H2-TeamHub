@@ -1,0 +1,25 @@
+/* Option C — Swiss Grid: white, black, strict grid, huge numbers. Club blue as a solid band. */
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap");
+@import url("theme-editorial-base.css");
+:root[data-style="c"] {
+  --bg: #ffffff; --card: #ffffff; --ink: #0a0a0a; --ink-2: #2a2a2a; --muted: #767676; --line: #e6e6e6; --soft: #f5f5f5;
+  --rule-strong: #0a0a0a; --accent: #3a52a4; --accent-ink: #0a0a0a; --us-row: #eef1fa;
+  --head-bg: #3a52a4; --head-ink: #dfe5f7; --head-strong: #ffffff; --head-rule: #6278c0; --tabs-bg: #ffffff;
+  --num-bg: #0a0a0a; --num-ink: #ffffff; --hero-num: #ffffff; --blue-ink: #3a52a4; --blue: #3a52a4;
+  --display: "Inter Tight", Inter, sans-serif;
+  color-scheme: light;
+}
+[data-style="c"] body { background: var(--bg); }
+[data-style="c"] .masthead h1, [data-style="c"] h2, [data-style="c"] .matchup .tname, [data-style="c"] .play-name, [data-style="c"] .award .winner { font-weight: 900; letter-spacing: -0.03em; text-transform: none; }
+[data-style="c"] .masthead h1 .badge-h2 { background: #fff; color: var(--accent); }
+[data-style="c"] .bigscore, [data-style="c"] .countdown b, [data-style="c"] .stat-tile b, [data-style="c"] .leader .val { font-weight: 900; letter-spacing: -0.04em; }
+[data-style="c"] .card { background: none; border: 0; border-top: 1px solid var(--line); padding: 16px 0 8px; }
+[data-style="c"] .card-head { border-bottom: 0; }
+[data-style="c"] .hero, [data-style="c"] .profile-hero { background: var(--ink); color: #fff; }
+[data-style="c"] .hero .card-head { border-bottom-color: #333; }
+[data-style="c"] .hero .card-head h3 { color: #fff; }
+[data-style="c"] .hero .vs, [data-style="c"] .hero a { color: #8ea2ea; }
+[data-style="c"] .profile-hero .pos { color: #8ea2ea; }
+[data-style="c"] .leader { border-left-color: var(--ink); }
+[data-style="c"] .player-card .jersey { font-weight: 900; }
+[data-style="c"] .award.major { border-top-color: var(--accent); }

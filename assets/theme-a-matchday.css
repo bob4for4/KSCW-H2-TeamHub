@@ -1,0 +1,16 @@
+/* Option A — Matchday Night: dark navy, white type, yellow used sparingly. Condensed headlines. */
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap");
+@import url("theme-editorial-base.css");
+:root[data-style="a"] {
+  --bg: #0a1022; --card: #0e1630; --ink: #f4f6fb; --ink-2: #c9d0e3; --muted: #8590ad; --line: #1e2846; --soft: #121b38;
+  --rule-strong: #3a4670; --accent: #fadb3c; --accent-ink: #fadb3c; --us-row: rgba(250, 219, 60, .07);
+  --head-bg: #0e1630; --head-ink: #aeb7d2; --head-strong: #ffffff; --head-rule: #2c3760; --tabs-bg: #0a1022;
+  --num-bg: #1e2a52; --num-ink: #fadb3c; --hero-num: #fadb3c; --blue-ink: #9fb2ff;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+}
+[data-style="a"] body { background: var(--bg); }
+[data-style="a"] .masthead { border-bottom: 1px solid var(--line); }
+[data-style="a"] .card { background: none; border: 0; padding: 0 0 8px; }
+[data-style="a"] .hero { background: var(--card); border-top: 3px solid var(--accent); }
+[data-style="a"] .profile-hero { background: var(--card); border-top: 3px solid var(--accent); }
+[data-style="a"] .masthead h1 .badge-h2 { background: none; color: var(--accent); border: 2px solid var(--accent); padding: 0 8px; }

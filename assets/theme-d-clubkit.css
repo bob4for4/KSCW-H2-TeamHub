@@ -1,0 +1,22 @@
+/* Option D — Club Kit: the crest as a design system. Club blue blocks, yellow display type, diagonal stripe. */
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap");
+@import url("theme-editorial-base.css");
+:root[data-style="d"] {
+  --bg: #f2f4f9; --card: #ffffff; --ink: #121a33; --ink-2: #2e3754; --muted: #69718a; --line: #dfe3ee; --soft: #eef1f8;
+  --rule-strong: #3a52a4; --accent: #fadb3c; --accent-ink: #3a52a4; --us-row: #fff7cf;
+  --head-bg: #3a52a4; --head-ink: #dfe5f7; --head-strong: #fadb3c; --head-rule: #6278c0; --tabs-bg: #1c2a5e;
+  --num-bg: #3a52a4; --num-ink: #fadb3c; --hero-num: #fadb3c; --blue-ink: #3a52a4; --blue: #3a52a4;
+  --display: "Anton", Impact, sans-serif;
+  color-scheme: light;
+}
+[data-style="d"] body { background: var(--bg); }
+[data-style="d"] .masthead { background: linear-gradient(115deg, #3a52a4 0 70%, #fadb3c 70% 76%, #3a52a4 76%); }
+[data-style="d"] .masthead h1, [data-style="d"] h2, [data-style="d"] .matchup .tname, [data-style="d"] .play-name, [data-style="d"] .award .winner, [data-style="d"] .bigscore, [data-style="d"] .countdown b, [data-style="d"] .stat-tile b, [data-style="d"] .leader .val, [data-style="d"] .player-card .jersey { font-weight: 400; letter-spacing: .01em; }
+[data-style="d"] .masthead h1 { color: #fff; }
+[data-style="d"] .masthead h1 .badge-h2 { background: #fadb3c; color: #1c2a5e; }
+[data-style="d"] .tabs a { color: #b9c3e3; }
+[data-style="d"] .tabs a.active, [data-style="d"] .tabs a:hover { color: #fff; }
+[data-style="d"] .card { border: 0; border-top: 4px solid var(--blue); }
+[data-style="d"] .hero, [data-style="d"] .profile-hero { background: #3a52a4; border-bottom: 6px solid var(--accent); }
+[data-style="d"] .hero .vs, [data-style="d"] .hero a, [data-style="d"] .profile-hero .pos { color: var(--accent); }
+[data-style="d"] h2 { color: var(--blue-ink); }

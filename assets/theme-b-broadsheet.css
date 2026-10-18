@@ -1,0 +1,25 @@
+/* Option B — Broadsheet: newspaper sports section. Warm paper, black ink, serif headlines, blue accent. */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap");
+@import url("theme-editorial-base.css");
+:root[data-style="b"] {
+  --bg: #f5f2ea; --card: #fbf9f4; --ink: #141414; --ink-2: #33312c; --muted: #6f6a5f; --line: #ddd6c6; --soft: #efeadf;
+  --rule-strong: #141414; --accent: #3a52a4; --accent-ink: #3a52a4; --us-row: #ebe4cf;
+  --head-bg: #f5f2ea; --head-ink: #5b5649; --head-strong: #141414; --head-rule: #c9c1ad; --tabs-bg: #f5f2ea;
+  --num-bg: #141414; --num-ink: #f5f2ea; --hero-num: #3a52a4; --blue-ink: #2b3f86; --blue: #3a52a4;
+  --display: "Fraunces", Georgia, serif; --win: #1d6b36; --loss: #a33a12;
+  color-scheme: light;
+}
+[data-style="b"] body { background: var(--bg); }
+[data-style="b"] .masthead { color: var(--ink); border-bottom: 3px double var(--ink); }
+[data-style="b"] .masthead h1 { text-transform: none; font-weight: 800; letter-spacing: -0.02em; }
+[data-style="b"] .masthead h1 .badge-h2 { background: var(--ink); color: var(--bg); font-family: "IBM Plex Mono", monospace; font-size: .4em; padding: 4px 8px; vertical-align: .55em; }
+[data-style="b"] .eyebrow { color: var(--muted); font-family: "IBM Plex Mono", monospace; }
+[data-style="b"] h2, [data-style="b"] .matchup .tname, [data-style="b"] .play-name, [data-style="b"] .award .winner { text-transform: none; font-weight: 800; letter-spacing: -0.01em; }
+[data-style="b"] .num, [data-style="b"] .bigscore, [data-style="b"] .countdown b, [data-style="b"] .stat-tile b, [data-style="b"] .leader .val, [data-style="b"] .game .result, [data-style="b"] .when .dm { font-family: "Fraunces", Georgia, serif; }
+[data-style="b"] .card { background: none; border: 0; padding: 0 0 8px; }
+[data-style="b"] .hero, [data-style="b"] .profile-hero { background: var(--card); color: var(--ink); border-top: 4px solid var(--ink); border-bottom: 1px solid var(--line); }
+[data-style="b"] .hero .card-head h3, [data-style="b"] .hero .tsub, [data-style="b"] .hero .meta, [data-style="b"] .hero .countdown span, [data-style="b"] .profile-hero .facts div span, [data-style="b"] .profile-hero .nick { color: var(--muted); }
+[data-style="b"] .hero .vs, [data-style="b"] .hero a, [data-style="b"] .hero .meta a, [data-style="b"] .profile-hero .pos { color: var(--accent); }
+[data-style="b"] .hero .cal-link svg { color: var(--accent); }
+[data-style="b"] .tabs a { color: var(--muted); }
+[data-style="b"] .tabs a.active { color: var(--ink); }
