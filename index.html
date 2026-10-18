@@ -8,8 +8,25 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=10">
+  <script>
+    // Design preview: ?style=a|b|c|d loads one of the design options on top of the current look.
+    (function () {
+      var m = location.search.match(/[?&]style=([a-d])\b/); if (!m) return;
+      var files = { a: "a-matchday", b: "b-broadsheet", c: "c-swiss", d: "d-clubkit" };
+      document.documentElement.setAttribute("data-style", m[1]);
+      document.documentElement.setAttribute("data-theme", m[1] === "a" ? "dark" : "light");
+      document.write('<link rel="stylesheet" href="assets/theme-' + files[m[1]] + '.css?v=1">');
+    })();
+  </script>
   <link rel="icon" href="assets/kscw-crest.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#1c2a5e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="KSCW H2">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
 <body>
   <header class="masthead">
@@ -41,10 +58,11 @@
 
   <footer class="wrap footer">
     <span id="updated"></span>
+    <span class="a2hs">Tip: add the hub to your phone's home screen. iPhone: Share → Add to Home Screen. Android: ⋮ menu → Add to Home screen.</span>
     <span>Games and results from <a href="https://www.probasket.ch/regionalligen" target="_blank" rel="noopener">ProBasket</a> / basketplan.ch. Standings are worked out from those results and are unofficial.</span>
   </footer>
 
-  <script src="config.js?v=4"></script>
-  <script src="app.js?v=6"></script>
+  <script src="config.js?v=8"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>

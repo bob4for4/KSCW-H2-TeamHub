@@ -378,3 +378,60 @@ a.play:hover { border-color: var(--blue); transform: translateY(-1px); text-deco
 .back:hover { text-decoration: none; border-color: var(--blue); }
 .back:hover svg { color: var(--blue-ink); }
 .est { color: var(--muted); cursor: help; border-bottom: 1px dotted var(--muted); }
+.gs-dot { color: var(--gold); font-size: 12px; }
+
+/* Calendar subscription */
+.cal { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; padding: 14px 18px; margin-bottom: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }
+.cal-text { display: flex; gap: 12px; align-items: flex-start; }
+.cal-text svg, .cal-link svg { width: 20px; height: 20px; flex: none; color: var(--blue-ink); }
+.cal-text b { display: block; }
+.cal-text span { font-size: 13px; color: var(--muted); }
+.cal-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.cal-actions a { font-size: 13px; font-weight: 600; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); white-space: nowrap; }
+.cal-actions a:hover { border-color: var(--blue); text-decoration: none; }
+.cal-link { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.hero .cal-link svg { color: var(--gold); }
+
+/* ===== Geometry refresh: crisp, square shapes (no pills, no rings) ===== */
+:root { --radius: 2px; }
+.card, .hero, .profile-hero, .player-card, .award, .team-card, .play, .leader, .statline, .cal,
+.empty, .box, .lg-game.us, select, .badge { border-radius: 2px; }
+img.mark.logo, .mark.lg.logo { border-radius: 2px; }
+.mark:not(img) { border-radius: 2px; }
+
+/* Header facts: plain text separated by rules instead of pills */
+.chips { gap: 0; margin-top: 14px; }
+.chip { background: none; border: 0; border-left: 1px solid rgba(255,255,255,.28); border-radius: 0; padding: 0 14px; }
+.chip:first-child { border-left: 0; padding-left: 0; }
+.masthead h1 .badge-h2 { border-radius: 2px; }
+
+/* Season switch: text labels with an underline, not a pill */
+.seg { background: none; border: 0; padding: 0; gap: 20px; border-radius: 0; }
+.seg button { background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 4px 0; min-height: 32px; color: var(--muted); font-weight: 700; box-shadow: none; }
+.seg button.on { background: none; color: var(--ink); border-bottom-color: var(--gold); box-shadow: none; }
+select { border-radius: 2px; }
+
+/* Back link: text with a chevron, no capsule */
+.back { border: 0; background: none; padding: 0; border-radius: 0; min-height: 0; font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+.back:hover { color: var(--ink); }
+.back svg { width: 16px; height: 16px; }
+
+/* Jersey numbers: square tiles, no yellow ring */
+.avatar { border-radius: 2px; box-shadow: none; }
+.avatar.big { width: auto; height: auto; background: none; box-shadow: none; color: var(--gold); font-size: 120px; line-height: .8; padding: 0 8px 0 0; }
+
+/* Badges as small squared labels */
+.badge { border-radius: 2px; }
+
+/* Leaders: accent rule instead of a soft rounded box */
+.leader { background: none; border-left: 3px solid var(--gold); border-radius: 0; padding: 4px 0 4px 12px; }
+.leader:hover { background: none; }
+
+/* Calendar buttons: squared outline buttons */
+.cal-actions a { border-radius: 2px; }
+
+/* Stat tiles: one hairline frame, square */
+.statline { border-radius: 2px; }
+/* Stat grid: dividers on the tiles themselves so empty grid slots stay blank */
+.statline { background: none; gap: 0; }
+.stat-tile { outline: 1px solid var(--line); outline-offset: -0.5px; }

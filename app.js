@@ -47,7 +47,8 @@
   const dayYearFmt = new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
   const fmtDayYear = (d) => (d ? dayYearFmt.format(asDate(d)) : "Date TBA");
   // Stat cell: whole numbers as-is, estimates (from games without a score sheet) as ~0.5
-  const statCell = (v, est) => (v == null ? "–" : est || !Number.isInteger(v) ? '<span class="est" title="Estimated: no score sheet for this game">~' + (Number.isInteger(v) ? v : fmt1(v)) + "</span>" : String(v));
+  // Stat cell: games without a score sheet are shown like any other game (whole numbers).
+  const statCell = (v) => (v == null ? "–" : Number.isInteger(v) ? String(v) : fmt1(v));
   const total = (v) => (Number.isInteger(v) ? String(v) : fmt1(v));
   const fmtLong = (d) => (d ? longFmt.format(asDate(d)) : "Date TBA");
   const initials = (name) => String(name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
@@ -170,6 +171,7 @@
       ftm: numOrNull(pick(r, "ftm", "ft")),
       fta: numOrNull(pick(r, "fta")),
       pf: numOrNull(pick(r, "fouls", "pf", "f")),
+      gs: (() => { const v = pick(r, "gs", "started", "starter"); return v === "" ? null : /^(1|yes|y|x|true)$/i.test(v) ? 1 : 0; })(),
     };
   }
 
@@ -247,7 +249,7 @@
   }
 
   // Per-player season averages from the Stats tab (current season games only).
-  const STAT_KEYS = ["pts", "tpm", "ftm", "fta", "pf"];
+  const STAT_KEYS = ["pts", "tpm", "ftm", "fta", "pf", "gs"];
 
   // Slug of the player a stats row belongs to (matches name or alias in the Players tab).
   function resolvePlayer(name) {
@@ -266,7 +268,7 @@
       if (!r.player || r.dnp || r.pts == null) return;
       if (!games.some((g) => statMatchesGame(r, g))) return;
       const k = resolvePlayer(r.player);
-      const o = (by[k] = by[k] || { slug: k, name: r.player, gp: 0, pts: 0, tpm: 0, ftm: 0, fta: 0, pf: 0, games: [] });
+      const o = (by[k] = by[k] || { slug: k, name: r.player, gp: 0, pts: 0, tpm: 0, ftm: 0, fta: 0, pf: 0, gs: 0, games: [] });
       o.gp++;
       STAT_KEYS.forEach((key) => { o[key] += r[key] || 0; });
       o.games.push(r);
@@ -428,7 +430,8 @@
       };
       html += '<div class="matchup">' + side(next.home, v.home ? "Home" : v.oppClub || "") + '<div class="vs">VS</div>' + side(next.away, v.home ? v.oppClub || "" : "Away") + "</div>" +
         '<div class="countdown" id="countdown" data-at="' + esc(next.date + "T" + (next.time || "00:00")) + '"></div>' +
-        '<div class="meta"><span>' + esc(fmtLong(next.date)) + (next.time ? " · " + esc(next.time) : "") + "</span><span>" + venueLink(next) + "</span></div>";
+        '<div class="meta"><span>' + esc(fmtLong(next.date)) + (next.time ? " · " + esc(next.time) : "") + "</span><span>" + venueLink(next) + "</span></div>" +
+        (CFG.calendarUrl ? '<div class="meta">' + calendarLinks(true) + "</div>" : "");
     } else html += empty("No upcoming games on the schedule.");
     html += "</section>";
 
@@ -530,11 +533,22 @@
     return html + "</li>";
   }
 
+  // Subscribe links for basketplan's calendar feed. webcal:// keeps phones and Outlook in sync.
+  function calendarLinks(compact) {
+    if (!CFG.calendarUrl) return "";
+    const webcal = CFG.calendarUrl.replace(/^https?:/, "webcal:");
+    const google = "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(webcal);
+    const icon = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+    if (compact) return '<a class="cal-link" href="' + esc(webcal) + '">' + icon + "Add all games to your calendar</a>";
+    return '<div class="cal"><div class="cal-text">' + icon + '<div><b>Add all H2 games to your calendar</b><span>Updates automatically when times or venues change.</span></div></div>' +
+      '<div class="cal-actions"><a href="' + esc(webcal) + '">iPhone / Mac / Outlook</a><a href="' + esc(google) + '" target="_blank" rel="noopener">Google Calendar</a><a href="' + esc(CFG.calendarUrl) + '" download="kscw-h2.ics">Download file</a></div></div>';
+  }
+
   function viewSchedule() {
     const s = season();
     const games = teamGames(s);
     const rec = record(s);
-    return '<div class="toolbar"><h2>Schedule</h2>' + seasonToggle() + "</div>" +
+    return '<div class="toolbar"><h2>Schedule</h2>' + seasonToggle() + "</div>" + (state.season === 0 ? calendarLinks(false) : "") +
       '<section class="card"><div class="card-head"><h3>' + esc(leagueName(s)) + " · " + esc(s.season) + '</h3><span class="muted small">Record <b class="num" style="font-size:16px;color:var(--ink)">' + rec.w + "–" + rec.l + "</b></span></div>" +
       (games.length ? '<ul class="games">' + games.map((g) => gameRow(g, s, true)).join("") + "</ul>" : empty("No games found.")) + "</section>";
   }
@@ -579,7 +593,7 @@
       (p && p.bio ? '<p class="bio">' + esc(p.bio) + "</p>" : "");
 
     const tile = (val, label) => '<div class="stat-tile"><b>' + val + "</b><span>" + label + "</span></div>";
-    const tiles = (o, t) => '<div class="statline">' + tile(o.gp, "Games") + tile(fmt1(o.ppg), "PPG") +
+    const tiles = (o, t) => '<div class="statline">' + tile(o.gp, "Games") + (t.gs ? tile(o.gs, "Starts") : "") + tile(fmt1(o.ppg), "PPG") +
       (t.tpm ? tile(fmt1(o.tpg), "3PM / G") : "") + (t.ftm ? tile(fmt1(o.ftpg), "FTM / G") : "") + (t.pf ? tile(fmt1(o.pfpg), "Fouls / G") : "") +
       tile(o.pts, "Total") + (o.games.length ? tile(Math.max(...o.games.map((r) => r.pts)), "High") : "") + "</div>";
 
@@ -598,21 +612,24 @@
       if (!o || !o.games.length) return;
       const sn = state.league.seasons[idx];
       const cols = [["tpm", "3PM"], ["ftm", "FTM"], ["pf", "PF"]].filter(([k]) => list.tracked[k]);
+      const showGs = list.tracked.gs;
       const rows = o.games.slice().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-      html += '<section class="card" style="margin-top:20px"><div class="card-head"><h3>Game log · ' + esc(sn.season) + '</h3></div><div class="table-wrap"><table><thead><tr><th>Date</th><th class="left">Opponent</th><th>Result</th><th>PTS</th>' +
+      html += '<section class="card" style="margin-top:20px"><div class="card-head"><h3>Game log · ' + esc(sn.season) + '</h3></div><div class="table-wrap"><table><thead><tr><th>Date</th><th class="left">Opponent</th><th>Result</th>' + (showGs ? '<th title="Started the game">GS</th>' : "") + '<th>PTS</th>' +
         cols.map((c) => "<th>" + c[1] + "</th>").join("") + "</tr></thead><tbody>" +
         rows.map((r) => {
           const g = gameForStat(r, sn);
           const v = g ? ourView(g, sn) : null;
           return '<tr><td class="left">' + esc(fmtDayYear(g ? g.date : r.date)) + '</td><td class="name">' + (v ? '<div class="teamcell">' + teamMark(v.opp, "sm") + "<span>" + (v.home ? "vs " : "@ ") + esc(short(v.opp)) + "</span></div>" : "") +
-            "</td><td>" + (v ? resultText(v).replace("</span>", "</span> ") : "") + '</td><td class="hi">' + r.pts + "</td>" + cols.map(([k]) => "<td>" + statCell(r[k], r.est) + "</td>").join("") + "</tr>";
+            "</td><td>" + (v ? resultText(v).replace("</span>", "</span> ") : "") + "</td>" +
+            (showGs ? '<td>' + (r.gs === 1 ? '<span class="gs-dot" title="Started">●</span>' : r.gs === 0 ? '<span class="muted">–</span>' : '<span class="muted" title="Unknown: not marked on the score sheet">?</span>') + "</td>" : "") +
+            '<td class="hi">' + r.pts + "</td>" + cols.map(([k]) => "<td>" + statCell(r[k], r.est) + "</td>").join("") + "</tr>";
         }).join("") + "</tbody></table></div></section>";
     });
     return html;
   }
 
   const STAT_COLS = [
-    ["name", "Player", false], ["gp", "GP", true], ["ppg", "PPG", true], ["pts", "PTS", true], ["tpg", "3PM/G", true], ["tpm", "3PM", true],
+    ["name", "Player", false], ["gp", "GP", true], ["gs", "GS", true], ["ppg", "PPG", true], ["pts", "PTS", true], ["tpg", "3PM/G", true], ["tpm", "3PM", true],
     ["ftpg", "FTM/G", true], ["ftm", "FTM", true], ["pfpg", "PF/G", true], ["pf", "PF", true],
   ];
 
@@ -622,7 +639,7 @@
     const all = statsFor(state.season);
     const list = all.filter((o) => o.gp > 0);
     const statCols = STAT_COLS.filter(([key]) => {
-      const base = { tpg: "tpm", tpm: "tpm", ftpg: "ftm", ftm: "ftm", pfpg: "pf", pf: "pf" }[key];
+      const base = { tpg: "tpm", tpm: "tpm", ftpg: "ftm", ftm: "ftm", pfpg: "pf", pf: "pf", gs: "gs" }[key];
       return !base || all.tracked[base];
     });
     const k = state.sort.key, d = state.sort.dir;
@@ -638,7 +655,7 @@
       : empty(isCur ? "No stats yet this season. They appear here after the first game is entered." : "No stats for this season yet.");
     return '<div class="toolbar"><h2>Stats</h2>' + seasonToggle() + '</div><section class="card">' + body +
       '<p class="small muted" style="margin:12px 0 0">' + esc(s.season) + ". Per-game numbers count only games a player played. Tap a column to sort." +
-      (list.some((o) => o.games.some((r) => r.est)) ? " 3PM/FTM for games without a score sheet are estimated (marked ~ in game logs)." : "") + "</p></section>";
+      (all.tracked.gs && list.some((o) => o.games.some((r) => r.gs == null)) ? " GS counts only games where starters are marked on the score sheet." : "") + "</p></section>";
   }
 
   const isMajor = (award) => /mvp|mip|sixth man|defensive player|clutch/i.test(award);

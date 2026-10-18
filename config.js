@@ -8,6 +8,9 @@ window.HUB_CONFIG = {
   // Second club colour, used for highlights (active tab, starters).
   gold: "#fadb3c",
 
+  // Calendar feed from basketplan with all of this season's games (update seasonId each season).
+  calendarUrl: "https://www.basketplan.ch/exportTeamGamesICAL.do?teamId=4829&seasonId=31",
+
   // Google Sheet with players, stats, awards and news.
   // Paste the ID from the sheet's address: docs.google.com/spreadsheets/d/<THIS PART>/edit
   // The sheet must be shared as "Anyone with the link can view".

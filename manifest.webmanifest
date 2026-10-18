@@ -1,0 +1,14 @@
+{
+  "name": "KSCW H2 Team Hub",
+  "short_name": "KSCW H2",
+  "description": "Schedule, results, standings, roster and stats for KSC Wiedikon Herren 2.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1c2a5e",
+  "theme_color": "#1c2a5e",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
