@@ -21,5 +21,6 @@ window.HUB_CONFIG = {
     lastSeason: "LastSeason",
     awards: "Awards",
     news: "News",
+    playbook: "Playbook",
   },
 };

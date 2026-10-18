@@ -13,6 +13,7 @@
     lastSeason: [],
     awards: [],
     news: [],
+    playbook: [],
     clubs: [],
     season: 0, // index into league.seasons (0 = current)
     leagueTeam: "",
@@ -43,6 +44,11 @@
   const monthFmt = new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric", timeZone: "UTC" });
   const asDate = (d) => new Date(d + "T12:00:00Z");
   const fmtDay = (d) => (d ? dayFmt.format(asDate(d)) : "Date TBA");
+  const dayYearFmt = new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+  const fmtDayYear = (d) => (d ? dayYearFmt.format(asDate(d)) : "Date TBA");
+  // Stat cell: whole numbers as-is, estimates (from games without a score sheet) as ~0.5
+  const statCell = (v) => (v == null ? "–" : Number.isInteger(v) ? String(v) : '<span class="est" title="Estimated: no score sheet for this game">~' + fmt1(v) + "</span>");
+  const total = (v) => (Number.isInteger(v) ? String(v) : fmt1(v));
   const fmtLong = (d) => (d ? longFmt.format(asDate(d)) : "Date TBA");
   const initials = (name) => String(name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
 
@@ -81,21 +87,31 @@
     return "";
   };
 
-  async function loadTab(name) {
-    const url = CFG.googleSheetId
-      ? "https://docs.google.com/spreadsheets/d/" + encodeURIComponent(CFG.googleSheetId) +
-        "/gviz/tq?tqx=out:csv&headers=1&sheet=" + encodeURIComponent(name)
-      : "data/" + encodeURIComponent(name) + ".csv?v=" + Date.now();
+  async function fetchCSV(url) {
     try {
       const res = await fetch(url, { cache: "no-store" });
-      if (!res.ok) return [];
+      if (!res.ok) return null;
       const text = await res.text();
-      if (/^\s*</.test(text)) return []; // an HTML error page, not CSV
+      if (/^\s*</.test(text)) return null; // an HTML page (e.g. Google sign-in), not CSV
       return parseCSV(text);
     } catch (e) {
-      console.warn("Could not load tab", name, e);
-      return [];
+      return null;
     }
+  }
+
+  // Reads a tab from the Google Sheet; if the sheet can't be read (not shared,
+  // offline, tab renamed), falls back to the CSV copy in data/. Google returns the
+  // first tab when a tab name doesn't exist, so the header row is checked too.
+  async function loadTab(name, required) {
+    const looksRight = (rows) => !!rows && (!rows.length ? true : (required || []).every((c) => c in rows[0]));
+    // ?local=1 in the address uses the data/ files only (handy for testing)
+    if (CFG.googleSheetId && !/[?&]local=1\b/.test(location.search)) {
+      const rows = await fetchCSV("https://docs.google.com/spreadsheets/d/" + encodeURIComponent(CFG.googleSheetId) +
+        "/gviz/tq?tqx=out:csv&headers=1&sheet=" + encodeURIComponent(name));
+      if (rows && rows.length && looksRight(rows)) return rows;
+      console.warn("Google Sheet tab not readable, using data/" + name + ".csv instead:", name);
+    }
+    return (await fetchCSV("data/" + encodeURIComponent(name) + ".csv?v=" + Date.now())) || [];
   }
 
   // ---------- data shaping ----------
@@ -130,10 +146,20 @@
   // Blank cells stay null so a stat nobody tracked shows as "–", not 0.
   const numOrNull = (v) => (v == null || String(v).trim() === "" ? null : num(v));
 
+  // Sheets may show a typed date as 23.10.2026, 10/23/2026 or 2026-10-23; the hub uses YYYY-MM-DD.
+  function normDate(v) {
+    v = String(v || "").trim();
+    let m;
+    if ((m = v.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))) return m[1] + "-" + m[2].padStart(2, "0") + "-" + m[3].padStart(2, "0");
+    if ((m = v.match(/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})$/))) return (m[3].length === 2 ? "20" + m[3] : m[3]) + "-" + m[2].padStart(2, "0") + "-" + m[1].padStart(2, "0");
+    if ((m = v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/))) return m[3] + "-" + m[1].padStart(2, "0") + "-" + m[2].padStart(2, "0");
+    return v;
+  }
+
   function normStatRow(r) {
     const pts = pick(r, "pts", "points");
     return {
-      date: pick(r, "date", "game_date"),
+      date: normDate(pick(r, "date", "game_date")),
       game: pick(r, "game", "game_number"),
       player: pick(r, "player", "name"),
       dnp: /^(yes|y|x|true|1|dnp)$/i.test(pick(r, "dnp")) || /^dnp$/i.test(pts),
@@ -363,7 +389,7 @@
     const t = trackedIn(rows);
     const cols = [["pts", "PTS"], ["tpm", "3PM"], ["ftm", "FTM"], ["pf", "PF"]].filter(([k]) => t[k]);
     return '<h3 style="margin-top:14px">H2 box score</h3><div class="table-wrap"><table><thead><tr><th>Player</th>' + cols.map((c) => "<th>" + c[1] + "</th>").join("") + "</tr></thead><tbody>" +
-      rows.map((r) => '<tr><td class="name">' + playerLink(r.player) + "</td>" + cols.map(([k], i) => '<td class="' + (i === 0 ? "hi" : "") + '">' + (r[k] == null ? "–" : r[k]) + "</td>").join("") + "</tr>").join("") +
+      rows.map((r) => '<tr><td class="name">' + playerLink(r.player) + "</td>" + cols.map(([k], i) => '<td class="' + (i === 0 ? "hi" : "") + '">' + statCell(r[k]) + "</td>").join("") + "</tr>").join("") +
       "</tbody></table></div>";
   }
 
@@ -467,7 +493,7 @@
   }
 
   function newsList(s, results) {
-    const items = state.news.map((n) => ({ date: pick(n, "date"), title: pick(n, "title", "headline"), text: pick(n, "text", "body"), link: pick(n, "link", "url") }))
+    const items = state.news.map((n) => ({ date: normDate(pick(n, "date")), title: pick(n, "title", "headline"), text: pick(n, "text", "body"), link: pick(n, "link", "url") }))
       .filter((n) => n.title);
     results.slice(0, 3).forEach((g) => {
       const v = ourView(g, s);
@@ -479,7 +505,7 @@
     });
     items.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
     if (!items.length) return empty("No news yet.");
-    return '<ul class="news">' + items.slice(0, 6).map((n) => '<li><div class="nd">' + esc(fmtDay(n.date)) + '</div><div class="nt">' +
+    return '<ul class="news">' + items.slice(0, 6).map((n) => '<li><div class="nd">' + esc(fmtDayYear(n.date)) + '</div><div class="nt">' +
       (n.link ? '<a href="' + esc(n.link) + '" target="_blank" rel="noopener">' + esc(n.title) + "</a>" : esc(n.title)) + "</div>" +
       (n.text ? '<div class="small muted">' + esc(n.text) + "</div>" : "") + "</li>").join("") + "</ul>";
   }
@@ -487,7 +513,7 @@
   function whenCell(g) {
     if (!g.date) return '<div class="when"><div class="wd">TBA</div></div>';
     const d = asDate(g.date);
-    return '<div class="when"><div class="wd">' + d.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" }) + '</div><div class="dm">' +
+    return '<div class="when"><div class="wd">' + d.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" }) + " " + d.getUTCFullYear() + '</div><div class="dm">' +
       d.toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" }) + '</div><div class="tm">' + esc(g.time || "") + "</div></div>";
   }
 
@@ -544,7 +570,7 @@
     const name = p ? p.name : (cur || prev || {}).name;
     if (!name) return empty("Player not found. <a href=\"#roster\">Back to roster</a>");
     const fact = (label, val) => (val ? "<div><span>" + label + "</span><b>" + esc(val) + "</b></div>" : "");
-    let html = '<p class="small" style="margin:0 0 12px"><a href="#roster">← Roster</a></p><section class="profile-hero">' + avatar(p || { name }, "big") +
+    let html = '<a class="back" href="#roster"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Roster</a><section class="profile-hero">' + avatar(p || { name }, "big") +
       '<div><div class="pos">' + esc([p && p.number ? "#" + p.number : "", p && (isStaff(p) ? p.role : positions(p))].filter(Boolean).join(" · ")) + "</div><h2>" + esc(name) + "</h2>" +
       (p && p.nickname ? '<div class="nick">“' + esc(p.nickname) + "”</div>" : "") +
       '<div class="facts">' + (p ? fact("Position", isStaff(p) ? p.role : positions(p)) + fact("Height", p.height && p.height + " cm") +
@@ -577,8 +603,8 @@
         rows.map((r) => {
           const g = gameForStat(r, sn);
           const v = g ? ourView(g, sn) : null;
-          return "<tr><td>" + esc(fmtDay(g ? g.date : r.date)) + '</td><td class="name">' + (v ? '<div class="teamcell">' + teamMark(v.opp, "sm") + "<span>" + (v.home ? "vs " : "@ ") + esc(short(v.opp)) + "</span></div>" : "") +
-            "</td><td>" + (v ? resultText(v).replace("</span>", "</span> ") : "") + '</td><td class="hi">' + r.pts + "</td>" + cols.map(([k]) => "<td>" + (r[k] == null ? "–" : r[k]) + "</td>").join("") + "</tr>";
+          return '<tr><td class="left">' + esc(fmtDayYear(g ? g.date : r.date)) + '</td><td class="name">' + (v ? '<div class="teamcell">' + teamMark(v.opp, "sm") + "<span>" + (v.home ? "vs " : "@ ") + esc(short(v.opp)) + "</span></div>" : "") +
+            "</td><td>" + (v ? resultText(v).replace("</span>", "</span> ") : "") + '</td><td class="hi">' + r.pts + "</td>" + cols.map(([k]) => "<td>" + statCell(r[k]) + "</td>").join("") + "</tr>";
         }).join("") + "</tbody></table></div></section>";
     });
     return html;
@@ -600,7 +626,7 @@
     });
     const k = state.sort.key, d = state.sort.dir;
     list.sort((a, b) => (k === "name" ? a.name.localeCompare(b.name) * d : (a[k] - b[k]) * d) || b.ppg - a.ppg);
-    const fmt = (o, key) => (["ppg", "tpg", "ftpg", "pfpg"].includes(key) ? fmt1(o[key]) : esc(o[key]));
+    const fmt = (o, key) => (["ppg", "tpg", "ftpg", "pfpg"].includes(key) ? fmt1(o[key]) : total(o[key]));
     const body = list.length
       ? '<div class="table-wrap"><table><thead><tr>' + statCols.map(([key, label]) =>
           '<th class="sortable ' + (key === k ? "sorted" : "") + (key === "name" ? " left" : "") + '" data-sort="' + key + '">' + label + (key === k ? (d < 0 ? " ▾" : " ▴") : "") + "</th>").join("") + "</tr></thead><tbody>" +
@@ -610,7 +636,8 @@
         "</tbody></table></div>"
       : empty(isCur ? "No stats yet this season. They appear here after the first game is entered." : "No stats for this season yet.");
     return '<div class="toolbar"><h2>Stats</h2>' + seasonToggle() + '</div><section class="card">' + body +
-      '<p class="small muted" style="margin:12px 0 0">' + esc(s.season) + ". Per-game numbers count only games a player played. Tap a column to sort.</p></section>";
+      '<p class="small muted" style="margin:12px 0 0">' + esc(s.season) + ". Per-game numbers count only games a player played. Tap a column to sort." +
+      (list.some((o) => o.games.some((r) => ["tpm", "ftm", "pf"].some((k) => r[k] != null && !Number.isInteger(r[k])))) ? " Some 3PM/FTM totals include estimates for games without a score sheet." : "") + "</p></section>";
   }
 
   const isMajor = (award) => /mvp|mip|sixth man|defensive player|clutch/i.test(award);
@@ -654,6 +681,40 @@
     }).join("");
   }
 
+  // Play types in the order a game uses them; unknown types go last.
+  const PLAY_TYPES = [
+    ["offense", "Offense", ""], ["man", "vs Man-to-man", "Offense against man-to-man"], ["zone", "vs Zone", "Offense against zone"],
+    ["blob", "BLOB", "Baseline out of bounds"], ["slob", "SLOB", "Sideline out of bounds"], ["press", "Press break", "Full court press break"],
+  ];
+  function playGroup(type) {
+    const t = String(type).toLowerCase();
+    if (/man/.test(t)) return "man";
+    if (/zone/.test(t)) return "zone";
+    if (/blob|baseline/.test(t)) return "blob";
+    if (/slob|sideline/.test(t)) return "slob";
+    if (/press/.test(t)) return "press";
+    if (/offen/.test(t)) return "offense";
+    return "other";
+  }
+
+  function viewPlaybook() {
+    const plays = state.playbook.map((r) => ({ name: pick(r, "name", "play"), type: pick(r, "type"), link: pick(r, "link", "url"), image: pick(r, "image"), notes: pick(r, "notes", "description") }))
+      .filter((p) => p.name);
+    if (!plays.length) return "<h2>Playbook</h2>" + empty("No plays yet. Add them to the <b>Playbook</b> tab of the sheet.");
+    const groups = PLAY_TYPES.concat([["other", "Other", ""]]).map(([key, label, sub]) => [label, sub, plays.filter((p) => playGroup(p.type) === key)]).filter((g) => g[2].length);
+    const safeLink = (u) => (/^https?:\/\//i.test(u) ? u : "");
+    const card = (p) => {
+      const link = safeLink(p.link);
+      const img = safeLink(p.image);
+      return '<' + (link ? 'a href="' + esc(link) + '" target="_blank" rel="noopener"' : "div") + ' class="play">' +
+        '<div class="play-img">' + (img ? '<img src="' + esc(img) + '" alt="Court diagram for ' + esc(p.name) + '">' : '<span class="num">' + esc(p.name) + "</span>") + "</div>" +
+        '<div class="play-body"><div class="play-name">' + esc(p.name) + '</div><div class="play-type">' + esc(p.type) + "</div>" +
+        (p.notes ? '<div class="play-notes">' + esc(p.notes) + "</div>" : "") + (link ? '<div class="play-cta">Watch animation ↗</div>' : "") + "</div>" + (link ? "</a>" : "</div>");
+    };
+    return '<div class="toolbar"><h2>Playbook</h2><span class="muted small">' + plays.length + " plays · animations on HoopsGeek</span></div>" +
+      groups.map(([label, sub, list]) => '<h3 class="round-head">' + esc(label) + (sub ? ' <span class="sub">· ' + esc(sub) + "</span>" : "") + '</h3><div class="plays">' + list.map(card).join("") + "</div>").join("");
+  }
+
   function viewLeague() {
     const s = season();
     const teams = [...new Set(s.games.flatMap((g) => [g.home, g.away]))].sort();
@@ -679,7 +740,7 @@
         const hw = sc && g.score[0] > g.score[1];
         return '<div class="lg-game ' + (isUs(g, s) ? "us" : "") + '"><div class="h ' + (sc && !hw ? "lose" : "") + '"><span>' + esc(short(g.home)) + "</span>" + teamMark(g.home, "sm") +
           '</div><div class="s">' + (sc ? g.score[0] + "–" + g.score[1] : g.withdrawn ? "–" : '<span class="muted small">' + esc(g.time || "") + "</span>") + '</div><div class="a ' + (sc && hw ? "lose" : "") + '">' +
-          teamMark(g.away, "sm") + "<span>" + esc(short(g.away)) + '</span></div><div class="when">' + esc(fmtDay(g.date)) + (g.venue ? " · " + esc(g.venue.name) : "") + "</div></div>";
+          teamMark(g.away, "sm") + "<span>" + esc(short(g.away)) + '</span></div><div class="when">' + esc(fmtDayYear(g.date)) + (g.venue ? " · " + esc(g.venue.name) : "") + "</div></div>";
       }).join("")).join("") + "</section>";
     return html;
   }
@@ -689,7 +750,7 @@
     clearInterval(countdownTimer);
     const hash = location.hash.replace(/^#/, "") || "home";
     const [route, arg] = hash.split("/");
-    const views = { home: viewHome, schedule: viewSchedule, standings: viewStandings, roster: viewRoster, stats: viewStats, awards: viewAwards, league: viewLeague };
+    const views = { home: viewHome, schedule: viewSchedule, standings: viewStandings, roster: viewRoster, stats: viewStats, awards: viewAwards, playbook: viewPlaybook, league: viewLeague };
     if (route === "home") state.season = 0;
     const view = route === "player" ? () => viewPlayer(decodeURIComponent(arg || "")) : views[route] || viewHome;
     $("#view").innerHTML = view();
@@ -752,9 +813,11 @@
       state.clubs = (await res.json()).clubs || [];
     } catch (e) { state.clubs = []; }
     const t = CFG.tabs || {};
-    const [players, stats, lastSeason, awards, news] = await Promise.all([
-      loadTab(t.players || "Players"), loadTab(t.stats || "Stats"), loadTab(t.lastSeason || "LastSeason"), loadTab(t.awards || "Awards"), loadTab(t.news || "News"),
+    const [players, stats, lastSeason, awards, news, playbook] = await Promise.all([
+      loadTab(t.players || "Players", ["name"]), loadTab(t.stats || "Stats", ["date", "pts"]), loadTab(t.lastSeason || "LastSeason", ["gp"]),
+      loadTab(t.awards || "Awards", ["award"]), loadTab(t.news || "News", ["title"]), loadTab(t.playbook || "Playbook", ["name", "link"]),
     ]);
+    state.playbook = playbook;
     state.players = normPlayers(players);
     state.stats = stats.map(normStatRow);
     state.lastSeason = lastSeason.map(normStatRow);
