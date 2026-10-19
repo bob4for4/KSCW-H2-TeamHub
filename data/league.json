@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T18:08:39+00:00",
+ "updated": "2026-10-19T08:50:02+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -192,10 +192,10 @@
      "away": "Wohlen Basket H2",
      "homeClub": "CVJM Frauenfeld",
      "awayClub": "Wohlen Basket",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Kantonsschule Frauenfeld 3F",
       "address": "Sternwartestrasse 5",
@@ -205,6 +205,32 @@
      "referees": [
       "Frischknecht Thomas",
       "Luma Ersun"
+     ],
+     "score": [
+      69,
+      67
+     ],
+     "quarters": [
+      [
+       14,
+       22
+      ],
+      [
+       17,
+       20
+      ],
+      [
+       15,
+       17
+      ],
+      [
+       23,
+       8
+      ]
+     ],
+     "points": [
+      2,
+      0
      ]
     },
     {
