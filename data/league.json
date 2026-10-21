@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T18:48:53+00:00",
+ "updated": "2026-10-21T06:53:19+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -453,7 +453,10 @@
       "zip": "6300",
       "city": "Zug"
      },
-     "referees": []
+     "referees": [
+      "Stojic Nikola",
+      "Sakotic Dragan"
+     ]
     },
     {
      "id": "373255",
@@ -475,7 +478,10 @@
       "zip": "8055",
       "city": "Zürich"
      },
-     "referees": []
+     "referees": [
+      "Frischknecht Thomas",
+      "Brombacher Linus Jonathan"
+     ]
     },
     {
      "id": "373262",
@@ -497,7 +503,10 @@
       "zip": "8602",
       "city": "Wangen bei Dübendorf"
      },
-     "referees": []
+     "referees": [
+      "Milojevic Nemanja",
+      "Krasniqi Fisnik"
+     ]
     },
     {
      "id": "373245",
@@ -519,7 +528,10 @@
       "zip": "9490",
       "city": "Vaduz"
      },
-     "referees": []
+     "referees": [
+      "Castro Nicolas",
+      "Louis-Marie Eric Alexandre"
+     ]
     },
     {
      "id": "373223",
@@ -541,7 +553,10 @@
       "zip": "8055",
       "city": "Zürich"
      },
-     "referees": []
+     "referees": [
+      "Lemonnier Alexandre",
+      "Rakic Bratislav"
+     ]
     },
     {
      "id": "373266",
@@ -563,7 +578,10 @@
       "zip": "7000",
       "city": "Chur"
      },
-     "referees": []
+     "referees": [
+      "Kalashnikov Sergii",
+      "Luma Ersun"
+     ]
     },
     {
      "id": "373229",
