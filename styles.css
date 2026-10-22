@@ -502,7 +502,7 @@ th[title]:hover { text-decoration-color: currentColor; }
 .att-msg.err { color: var(--loss); font-weight: 600; }
 .att-list { display: grid; gap: 12px; margin-bottom: 16px; }
 .att-list.compact { gap: 0; margin: 0; }
-.att-session { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px 16px; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: var(--radius); }
+.att-session { display: grid; grid-template-columns: minmax(0, 1fr) 196px; align-items: center; gap: 10px 16px; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: var(--radius); }
 .att-session.game { border-left-color: var(--gold); }
 .att-session.cancelled { opacity: .7; border-left-color: var(--line); }
 .att-session.cancelled .att-title { text-decoration: line-through; text-decoration-thickness: 1px; }
@@ -512,16 +512,24 @@ th[title]:hover { text-decoration-color: currentColor; }
 .att-title { font-family: var(--display); font-size: 22px; font-weight: 700; line-height: 1.1; margin-top: 2px; }
 .att-when { font-size: 14px; color: var(--muted); margin-top: 3px; overflow-wrap: anywhere; }
 .att-when a { color: var(--muted); }
-.att-btns { display: flex; gap: 6px; }
-.att-btns button { min-height: 44px; min-width: 72px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--soft); color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; transition: background .15s, color .15s; }
+.att-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 196px; }
+.att-btns button { min-height: 44px; width: 100%; padding: 0 8px; border-radius: 10px; border: 1px solid var(--line); background: var(--soft); color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; transition: background .15s, color .15s; }
 .att-btns button:hover:not(:disabled) { border-color: var(--muted); }
 .att-btns button:disabled { cursor: default; opacity: .55; }
 .att-btns button.on-in { background: var(--win); border-color: var(--win); color: var(--card); opacity: 1; }
 .att-btns button.on-out { background: var(--loss); border-color: var(--loss); color: var(--card); opacity: 1; }
-.att-note { font-size: 14px; color: var(--muted); font-weight: 600; }
-.att-foot { grid-column: 1 / -1; font-size: 14px; }
+.att-note { font-size: 14px; color: var(--muted); font-weight: 600; text-align: right; }
+.att-month { margin: 22px 0 10px; font-family: var(--display); font-size: 20px; text-transform: uppercase; letter-spacing: .04em; }
+.att-month:first-of-type { margin-top: 0; }
+.att-session .att-foot { grid-column: 1 / -1; font-size: 14px; } /* beats the schedule's ".game details" rule */
 .att-count { color: var(--muted); }
 .att-count b { color: var(--ink); }
+.att-saving { color: var(--muted); font-style: italic; }
+.att-status { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; z-index: 30;
+  padding: 8px 16px; border-radius: 999px; background: var(--ink); color: var(--card); font-size: 14px; font-weight: 600; box-shadow: 0 8px 24px rgba(15,23,42,.25); transition: opacity .2s, transform .2s; }
+.att-status.show { opacity: 1; transform: translate(-50%, 0); }
+.att-status.err { background: var(--loss); }
+@media (prefers-reduced-motion: reduce) { .att-status { transition: none; } }
 .att-foot.boxtoggle summary { color: var(--muted); font-weight: 400; }
 .att-who { margin-top: 8px; line-height: 1.5; }
 .att-who .lbl { display: inline-block; min-width: 82px; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
@@ -536,5 +544,6 @@ th[title]:hover { text-decoration-color: currentColor; }
 .linkbtn { margin-left: auto; min-height: 36px; border: 0; background: none; color: var(--blue-ink); font: inherit; font-weight: 600; cursor: pointer; }
 @media (max-width: 640px) {
   .att-session { grid-template-columns: 1fr; }
-  .att-btns button { flex: 1; }
+  .att-btns { width: 100%; }
+  .att-note { text-align: left; }
 }

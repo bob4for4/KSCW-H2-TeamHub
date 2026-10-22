@@ -15,7 +15,7 @@
     playbook: [],
     clubs: [],
     trainings: [], // rows of the Trainings tab (weekly pattern, cancellations, extras)
-    att: { answers: {}, away: [], loaded: false, busy: false, error: "" }, // attendance, from the Apps Script
+    att: { answers: {}, away: [], loaded: false, error: "", queue: [], sending: false }, // attendance, from the Apps Script; queue = taps not saved yet
     season: 0, // index into league.seasons (0 = current)
     leagueTeam: "",
     sort: { key: "ppg", dir: -1 },
@@ -822,7 +822,14 @@
   // Players tap In / Out for each training and game. Answers go to a private Google
   // sheet through a small Apps Script (scripts/attendance.gs); the hub only gets the
   // answers for upcoming sessions back. Saying In counts as attending.
-  const ATT_DAYS = 21; // how far ahead the Attendance page looks
+  // Sessions open one month at a time: on the 15th the next month opens
+  // (22 Oct shows October and November; from 15 Nov December too).
+  const ATT_OPEN_DAY = 15;
+  function attUntil(today) {
+    const d = asDate(today || todayStr());
+    const months = d.getUTCMonth() + (d.getUTCDate() >= ATT_OPEN_DAY ? 2 : 1);
+    return new Date(Date.UTC(d.getUTCFullYear(), months, 0, 12)).toISOString().slice(0, 10); // last day of that month
+  }
   const store = {
     get(k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } },
     set(k, v) { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch (e) { /* private mode: not remembered */ } },
@@ -880,9 +887,9 @@
   }
 
   // Trainings and games from today on, until they start (answers can change right up to the start).
-  function attSessions(days) {
+  function attSessions() {
     const s = state.league.seasons[0];
-    const today = todayStr(), to = addDays(today, days);
+    const today = todayStr(), to = attUntil(today);
     const games = teamGames(s).filter((g) => g.date && !g.withdrawn && !hasScore(g));
     const list = expandTrainings(state.trainings, games.map((g) => g.date), today, to).map((t) => ({ ...t, type: "training", label: "Training " + t.start }));
     games.filter((g) => g.date >= today && g.date <= to).forEach((g) => {
@@ -893,19 +900,34 @@
     return list.filter((x) => startsAt(x) > now).sort((a, b) => startsAt(a) - startsAt(b));
   }
 
+  // Taps still waiting to be saved count straight away, the newest one first.
+  const attQueued = (test) => state.att.queue.slice().reverse().find((q) => test(q.body));
+  const attPending = (id, name) => !!attQueued((b) => b.a === "set" && b.session === id && b.player === name);
+  function attAwayList() {
+    let list = state.att.away.slice();
+    state.att.queue.forEach(({ body: b }) => {
+      const same = (w) => w.player === b.player && w.from === b.from && w.to === b.to;
+      if (b.a === "away" && !list.some(same)) list.push({ player: b.player, from: b.from, to: b.to });
+      if (b.a === "unaway") list = list.filter((w) => !same(w));
+    });
+    return list;
+  }
+
   // A player's answer; an away period with no answer counts as Out.
-  function attStatus(x, name) {
-    const a = state.att.answers[x.id] && state.att.answers[x.id][name];
+  function attStatus(x, name, away) {
+    const q = attQueued((b) => b.a === "set" && b.session === x.id && b.player === name);
+    const a = q ? q.body.status : state.att.answers[x.id] && state.att.answers[x.id][name];
     if (a) return a;
-    return state.att.away.some((w) => w.player === name && w.from <= x.date && x.date <= w.to) ? "away" : "";
+    return (away || attAwayList()).some((w) => w.player === name && w.from <= x.date && x.date <= w.to) ? "away" : "";
   }
 
   function attSession(x, compact) {
     const name = me();
-    const mine = name ? attStatus(x, name) : "";
+    const away = attAwayList();
+    const mine = name ? attStatus(x, name, away) : "";
     const groups = { in: [], out: [], none: [] };
     rosterNames().forEach((n) => {
-      const st = attStatus(x, n);
+      const st = attStatus(x, n, away);
       (st === "in" ? groups.in : st ? groups.out : groups.none).push(esc(n) + (st === "away" ? ' <span class="muted">(away)</span>' : ""));
     });
     const when = fmtDay(x.date) + (x.start ? " · " + x.start + (x.end ? "–" + x.end : "") : "");
@@ -914,17 +936,18 @@
     let act;
     if (x.cancelled) act = '<span class="att-note">' + esc(x.note || "Cancelled") + "</span>";
     else {
-      const can = CFG.attendanceUrl && name && !state.att.busy;
+      const can = CFG.attendanceUrl && name;
       const btn = (st, label) => '<button type="button" data-att="' + esc(x.id + "|" + st) + '" class="' + (mine === st || (st === "out" && mine === "away") ? "on-" + st : "") +
         '" aria-pressed="' + (mine === st || (st === "out" && mine === "away")) + '"' + (can ? "" : " disabled") + ">" + label + "</button>";
       act = '<div class="att-btns" role="group" aria-label="' + esc("Your answer for " + when) + '">' + btn("in", "In") + btn("out", mine === "away" ? "Out · away" : "Out") + "</div>";
     }
-    const counts = '<span class="att-count"><b>' + groups.in.length + "</b> in · <b>" + groups.out.length + "</b> out · " + groups.none.length + " no answer</span>";
+    const counts = '<span class="att-count"><b>' + groups.in.length + "</b> in · <b>" + groups.out.length + "</b> out · " + groups.none.length + " no answer" +
+      (name && attPending(x.id, name) ? ' <span class="att-saving">· saving…</span>' : "") + "</span>";
     const who = (label, list) => list.length ? '<div class="att-who"><span class="lbl">' + label + "</span>" + list.join(", ") + "</div>" : "";
     return '<article class="att-session ' + x.type + (x.cancelled ? " cancelled" : "") + '"><div class="att-info"><span class="att-kind">' + (x.type === "game" ? "Game" : "Training") +
       '</span><div class="att-title">' + title + '</div><div class="att-when">' + esc(when) + (where ? " · " + where : "") + "</div></div>" + act +
       (x.cancelled ? "" : compact ? '<div class="att-foot">' + counts + "</div>" :
-        '<details class="att-foot boxtoggle"><summary>' + counts + "</summary>" + who("In", groups.in) + who("Out", groups.out) + who("No answer", groups.none) + "</details>") + "</article>";
+        '<details class="att-foot boxtoggle" data-sid="' + esc(x.id) + '"><summary>' + counts + "</summary>" + who("In", groups.in) + who("Out", groups.out) + who("No answer", groups.none) + "</details>") + "</article>";
   }
 
   function attPicker(name) {
@@ -935,13 +958,15 @@
 
   function awayCard(name) {
     const today = todayStr();
-    const all = state.att.away.filter((w) => w.to >= today).sort((a, b) => a.from.localeCompare(b.from) || a.player.localeCompare(b.player));
+    const all = attAwayList().filter((w) => w.to >= today).sort((a, b) => a.from.localeCompare(b.from) || a.player.localeCompare(b.player));
     let html = '<section class="card"><div class="card-head"><h3>Away for a while?</h3></div><p class="muted small">Holidays, injury, work: set it once and you\'re Out for every training and game in that time. If plans change, just tap In.</p>';
     if (name && CFG.attendanceUrl) {
       html += '<form class="att-away" id="att-away"><label>From<input type="date" name="from" min="' + today + '" required></label><label>To<input type="date" name="to" min="' + today +
-        '" required></label><button type="submit"' + (state.att.busy ? " disabled" : "") + ">Save</button></form>";
+        '" required></label><button type="submit">Save</button></form>';
     }
+    const saving = (w) => !!attQueued((b) => (b.a === "away" || b.a === "unaway") && b.player === w.player && b.from === w.from && b.to === w.to);
     html += all.length ? '<ul class="att-awaylist">' + all.map((w) => "<li><b>" + esc(w.player) + "</b><span>" + esc(fmtDay(w.from)) + " – " + esc(fmtDayYear(w.to)) + "</span>" +
+      (saving(w) ? '<span class="att-saving">saving…</span>' : "") +
       (w.player === name ? '<button type="button" class="linkbtn" data-unaway="' + esc(w.from + "|" + w.to) + '">Remove</button>' : "") + "</li>").join("") + "</ul>" : "";
     return html + "</section>";
   }
@@ -955,16 +980,29 @@
 
   function viewAttendance() {
     const name = me();
-    const list = attSessions(ATT_DAYS);
+    const list = attSessions();
+    // grouped by month, with a line saying when the next month opens
+    const months = [];
+    list.forEach((x) => {
+      const m = x.date.slice(0, 7);
+      if (!months.length || months[months.length - 1].m !== m) months.push({ m, items: [] });
+      months[months.length - 1].items.push(x);
+    });
+    const until = attUntil();
+    const nextOpen = asDate(until.slice(0, 8) + String(ATT_OPEN_DAY).padStart(2, "0"));
+    const lastGame = teamGames(state.league.seasons[0]).filter((g) => g.date).map((g) => g.date).pop() || "";
+    const note = until < lastGame ? '<p class="att-msg">' + esc(monthFmt.format(asDate(addDays(until, 1))).replace(/ \d{4}$/, "")) + " opens on " +
+      esc(longFmt.format(nextOpen).replace(/^\w+, /, "").replace(/ \d{4}$/, "")) + ".</p>" : "";
     return '<div class="toolbar"><h2>Attendance</h2></div>' + attPicker(name) + attNotice() +
-      (list.length ? '<div class="att-list">' + list.map((x) => attSession(x, false)).join("") + "</div>" : empty("No trainings or games in the next three weeks.")) +
-      awayCard(name) + calendarLinks(false);
+      (list.length ? months.map((g) => '<h3 class="att-month">' + esc(monthFmt.format(asDate(g.m + "-01"))) + '</h3><div class="att-list">' +
+        g.items.map((x) => attSession(x, false)).join("") + "</div>").join("") : empty("No trainings or games coming up.")) +
+      note + awayCard(name) + calendarLinks(false);
   }
 
   // Home: the next training and the next game, with the In / Out buttons.
   function attHomeCard() {
     if (!CFG.attendanceUrl) return "";
-    const list = attSessions(45);
+    const list = attSessions();
     const items = ["training", "game"].map((t) => list.find((x) => x.type === t && !x.cancelled)).filter(Boolean).sort((a, b) => startsAt(a) - startsAt(b));
     if (!items.length) return "";
     return '<section class="card"><div class="card-head"><h3>Are you in?</h3><a href="#attendance">All sessions →</a></div>' +
@@ -974,6 +1012,19 @@
 
   const attRoute = () => ["home", "attendance"].includes((location.hash.replace(/^#/, "") || "home").split("/")[0]);
 
+  // Redraws the page after an attendance change, keeping half-typed away dates, open name lists and focus.
+  function attRefresh() {
+    if (!attRoute()) return;
+    const typed = {};
+    document.querySelectorAll("#att-away input").forEach((i) => { typed[i.name] = i.value; });
+    const open = [...document.querySelectorAll("details.att-foot[open]")].map((d) => d.dataset.sid);
+    const focus = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.att : "";
+    render();
+    document.querySelectorAll("#att-away input").forEach((i) => { if (typed[i.name]) i.value = typed[i.name]; });
+    open.forEach((sid) => { const d = document.querySelector('details.att-foot[data-sid="' + sid + '"]'); if (d) d.open = true; });
+    if (focus) { const f = document.querySelector('[data-att="' + focus + '"]'); if (f) f.focus(); }
+  }
+
   async function attLoad() {
     if (!CFG.attendanceUrl) return;
     try {
@@ -981,31 +1032,69 @@
       if (!data.ok) throw new Error(data.error);
       state.att.answers = data.answers || {};
       state.att.away = data.away || [];
-      state.att.error = "";
     } catch (e) {
       state.att.error = "Couldn't load the answers. Check your connection and reload.";
     }
     state.att.loaded = true;
-    if (attRoute() && !state.att.busy) render();
+    attRefresh();
   }
 
-  // Sends one change. The screen updates straight away; if saving fails it goes back.
-  async function attSend(body, undo) {
-    state.att.busy = true;
+  // Every tap shows at once and goes into a queue. Whatever is queued is sent in one
+  // request; taps made meanwhile go in the next one. So the buttons never wait for Google,
+  // and many quick taps cost one or two round trips instead of one each.
+  function attSend(body) {
+    state.att.queue.push({ body });
     state.att.error = "";
-    render();
-    try {
-      const data = await (await fetch(CFG.attendanceUrl, { method: "POST", body: JSON.stringify(body) })).json();
-      if (!data.ok) throw new Error(data.error || "Not saved");
-      state.att.answers = data.answers || {};
-      state.att.away = data.away || [];
-    } catch (e) {
-      if (undo) undo();
-      state.att.error = "Not saved" + (e instanceof SyntaxError || e instanceof TypeError ? " (no connection)" : ": " + e.message) + ". Please try again.";
-    }
-    state.att.busy = false;
-    if (attRoute()) render();
+    attRefresh();
+    attFlush();
   }
+
+  async function attFlush() {
+    if (state.att.sending) return;
+    state.att.sending = true;
+    attStatusPill();
+    while (state.att.queue.length) {
+      const batch = state.att.queue.slice();
+      let data = null;
+      try {
+        data = await (await fetch(CFG.attendanceUrl, { method: "POST", body: JSON.stringify({ a: "batch", items: batch.map((q) => q.body) }) })).json();
+      } catch (e) {
+        data = { ok: false, error: "no connection" };
+      }
+      state.att.queue.splice(0, batch.length);
+      if (data.answers) {
+        state.att.answers = data.answers;
+        state.att.away = data.away || [];
+      }
+      if (data.error) state.att.error = "Not saved (" + data.error + "). Please tap again.";
+      attRefresh();
+    }
+    state.att.sending = false;
+    attStatusPill(true);
+  }
+
+  // Small "Saving… / Saved" note at the bottom of the screen, outside the page so redraws keep it.
+  let pillTimer = null;
+  function attStatusPill(done) {
+    let el = document.getElementById("att-status");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "att-status";
+      el.className = "att-status";
+      el.setAttribute("role", "status");
+      document.body.appendChild(el);
+    }
+    clearTimeout(pillTimer);
+    if (!done) { el.textContent = "Saving…"; el.className = "att-status show"; return; }
+    el.textContent = state.att.error ? "Not saved" : "Saved ✓";
+    el.className = "att-status show" + (state.att.error ? " err" : " ok");
+    pillTimer = setTimeout(() => { el.className = "att-status"; }, 1800);
+  }
+
+  // Closing the app while a tap is still on its way: let the browser ask first.
+  window.addEventListener("beforeunload", (e) => {
+    if (state.att.queue.length) { e.preventDefault(); e.returnValue = ""; }
+  });
 
   function render() {
     clearInterval(countdownTimer);
@@ -1058,17 +1147,13 @@
     if (attBtn) {
       const name = me();
       const [id, status] = attBtn.dataset.att.split("|");
-      const x = attSessions(120).find((v) => v.id === id);
-      if (!name || !x || state.att.busy) return;
-      const map = (state.att.answers[id] = state.att.answers[id] || {});
-      const before = map[name];
-      if (before === status) return;
-      map[name] = status;
-      attSend({ a: "set", session: id, date: x.date, label: x.label, player: name, status }, () => { if (before) map[name] = before; else delete map[name]; });
+      const x = attSessions().find((v) => v.id === id);
+      if (!name || !x || attStatus(x, name) === status) return;
+      attSend({ a: "set", session: id, date: x.date, label: x.label, player: name, status });
       return;
     }
     const unaway = e.target.closest("[data-unaway]");
-    if (unaway && !state.att.busy) {
+    if (unaway) {
       const [from, to] = unaway.dataset.unaway.split("|");
       attSend({ a: "unaway", player: me(), from, to });
       return;
@@ -1104,7 +1189,8 @@
     e.preventDefault();
     const f = new FormData(e.target);
     const from = f.get("from"), to = f.get("to");
-    if (to < from) { state.att.error = "The end date is before the start date."; render(); return; }
+    if (to < from) { state.att.error = "The end date is before the start date."; attRefresh(); return; }
+    e.target.reset();
     attSend({ a: "away", player: me(), from, to });
   });
   window.addEventListener("hashchange", () => { render(); window.scrollTo(0, 0); });

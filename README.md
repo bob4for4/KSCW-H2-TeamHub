@@ -86,6 +86,8 @@ The date must match the game date on basketplan (format `YYYY-MM-DD`). `gs` is 1
   - `extra`: date, start, end, place: a one-off training.
   - No training is planned on a day with a game.
 - **Calendar:** `data/team.ics` lists games and trainings. It is rebuilt every 2 hours with the league data, so cancellations disappear from phones by themselves.
+- **Months open one at a time:** the Attendance page shows this month and next; on the 15th the month after opens (from 15 Nov: December, and so on).
+- **Testing:** run `python3 tests/mock_server.py` and open http://localhost:8767/tests/run.html. It drives the real hub against a fake Google script that can be made slow or failing, and checks fast tapping, failed saves, away periods, month opening, button alignment and phone width. Run it after every attendance change; all tests should pass before publishing. `osascript -l JavaScript tests/check_syntax.js` checks app.js for typos.
 - **If the script is changed:** in Apps Script, Deploy → Manage deployments → edit (pencil) → Version: New version → Deploy. The web app URL stays the same.
 
 ## Next season
