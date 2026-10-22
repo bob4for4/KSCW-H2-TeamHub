@@ -23,14 +23,16 @@ jobs:
           python-version: "3.12"
       - name: Fetch games and results from basketplan
         run: python scripts/update_league.py
+      - name: Make the team calendar (games + trainings)
+        run: python scripts/make_calendar.py
       - name: Save changes
         run: |
-          if git diff --quiet -- data/league.json; then
+          if git diff --quiet -- data/league.json data/team.ics && [ -z "$(git status --porcelain -- data/team.ics)" ]; then
             echo "Nothing new."
             exit 0
           fi
           git config user.name "h2-hub-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/league.json
-          git commit -m "Update league data"
+          git add data/league.json data/team.ics
+          git commit -m "Update league data and calendar"
           git push
