@@ -497,8 +497,10 @@
   }
 
   function newsList(s, results) {
-    const items = state.news.map((n) => ({ date: normDate(pick(n, "date")), title: pick(n, "title", "headline"), text: pick(n, "text", "body"), link: pick(n, "link", "url") }))
-      .filter((n) => n.title);
+    // A news row shows from its date on; with an "until" date it is hidden from the day after.
+    const today = todayStr();
+    const items = state.news.map((n) => ({ date: normDate(pick(n, "date")), until: normDate(pick(n, "until")), title: pick(n, "title", "headline"), text: pick(n, "text", "body"), link: pick(n, "link", "url") }))
+      .filter((n) => n.title && !(n.date && n.date > today) && !(n.until && n.until < today));
     results.slice(0, 3).forEach((g) => {
       const v = ourView(g, s);
       items.push({

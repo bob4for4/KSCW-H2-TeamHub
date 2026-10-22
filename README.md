@@ -76,7 +76,7 @@ The date must match the game date on basketplan (format `YYYY-MM-DD`). Averages,
 
 **Awards**: `season, award, player, note`, for example `2025/26, Loudmouth Award, Max Muster, Never stopped talking`.
 
-**News**: `date, title, text, link`. Optional. The hub also adds a headline for each new result.
+**News**: `date, until, title, text, link`. Optional. A row shows from its `date` (a future date stays hidden until then). If `until` is set, the row is hidden from the day after. Scouting posts use this: `date` is 7 days before the game, `until` is the game date. The hub also adds a headline for each new result.
 
 ## Next season
 
