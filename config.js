@@ -11,8 +11,10 @@ window.HUB_CONFIG = {
   // Calendar feed with all games and trainings (made by scripts/make_calendar.py every 2 hours).
   calendarUrl: "https://bob4for4.github.io/KSCW-H2-TeamHub/data/team.ics",
 
-  // Attendance: web app URL of the Apps Script in the private attendance sheet
-  // (see scripts/attendance.gs). Leave empty to switch attendance off.
+  // Attendance page (In / Out for trainings and games). false hides it everywhere:
+  // the tab, the Home card and every request to Google. true switches it back on.
+  attendance: false,
+  // Web app URL of the Apps Script in the private attendance sheet (see scripts/attendance.gs).
   attendanceUrl: "https://script.google.com/macros/s/AKfycbwCf6G5DIb8J0YpG3bmgp8k8Sk-vf5SW1jor0UnZ5wRazeTkW2iqp0ugYhbaGRcEQMQ/exec",
 
   // Google Sheet with players, stats, awards and news.

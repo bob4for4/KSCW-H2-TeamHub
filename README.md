@@ -77,6 +77,7 @@ The date must match the game date on basketplan (format `YYYY-MM-DD`). `gs` is 1
 
 ## Attendance and trainings
 
+- **On / off:** `attendance: false` in config.js hides the Attendance tab and the Home card, and the hub makes no requests to Google. Set it to `true` to switch it back on; nothing else needs to change. (Off since 22 Oct 2026, pending a talk with the coach.)
 - **Attendance page:** players pick their name once (the phone remembers it) and tap In or Out for each training and game, up to the start time. Saying In counts as attending. "Away for a while?" sets a player Out for a date range.
 - **Where answers go:** the private sheet *KSCW H2 Attendance (private)* in Drive › KSCW H2 › Private (Philipp & Paul only). Its script (copy in `scripts/attendance.gs`) saves the taps. The **Tracker** tab shows each player's training and game rate; **Sessions** shows who said what per session. Both refresh every night and whenever the sheet is opened (or use the H2 menu → Refresh tracker). Share this sheet only with the coach.
 - **Trainings tab** (in the hub sheet), one row per rule. Keep the columns as plain text:

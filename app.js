@@ -825,6 +825,8 @@
   // Sessions open one month at a time: on the 15th the next month opens
   // (22 Oct shows October and November; from 15 Nov December too).
   const ATT_OPEN_DAY = 15;
+  // Switched off in config.js (attendance: false): no tab, no Home card, no requests.
+  const ATT_ON = CFG.attendance !== false && !!CFG.attendanceUrl;
   function attUntil(today) {
     const d = asDate(today || todayStr());
     const months = d.getUTCMonth() + (d.getUTCDate() >= ATT_OPEN_DAY ? 2 : 1);
@@ -1001,7 +1003,7 @@
 
   // Home: the next training and the next game, with the In / Out buttons.
   function attHomeCard() {
-    if (!CFG.attendanceUrl) return "";
+    if (!ATT_ON) return "";
     const list = attSessions();
     const items = ["training", "game"].map((t) => list.find((x) => x.type === t && !x.cancelled)).filter(Boolean).sort((a, b) => startsAt(a) - startsAt(b));
     if (!items.length) return "";
@@ -1048,7 +1050,7 @@
   }
 
   async function attLoad() {
-    if (!CFG.attendanceUrl) return;
+    if (!ATT_ON) return;
     try {
       const data = await attFetch();
       if (!data.ok) throw new Error(data.error);
@@ -1138,7 +1140,7 @@
     clearInterval(countdownTimer);
     const hash = location.hash.replace(/^#/, "") || "home";
     const [route, arg] = hash.split("/");
-    const views = { home: viewHome, attendance: viewAttendance, schedule: viewSchedule, standings: viewStandings, roster: viewRoster, stats: viewStats, awards: viewAwards, playbook: viewPlaybook, league: viewLeague };
+    const views = { home: viewHome, attendance: ATT_ON ? viewAttendance : viewHome, schedule: viewSchedule, standings: viewStandings, roster: viewRoster, stats: viewStats, awards: viewAwards, playbook: viewPlaybook, league: viewLeague };
     if (route === "home") state.season = 0;
     const view = route === "player" ? () => viewPlayer(decodeURIComponent(arg || "")) : views[route] || viewHome;
     $("#view").innerHTML = view();
@@ -1276,8 +1278,54 @@
       (next ? chip(fmtDay(next.date), (ourView(next, cur).home ? "vs " : "@ ") + short(ourView(next, cur).opp)) : "");
     const upd = new Date(state.league.updated);
     $("#updated").textContent = "League data last changed " + upd.toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" }) + ".";
+    if (!ATT_ON) { const tab = document.querySelector('#tabs a[href="#attendance"]'); if (tab) tab.remove(); }
+    homeScreenHint();
     render();
     attLoad();
   }
+
+  // "Add to home screen" note at the top right of the header, so people know the hub works
+  // like an app. Tapping it shows the steps for their phone (or Android's install prompt).
+  // Hidden when the hub is already opened from the home screen.
+  let installPrompt = null;
+  window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); installPrompt = e; });
+  function homeScreenHint() {
+    const standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+    if (standalone || $("#a2hs")) return;
+    const ua = navigator.userAgent;
+    const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    const android = /Android/.test(ua);
+    const share = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M8 7l4-4 4 4M5 11v9h14v-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    // on a phone show only its own steps; on a computer show both
+    const steps = [];
+    if (!android) steps.push("<b>iPhone:</b> in Safari tap Share " + share + " → <b>Add to Home Screen</b>.");
+    if (!ios) steps.push("<b>Android:</b> in Chrome tap ⋮ → <b>Add to Home screen</b> (or <b>Install app</b>).");
+    const box = document.createElement("div");
+    box.className = "a2hs";
+    box.innerHTML = '<button type="button" id="a2hs" aria-expanded="false" aria-controls="a2hs-panel">' +
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 18.5h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+      "Add to home screen</button>" +
+      '<div class="a2hs-panel" id="a2hs-panel" hidden><p>Open the hub like an app: one tap from your home screen, no browser.</p><ul>' +
+      steps.map((x) => "<li>" + x + "</li>").join("") + '</ul><button type="button" class="a2hs-install" hidden>Install now</button></div>';
+    $(".masthead-inner").appendChild(box);
+    document.body.appendChild($("#a2hs-panel")); // outside the header, so the tab bar can't cover it
+  }
+  window.addEventListener("scroll", () => { const p = $("#a2hs-panel"); if (p && !p.hidden) { p.hidden = true; $("#a2hs").setAttribute("aria-expanded", "false"); } }, { passive: true });
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("#a2hs");
+    const panel = $("#a2hs-panel");
+    if (btn) {
+      panel.hidden = !panel.hidden;
+      btn.setAttribute("aria-expanded", String(!panel.hidden));
+      // placed under the button, on top of the page
+      const r = btn.getBoundingClientRect();
+      panel.style.top = r.bottom + 6 + "px";
+      panel.style.right = Math.max(16, document.documentElement.clientWidth - r.right) + "px";
+      panel.querySelector(".a2hs-install").hidden = !installPrompt;
+      return;
+    }
+    if (e.target.closest(".a2hs-install") && installPrompt) { installPrompt.prompt(); installPrompt = null; panel.hidden = true; return; }
+    if (panel && !panel.hidden && !e.target.closest(".a2hs, #a2hs-panel")) { panel.hidden = true; $("#a2hs").setAttribute("aria-expanded", "false"); }
+  });
   init();
 })();

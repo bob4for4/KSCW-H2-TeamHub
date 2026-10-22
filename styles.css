@@ -84,6 +84,24 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   .crest { width: 64px; }
 }
 
+/* "Add to home screen" note, top right of the header */
+.a2hs { position: absolute; top: 10px; right: 0; z-index: 2; text-align: right; }
+#a2hs { display: inline-flex; align-items: center; gap: 5px; min-height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.28);
+  background: rgba(15,23,42,.35); color: #fff; font: 600 12px/1 Inter, system-ui, sans-serif; cursor: pointer; }
+#a2hs:hover { background: rgba(15,23,42,.55); }
+#a2hs svg { width: 14px; height: 14px; }
+.a2hs-panel { position: fixed; z-index: 40; width: min(300px, calc(100vw - 32px)); padding: 12px 14px; border-radius: 12px; text-align: left;
+  background: var(--card); color: var(--ink); border: 1px solid var(--line); box-shadow: 0 12px 32px rgba(15,23,42,.25); font-size: 13px; line-height: 1.45; }
+.a2hs-panel p { margin: 0 0 6px; }
+.a2hs-panel ul { margin: 0; padding-left: 18px; }
+.a2hs-panel li + li { margin-top: 4px; }
+.a2hs-panel svg { width: 14px; height: 14px; vertical-align: -2px; }
+.a2hs-install { margin-top: 10px; min-height: 36px; padding: 0 14px; border: 0; border-radius: 8px; background: var(--blue); color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+@media (max-width: 640px) {
+  .masthead-inner { padding-top: 46px; }
+  .a2hs { top: 12px; }
+}
+
 /* ---------- Tabs ---------- */
 .tabs { position: sticky; top: 0; z-index: 10; background: var(--card); border-bottom: 1px solid var(--line); }
 .tabs-inner { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
