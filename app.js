@@ -17,6 +17,7 @@
     season: 0, // index into league.seasons (0 = current)
     leagueTeam: "",
     sort: { key: "ppg", dir: -1 },
+    standSort: { key: "rank", dir: 1 }, // Standings page sort
     statsMode: "both", // Stats page: "both" (per game + totals side by side), or "avg" / "tot" with a switch
   };
   let countdownTimer = null;
@@ -545,15 +546,31 @@
       (games.length ? '<ul class="games">' + games.map((g) => gameRow(g, s, true)).join("") + "</ul>" : empty("No games found.")) + "</section>";
   }
 
+  // Standings columns: [key, label, hover text, default direction]. Tap a header to sort; tap again to flip.
+  const STAND_COLS = [
+    ["rank", "#", "League position", 1], ["team", "Team", "", 1], ["gp", "GP", "Games played", -1], ["w", "W", "Wins", -1], ["l", "L", "Losses", -1],
+    ["pts", "Pts", "League points (2 per win)", -1], ["pf", "PF", "Points for (scored)", -1], ["pa", "PA", "Points against (conceded)", -1],
+    ["diff", "+/-", "Point difference", -1], ["strk", "Strk", "Current streak", -1], ["form", "Last 5", "Last five games", 0],
+  ];
+  // Streak as a number for sorting: W3 = 3, L2 = -2.
+  const streakNum = (r) => (r.streak === "–" ? 0 : (r.streak[0] === "W" ? 1 : -1) * +r.streak.slice(1));
+
   function viewStandings() {
     const s = season();
-    const rows = standings(s);
+    const { key, dir } = state.standSort;
+    const val = (r) => ({ team: short(r.team), diff: r.pf - r.pa, strk: streakNum(r) }[key] ?? r[key]);
+    const rows = standings(s).sort((a, b) => (key === "team" ? val(a).localeCompare(val(b)) : val(a) - val(b)) * dir || a.rank - b.rank);
+    const th = ([k, label, info, d]) => "<th" + (d ? ' class="sortable' + (k === key ? " sorted" : "") + (k === "team" ? " left" : "") + '" data-ssort="' + k + '"' : "") +
+      (info ? ' title="' + info + '"' : "") + ">" + label + (k === key ? (dir < 0 ? " ▾" : " ▴") : "") + "</th>";
+    const cell = (k, html) => '<td class="' + (k === key ? "hi" : "") + '">' + html + "</td>";
     return '<div class="toolbar"><h2>Standings</h2>' + seasonToggle() + "</div>" +
-      '<section class="card"><div class="card-head"><h3>' + esc(leagueName(s)) + " · " + esc(s.season) + '</h3></div><div class="table-wrap"><table><thead><tr><th>#</th><th class="left">Team</th><th>GP</th><th>W</th><th>L</th><th>Pts</th><th>PF</th><th>PA</th><th>+/-</th><th>Strk</th><th>Last 5</th></tr></thead><tbody>' +
-      rows.map((r) => '<tr class="' + (r.team === s.team ? "us" : "") + '"><td class="rank">' + r.rank + '</td><td class="name"><div class="teamcell">' + teamMark(r.team, "sm") + "<span>" + esc(short(r.team)) + "</span></div></td><td>" + r.gp + "</td><td>" + r.w + "</td><td>" + r.l +
-        '</td><td class="hi">' + r.pts + "</td><td>" + r.pf + "</td><td>" + r.pa + "</td><td>" + (r.pf - r.pa > 0 ? "+" : "") + (r.pf - r.pa) + "</td><td>" + r.streak + '</td><td><span class="form">' +
+      '<section class="card"><div class="card-head"><h3>' + esc(leagueName(s)) + " · " + esc(s.season) + '</h3></div><div class="table-wrap"><table class="standings-table"><thead><tr>' +
+      STAND_COLS.map(th).join("") + "</tr></thead><tbody>" +
+      rows.map((r) => '<tr class="' + (r.team === s.team ? "us" : "") + '"><td class="rank">' + r.rank + '</td><td class="name"><div class="teamcell">' + teamMark(r.team, "sm") + "<span>" + esc(short(r.team)) + "</span></div></td>" +
+        cell("gp", r.gp) + cell("w", r.w) + cell("l", r.l) + cell("pts", r.pts) + cell("pf", r.pf) + cell("pa", r.pa) +
+        cell("diff", (r.pf - r.pa > 0 ? "+" : "") + (r.pf - r.pa)) + cell("strk", r.streak) + '<td><span class="form">' +
         r.form.slice(-5).map((x) => '<i class="' + (x === "W" ? "w" : "") + '" title="' + (x === "W" ? "Win" : "Loss") + '"></i>').join("") + "</span></td></tr>").join("") +
-      '</tbody></table></div><p class="small muted" style="margin:12px 0 0">Win = 2 points. Ties split by head-to-head, then point difference. Unofficial, worked out from the <a href="' + esc(s.sourceUrl) + '" target="_blank" rel="noopener">official results on basketplan</a>.</p></section>';
+      '</tbody></table></div><p class="small muted" style="margin:12px 0 0">Win = 2 points. Ties split by head-to-head, then point difference. Tap a column to sort. Unofficial, worked out from the <a href="' + esc(s.sourceUrl) + '" target="_blank" rel="noopener">official results on basketplan</a>.</p></section>';
   }
 
   function viewRoster() {
@@ -832,6 +849,12 @@
     if (modeBtn) {
       state.statsMode = modeBtn.dataset.statmode;
       if (STAT_PAIR[state.sort.key]) state.sort = { key: STAT_PAIR[state.sort.key], dir: state.sort.dir };
+      render(); return;
+    }
+    const sth = e.target.closest("th[data-ssort]");
+    if (sth) {
+      const key = sth.dataset.ssort, col = STAND_COLS.find((c) => c[0] === key);
+      state.standSort = state.standSort.key === key ? { key, dir: -state.standSort.dir } : { key, dir: col[3] };
       render(); return;
     }
     const th = e.target.closest("th[data-sort]");
