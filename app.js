@@ -391,6 +391,16 @@
       "</tbody></table></div>";
   }
 
+  // Open/close box score for any played game: quarters, our player box score (if ours) and referees.
+  function boxInner(g) {
+    if (!hasScore(g) || isForfeit(g)) return "";
+    return quarterTable(g) + boxScore(g) + (g.referees && g.referees.length ? '<div class="small muted" style="margin-top:10px">Referees: ' + g.referees.map(esc).join(", ") + "</div>" : "");
+  }
+  function boxToggle(g) {
+    const inner = boxInner(g);
+    return inner ? '<details class="boxtoggle"><summary>Box score</summary><div class="box">' + inner + "</div></details>" : "";
+  }
+
   function empty(msg) { return '<div class="empty">' + msg + "</div>"; }
 
   const ordinal = (n) => n + (["th", "st", "nd", "rd"][(n % 100 - 20) % 10] || ["th", "st", "nd", "rd"][n % 100] || "th");
@@ -519,10 +529,7 @@
     let html = '<li class="game">' + whenCell(g) + '<div class="opp">' + teamMark(v.opp) + '<div class="t"><span class="ha">' + (v.home ? "VS" : "@") + "</span>" + esc(short(v.opp)) +
       "<small>" + where + "</small></div></div>" +
       '<div class="result">' + (v.played ? resultText(v) : g.withdrawn ? '<span class="muted small">Cancelled</span>' : '<span class="badge home">' + (v.home ? "HOME" : "AWAY") + "</span>") + "</div>";
-    if (details && v.played && !ff) {
-      html += "<details><summary>Box score</summary><div class=\"box\">" + quarterTable(g) + boxScore(g) +
-        (g.referees.length ? '<div class="small muted" style="margin-top:10px">Referees: ' + g.referees.map(esc).join(", ") + "</div>" : "") + "</div></details>";
-    }
+    if (details && v.played) html += boxToggle(g);
     return html + "</li>";
   }
 
@@ -628,11 +635,14 @@
         rows.map((r) => {
           const g = gameForStat(r, sn);
           const v = g ? ourView(g, sn) : null;
-          return '<tr><td class="left">' + esc(fmtDayYear(g ? g.date : r.date)) + '</td><td class="name">' + (v ? '<div class="teamcell">' + teamMark(v.opp, "sm") + "<span>" + (v.home ? "vs " : "@ ") + esc(short(v.opp)) + "</span></div>" : "") +
+          const box = g ? boxInner(g) : "";
+          const ncol = 4 + (showGs ? 1 : 0) + cols.length;
+          return '<tr><td class="left">' + (box ? '<button type="button" class="logdate" data-logbox aria-expanded="false">' + esc(fmtDayYear(g.date)) + "</button>" : esc(fmtDayYear(g ? g.date : r.date))) + '</td><td class="name">' + (v ? '<div class="teamcell">' + teamMark(v.opp, "sm") + "<span>" + (v.home ? "vs " : "@ ") + esc(short(v.opp)) + "</span></div>" : "") +
             "</td><td>" + (v ? resultText(v).replace("</span>", "</span> ") : "") + "</td>" +
             (showGs ? '<td>' + (r.gs === 1 ? '<span class="gs-dot" title="Started">●</span>' : r.gs === 0 ? '<span class="muted">–</span>' : '<span class="muted" title="Unknown: not marked on the score sheet">?</span>') + "</td>" : "") +
-            '<td class="hi">' + r.pts + "</td>" + cols.map(([k]) => "<td>" + statCell(r[k], r.est) + "</td>").join("") + "</tr>";
-        }).join("") + "</tbody></table></div></section>";
+            '<td class="hi">' + r.pts + "</td>" + cols.map(([k]) => "<td>" + statCell(r[k], r.est) + "</td>").join("") + "</tr>" +
+            (box ? '<tr class="logbox" hidden><td colspan="' + ncol + '"><div class="box">' + box + "</div></td></tr>" : "");
+        }).join("") + '</tbody></table></div><p class="small muted" style="margin:10px 0 0">Tap a date to see that game\'s box score.</p></section>';
     });
     return html;
   }
@@ -798,7 +808,8 @@
         const hw = sc && g.score[0] > g.score[1];
         return '<div class="lg-game ' + (isUs(g, s) ? "us" : "") + '"><div class="h ' + (sc && !hw ? "lose" : "") + '"><span>' + esc(short(g.home)) + "</span>" + teamMark(g.home, "sm") +
           '</div><div class="s">' + (sc ? g.score[0] + "–" + g.score[1] : g.withdrawn ? "–" : '<span class="muted small">' + esc(g.time || "") + "</span>") + '</div><div class="a ' + (sc && hw ? "lose" : "") + '">' +
-          teamMark(g.away, "sm") + "<span>" + esc(short(g.away)) + '</span></div><div class="when">' + esc(fmtDayYear(g.date)) + (g.venue ? " · " + esc(g.venue.name) : "") + "</div></div>";
+          teamMark(g.away, "sm") + "<span>" + esc(short(g.away)) + '</span></div><div class="when">' + (isForfeit(g) ? "Forfeit" : esc(fmtDayYear(g.date)) + (g.venue ? " · " + esc(g.venue.name) : "")) + "</div>" +
+          boxToggle(g) + "</div>";
       }).join("")).join("") + "</section>";
     return html;
   }
@@ -850,6 +861,13 @@
       state.statsMode = modeBtn.dataset.statmode;
       if (STAT_PAIR[state.sort.key]) state.sort = { key: STAT_PAIR[state.sort.key], dir: state.sort.dir };
       render(); return;
+    }
+    const logBtn = e.target.closest("[data-logbox]");
+    if (logBtn) {
+      const row = logBtn.closest("tr").nextElementSibling;
+      row.hidden = !row.hidden;
+      logBtn.setAttribute("aria-expanded", String(!row.hidden));
+      return;
     }
     const sth = e.target.closest("th[data-ssort]");
     if (sth) {

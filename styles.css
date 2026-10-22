@@ -218,10 +218,19 @@ td.hi { font-weight: 700; color: var(--ink); }
 .game .result { text-align: right; white-space: nowrap; font-family: var(--display); font-size: 20px; font-weight: 700; }
 .game .result .res-w, .game .result .res-l { margin-right: 6px; }
 .game details { grid-column: 2 / -1; }
-.game summary { cursor: pointer; color: var(--blue-ink); font-size: 13px; font-weight: 600; list-style: none; }
-.game summary::-webkit-details-marker { display: none; }
-.game summary::after { content: " ›"; }
-.game details[open] summary::after { content: " ‹"; }
+.boxtoggle summary { cursor: pointer; color: var(--blue-ink); font-size: 13px; font-weight: 600; list-style: none; }
+.boxtoggle summary::-webkit-details-marker { display: none; }
+.boxtoggle summary::after { content: " ›"; }
+.boxtoggle[open] summary::after { content: " ‹"; }
+/* League tab: box score sits under the game, across the full row */
+.lg-game .boxtoggle { grid-column: 1 / -1; text-align: center; margin-top: -2px; }
+.lg-game .boxtoggle .box { text-align: left; }
+/* Player game log: tap the date to open that game's box score in a row underneath */
+.logdate { background: none; border: 0; padding: 0; font: inherit; color: var(--blue-ink); font-weight: 600; cursor: pointer; text-align: left; }
+.logdate::after { content: " ›"; }
+.logdate[aria-expanded="true"]::after { content: " ‹"; }
+tr.logbox > td { white-space: normal; padding: 0 0 12px; text-align: left; }
+tr.logbox .box { margin-top: 0; position: sticky; left: 0; width: min(100%, calc(100vw - 66px)); box-sizing: border-box; }
 .box { margin-top: 10px; background: var(--soft); border-radius: 10px; padding: 12px 14px; }
 .box .table-wrap { margin: 0; padding: 0; }
 .box table { font-size: 13px; }
