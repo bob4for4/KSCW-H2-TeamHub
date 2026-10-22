@@ -17,6 +17,7 @@
   --us-row: #fffbe6;
   --tint-avg: #f1f4fc; /* Stats table: per-game columns */
   --tint-tot: #e3e8f7; /* Stats table: totals columns */
+  --hover-veil: rgba(15,23,42,.04);
   --radius: 14px;
   --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
   color-scheme: light;
@@ -25,13 +26,13 @@
   :root:not([data-theme="light"]) {
     --bg: #0b1020; --card: #121a30; --ink: #eef2ff; --ink-2: #c7cfe4; --muted: #8a94b2;
     --line: #222c47; --soft: #18213b; --win: #4ade80; --loss: #fb923c; --us-row: #2a2a1c;
-    --gold-soft: #3a3412; --blue-ink: #a9b8ff; --tint-avg: #16203b; --tint-tot: #1c2850; color-scheme: dark;
+    --gold-soft: #3a3412; --blue-ink: #a9b8ff; --tint-avg: #16203b; --tint-tot: #1c2850; --hover-veil: rgba(255,255,255,.04); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0b1020; --card: #121a30; --ink: #eef2ff; --ink-2: #c7cfe4; --muted: #8a94b2;
   --line: #222c47; --soft: #18213b; --win: #4ade80; --loss: #fb923c; --us-row: #2a2a1c;
-  --gold-soft: #3a3412; --blue-ink: #a9b8ff; --tint-avg: #16203b; --tint-tot: #1c2850; color-scheme: dark;
+  --gold-soft: #3a3412; --blue-ink: #a9b8ff; --tint-avg: #16203b; --tint-tot: #1c2850; --hover-veil: rgba(255,255,255,.04); color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -445,15 +446,28 @@ th[title]:hover { text-decoration-color: currentColor; }
 .stat-key { margin: 14px 0 0; line-height: 1.7; }
 .stat-key b { color: var(--ink); font-weight: 700; }
 
-/* Stats table: per-game and totals side by side, each with its own tint */
+/* Stats table: per-game and totals side by side, each with its own tint.
+   Every stat column has the same width and centred numbers, so the dotted
+   dividers sit exactly halfway between neighbours and both blocks end evenly. */
+.stats-table { --stat-w: 74px; }
+.stats-table th:not(:first-child), .stats-table td:not(.name) {
+  width: var(--stat-w); min-width: var(--stat-w); padding-left: 6px; padding-right: 6px;
+  text-align: center; font-variant-numeric: tabular-nums;
+}
+.stats-table th.sortable { position: relative; }
+.stats-table th .arr { position: absolute; margin-left: 3px; font-size: 9px; }
 .stats-table .ga { background: var(--tint-avg); }
 .stats-table .gt { background: var(--tint-tot); }
 .stats-table .gstart { border-left: 2px dotted var(--blue-ink); }
-.stats-table tr.clickable:hover td.ga, .stats-table tr.clickable:hover td.gt { background: var(--soft); }
-.stats-table .grp-row th { padding: 6px 8px; text-align: center; font-size: 10px; letter-spacing: .12em; color: var(--blue-ink); border-bottom: 0; text-decoration: none; }
-.stats-table .grp-row th:first-child { background: none; }
+/* Hover: lighten the row a touch but keep each block's tint */
+.stats-table tr.clickable:hover td { background-image: linear-gradient(var(--hover-veil), var(--hover-veil)); }
+.stats-table tr.clickable:hover td.name { background-color: var(--soft); background-image: none; }
+.stats-table tr.clickable:hover td.ga { background-color: var(--tint-avg); }
+.stats-table tr.clickable:hover td.gt { background-color: var(--tint-tot); }
+.stats-table .grp-row th { padding: 10px 6px 2px; text-align: center; font-size: 10px; letter-spacing: .12em; color: var(--blue-ink); border-bottom: 0; text-decoration: none; }
 @media (max-width: 760px) {
+  .stats-table { --stat-w: 58px; }
   /* Keep the player column in view while the stats scroll sideways */
+  .stats-table .grp-row th:first-child { background: var(--card); }
   .stats-table th:first-child, .stats-table td.name { position: sticky; left: -16px; z-index: 1; background: var(--card); min-width: 128px; box-shadow: 1px 0 0 var(--line); }
-  .stats-table tr.clickable:hover td.name { background: var(--soft); }
 }

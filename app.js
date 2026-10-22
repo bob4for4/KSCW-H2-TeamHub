@@ -177,8 +177,12 @@
 
   const season = () => state.league.seasons[state.season];
   const isUs = (g, s) => g.home === s.team || g.away === s.team;
-  const teamGames = (s) => s.games.filter((g) => isUs(g, s));
   const hasScore = (g) => Array.isArray(g.score) && g.score[0] != null && g.score[1] != null;
+  // A forfeit comes from basketplan as a 20–0 result with no date (and no venue).
+  const isForfeit = (g) => !g.date && hasScore(g) && Math.max(...g.score) === 20 && Math.min(...g.score) === 0;
+  // Our games in date order; games without a date (forfeits, unscheduled) go last.
+  const teamGames = (s) => s.games.filter((g) => isUs(g, s))
+    .sort((a, b) => (!a.date) - (!b.date) || (a.date || "").localeCompare(b.date || ""));
 
   function ourView(g, s) {
     const home = g.home === s.team;
@@ -193,14 +197,16 @@
   }
 
   function record(s) {
-    let w = 0, l = 0, pf = 0, pa = 0;
+    // Forfeits count as a win or loss, but their 20–0 is left out of the points averages.
+    let w = 0, l = 0, pf = 0, pa = 0, scored = 0;
     teamGames(s).forEach((g) => {
       const v = ourView(g, s);
       if (!v.played || !g.counts) return;
       v.win ? w++ : l++;
-      pf += v.us; pa += v.them;
+      if (isForfeit(g)) return;
+      pf += v.us; pa += v.them; scored++;
     });
-    return { w, l, pf, pa, gp: w + l };
+    return { w, l, pf, pa, gp: w + l, scored };
   }
 
   // Standings worked out from final results: points, then head-to-head, then point difference.
@@ -209,7 +215,7 @@
     const row = (name) => (t[name] = t[name] || { team: name, gp: 0, w: 0, l: 0, pts: 0, pf: 0, pa: 0, form: [] });
     s.games.forEach((g) => { row(g.home); row(g.away); });
     const played = s.games.filter((g) => hasScore(g) && g.counts)
-      .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+      .sort((a, b) => (!a.date) - (!b.date) || (a.date || "").localeCompare(b.date || ""));
     played.forEach((g) => {
       const h = row(g.home), a = row(g.away);
       const hw = g.score[0] > g.score[1];
@@ -474,8 +480,8 @@
       html += '<section class="card"><div class="card-head"><h3>Last season · ' + esc(prev.season) + '</h3><a href="#schedule" data-season-link="1">Results →</a></div>' +
         '<div class="statline two"><div class="stat-tile"><b>' + rec.w + "–" + rec.l + "</b><span>Record</span></div>" +
         (pt ? '<div class="stat-tile"><b>' + ordinal(pt.rank) + "</b><span>" + esc(leagueName(prev)) + "</span></div>" : "") +
-        '<div class="stat-tile"><b>' + (rec.gp ? fmt1(rec.pf / rec.gp) : "–") + "</b><span>PPG</span></div>" +
-        '<div class="stat-tile"><b>' + (rec.gp ? fmt1(rec.pa / rec.gp) : "–") + "</b><span>Opp PPG</span></div></div></section>";
+        '<div class="stat-tile"><b>' + (rec.scored ? fmt1(rec.pf / rec.scored) : "–") + "</b><span>PPG</span></div>" +
+        '<div class="stat-tile"><b>' + (rec.scored ? fmt1(rec.pa / rec.scored) : "–") + "</b><span>Opp PPG</span></div></div></section>";
     }
 
     // Scouting (rows from the Scouting tab)
@@ -499,7 +505,7 @@
   }
 
   function whenCell(g) {
-    if (!g.date) return '<div class="when"><div class="wd">TBA</div></div>';
+    if (!g.date) return '<div class="when"><div class="wd">' + (isForfeit(g) ? "No date" : "TBA") + "</div></div>";
     const d = asDate(g.date);
     return '<div class="when"><div class="wd">' + d.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" }) + " " + d.getUTCFullYear() + '</div><div class="dm">' +
       d.toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" }) + '</div><div class="tm">' + esc(g.time || "") + "</div></div>";
@@ -507,10 +513,12 @@
 
   function gameRow(g, s, details) {
     const v = ourView(g, s);
+    const ff = isForfeit(g);
+    const where = ff ? "Forfeit: " + (v.win ? esc(short(v.opp)) + " didn't play, so we were awarded the win 20–0." : "we didn't play, so the game was awarded 0–20.") : venueLink(g);
     let html = '<li class="game">' + whenCell(g) + '<div class="opp">' + teamMark(v.opp) + '<div class="t"><span class="ha">' + (v.home ? "VS" : "@") + "</span>" + esc(short(v.opp)) +
-      "<small>" + venueLink(g) + "</small></div></div>" +
+      "<small>" + where + "</small></div></div>" +
       '<div class="result">' + (v.played ? resultText(v) : g.withdrawn ? '<span class="muted small">Cancelled</span>' : '<span class="badge home">' + (v.home ? "HOME" : "AWAY") + "</span>") + "</div>";
-    if (details && v.played) {
+    if (details && v.played && !ff) {
       html += "<details><summary>Box score</summary><div class=\"box\">" + quarterTable(g) + boxScore(g) +
         (g.referees.length ? '<div class="small muted" style="margin-top:10px">Referees: ' + g.referees.map(esc).join(", ") + "</div>" : "") + "</div></details>";
     }
@@ -645,7 +653,8 @@
     const grp = (view, i) => (mode !== "both" || view === "both" ? "" : (view === "avg" ? "ga" : "gt") + (statCols.findIndex((c) => c[2] === view) === i ? " gstart" : ""));
     const count = (v) => statCols.filter((c) => c[2] === v).length;
     const groupRow = mode === "both"
-      ? '<tr class="grp-row"><th colspan="' + count("both") + '"></th><th colspan="' + count("avg") + '" class="ga gstart">Per game</th><th colspan="' + count("tot") + '" class="gt gstart">Totals</th></tr>'
+      ? '<tr class="grp-row"><th></th>' + (count("both") > 1 ? '<th colspan="' + (count("both") - 1) + '"></th>' : "") +
+        '<th colspan="' + count("avg") + '" class="ga gstart">Per game</th><th colspan="' + count("tot") + '" class="gt gstart">Totals</th></tr>'
       : "";
     const k = state.sort.key, d = state.sort.dir;
     list.sort((a, b) => (k === "name" ? a.name.localeCompare(b.name) * d : (a[k] - b[k]) * d) || b.ppg - a.ppg);
@@ -657,7 +666,7 @@
       ? (mode === "both" ? "" : '<div class="card-head stats-head">' + modeToggle + "</div>") +
         '<div class="table-wrap"><table class="stats-table"><thead>' + groupRow + "<tr>" + statCols.map(([key, label, view], i) =>
           '<th class="sortable ' + (key === k ? "sorted" : "") + (key === "name" ? " left" : "") + " " + grp(view, i) + '" data-sort="' + key + '"' + (STAT_INFO[label] ? ' title="' + STAT_INFO[label] + '"' : "") + ">" +
-            label + (key === k ? (d < 0 ? " ▾" : " ▴") : "") + "</th>").join("") + "</tr></thead><tbody>" +
+            label + (key === k ? '<span class="arr">' + (d < 0 ? "▾" : "▴") + "</span>" : "") + "</th>").join("") + "</tr></thead><tbody>" +
         list.map((o) => '<tr class="clickable" data-player="' + esc(o.slug) + '">' + statCols.map(([key, , view], i) =>
           key === "name" ? '<td class="name"><div class="teamcell">' + avatar(playerBySlug(o.slug) || { name: o.name }, "") + "<span>" + esc(o.name) + "</span></div></td>"
             : '<td class="' + (key === k ? "hi " : "") + grp(view, i) + '">' + fmt(o, key) + "</td>").join("") + "</tr>").join("") +
