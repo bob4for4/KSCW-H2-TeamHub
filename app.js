@@ -17,6 +17,7 @@
     season: 0, // index into league.seasons (0 = current)
     leagueTeam: "",
     sort: { key: "ppg", dir: -1 },
+    statsMode: "avg", // Stats page: "avg" (per game) or "tot" (season totals)
   };
   let countdownTimer = null;
 
@@ -378,7 +379,7 @@
     rows.sort((a, b) => b.pts - a.pts);
     const t = trackedIn(rows);
     const cols = [["pts", "PTS"], ["tpm", "3PM"], ["ftm", "FTM"], ["pf", "PF"]].filter(([k]) => t[k]);
-    return '<h3 style="margin-top:14px">H2 box score</h3><div class="table-wrap"><table><thead><tr><th>Player</th>' + cols.map((c) => "<th>" + c[1] + "</th>").join("") + "</tr></thead><tbody>" +
+    return '<h3 style="margin-top:14px">H2 box score</h3><div class="table-wrap"><table><thead><tr><th>Player</th>' + cols.map((c) => statTh(c[1])).join("") + "</tr></thead><tbody>" +
       rows.map((r) => '<tr><td class="name">' + playerLink(r.player) + "</td>" + cols.map(([k], i) => '<td class="' + (i === 0 ? "hi" : "") + '">' + (k === "pts" ? statCell(r[k]) : statCell(r[k], r.est)) + "</td>").join("") + "</tr>").join("") +
       "</tbody></table></div>";
   }
@@ -597,8 +598,8 @@
       const cols = [["tpm", "3PM"], ["ftm", "FTM"], ["pf", "PF"]].filter(([k]) => list.tracked[k]);
       const showGs = list.tracked.gs;
       const rows = o.games.slice().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-      html += '<section class="card" style="margin-top:20px"><div class="card-head"><h3>Game log · ' + esc(sn.season) + '</h3></div><div class="table-wrap"><table><thead><tr><th>Date</th><th class="left">Opponent</th><th>Result</th>' + (showGs ? '<th title="Started the game">GS</th>' : "") + '<th>PTS</th>' +
-        cols.map((c) => "<th>" + c[1] + "</th>").join("") + "</tr></thead><tbody>" +
+      html += '<section class="card" style="margin-top:20px"><div class="card-head"><h3>Game log · ' + esc(sn.season) + '</h3></div><div class="table-wrap"><table><thead><tr><th>Date</th><th class="left">Opponent</th><th>Result</th>' + (showGs ? statTh("GS") : "") + statTh("PTS") +
+        cols.map((c) => statTh(c[1])).join("") + "</tr></thead><tbody>" +
         rows.map((r) => {
           const g = gameForStat(r, sn);
           const v = g ? ourView(g, sn) : null;
@@ -611,33 +612,51 @@
     return html;
   }
 
+  // What each stat abbreviation means (hover text on headers, key under the table).
+  const STAT_INFO = {
+    GP: "Games played", GS: "Games started", PPG: "Points per game", PTS: "Points",
+    "3PM/G": "3-pointers made per game", "3PM": "3-pointers made", "FTM/G": "Free throws made per game", FTM: "Free throws made",
+    "PF/G": "Personal fouls per game", PF: "Personal fouls",
+  };
+  const statTh = (label, attrs) => "<th" + (attrs || "") + (STAT_INFO[label] ? ' title="' + STAT_INFO[label] + '"' : "") + ">" + label + "</th>";
+
+  // [key, label, shown in "avg" / "tot" view]
   const STAT_COLS = [
-    ["name", "Player", false], ["gp", "GP", true], ["gs", "GS", true], ["ppg", "PPG", true], ["pts", "PTS", true], ["tpg", "3PM/G", true], ["tpm", "3PM", true],
-    ["ftpg", "FTM/G", true], ["ftm", "FTM", true], ["pfpg", "PF/G", true], ["pf", "PF", true],
+    ["name", "Player", "both"], ["gp", "GP", "both"], ["gs", "GS", "both"], ["ppg", "PPG", "avg"], ["pts", "PTS", "tot"], ["tpg", "3PM/G", "avg"], ["tpm", "3PM", "tot"],
+    ["ftpg", "FTM/G", "avg"], ["ftm", "FTM", "tot"], ["pfpg", "PF/G", "avg"], ["pf", "PF", "tot"],
   ];
+  // Same stat in the other view, so the sort follows when switching.
+  const STAT_PAIR = { ppg: "pts", pts: "ppg", tpg: "tpm", tpm: "tpg", ftpg: "ftm", ftm: "ftpg", pfpg: "pf", pf: "pfpg" };
 
   function viewStats() {
     const isCur = state.season === 0;
     const s = season();
     const all = statsFor(state.season);
     const list = all.filter((o) => o.gp > 0);
-    const statCols = STAT_COLS.filter(([key]) => {
+    const mode = state.statsMode;
+    const statCols = STAT_COLS.filter(([key, , view]) => {
       const base = { tpg: "tpm", tpm: "tpm", ftpg: "ftm", ftm: "ftm", pfpg: "pf", pf: "pf", gs: "gs" }[key];
-      return !base || all.tracked[base];
+      return (view === "both" || view === mode) && (!base || all.tracked[base]);
     });
     const k = state.sort.key, d = state.sort.dir;
     list.sort((a, b) => (k === "name" ? a.name.localeCompare(b.name) * d : (a[k] - b[k]) * d) || b.ppg - a.ppg);
     const fmt = (o, key) => (["ppg", "tpg", "ftpg", "pfpg"].includes(key) ? fmt1(o[key]) : total(o[key]));
+    const modeToggle = '<div class="seg" role="group" aria-label="Show">' + [["avg", "Averages"], ["tot", "Totals"]].map(([m, label]) =>
+      '<button type="button" data-statmode="' + m + '" class="' + (m === mode ? "on" : "") + '">' + label + "</button>").join("") + "</div>";
+    const key2 = statCols.filter(([, label]) => STAT_INFO[label]).map(([, label]) => "<b>" + label + "</b> " + STAT_INFO[label].toLowerCase()).join(" · ");
     const body = list.length
-      ? '<div class="table-wrap"><table><thead><tr>' + statCols.map(([key, label]) =>
-          '<th class="sortable ' + (key === k ? "sorted" : "") + (key === "name" ? " left" : "") + '" data-sort="' + key + '">' + label + (key === k ? (d < 0 ? " ▾" : " ▴") : "") + "</th>").join("") + "</tr></thead><tbody>" +
+      ? '<div class="card-head stats-head">' + modeToggle + "</div>" +
+        '<div class="table-wrap"><table><thead><tr>' + statCols.map(([key, label]) =>
+          '<th class="sortable ' + (key === k ? "sorted" : "") + (key === "name" ? " left" : "") + '" data-sort="' + key + '"' + (STAT_INFO[label] ? ' title="' + STAT_INFO[label] + '"' : "") + ">" +
+            label + (key === k ? (d < 0 ? " ▾" : " ▴") : "") + "</th>").join("") + "</tr></thead><tbody>" +
         list.map((o) => '<tr class="clickable" data-player="' + esc(o.slug) + '">' + statCols.map(([key]) =>
           key === "name" ? '<td class="name"><div class="teamcell">' + avatar(playerBySlug(o.slug) || { name: o.name }, "") + "<span>" + esc(o.name) + "</span></div></td>"
             : '<td class="' + (key === k ? "hi" : "") + '">' + fmt(o, key) + "</td>").join("") + "</tr>").join("") +
         "</tbody></table></div>"
       : empty(isCur ? "No stats yet this season. They appear here after the first game is entered." : "No stats for this season yet.");
     return '<div class="toolbar"><h2>Stats</h2>' + seasonToggle() + '</div><section class="card">' + body +
-      '<p class="small muted" style="margin:12px 0 0">' + esc(s.season) + ". Per-game numbers count only games a player played. Tap a column to sort." +
+      (list.length ? '<p class="small muted stat-key">' + key2 + "</p>" : "") +
+      '<p class="small muted" style="margin:8px 0 0">' + esc(s.season) + ". Per-game numbers count only games a player played. Tap a column to sort." +
       (all.tracked.gs && list.some((o) => o.games.some((r) => r.gs == null)) ? " GS counts only games where starters are marked on the score sheet." : "") + "</p></section>";
   }
 
@@ -782,6 +801,12 @@
     if (seasonBtn) { state.season = +seasonBtn.dataset.season; render(); return; }
     const seasonLink = e.target.closest("[data-season-link]");
     if (seasonLink) { e.preventDefault(); state.season = +seasonLink.dataset.seasonLink; location.hash = seasonLink.getAttribute("href"); return; }
+    const modeBtn = e.target.closest("[data-statmode]");
+    if (modeBtn) {
+      state.statsMode = modeBtn.dataset.statmode;
+      if (STAT_PAIR[state.sort.key]) state.sort = { key: STAT_PAIR[state.sort.key], dir: state.sort.dir };
+      render(); return;
+    }
     const th = e.target.closest("th[data-sort]");
     if (th) {
       const key = th.dataset.sort;

@@ -435,3 +435,10 @@ select { border-radius: 2px; }
 /* Stat grid: dividers on the tiles themselves so empty grid slots stay blank */
 .statline { background: none; gap: 0; }
 .stat-tile { outline: 1px solid var(--line); outline-offset: -0.5px; }
+
+/* Stats page: Averages / Totals switch and the abbreviation key */
+.stats-head { justify-content: flex-start; }
+th[title] { text-decoration: underline dotted; text-decoration-color: var(--line); text-underline-offset: 4px; }
+th[title]:hover { text-decoration-color: currentColor; }
+.stat-key { margin: 14px 0 0; line-height: 1.7; }
+.stat-key b { color: var(--ink); font-weight: 700; }
