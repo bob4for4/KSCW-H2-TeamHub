@@ -1025,10 +1025,26 @@
     if (focus) { const f = document.querySelector('[data-att="' + focus + '"]'); if (f) f.focus(); }
   }
 
+  // Google sometimes answers with an error page instead of data, mostly right after a quiet
+  // spell. So every request is tried up to 3 times before the hub gives up.
+  async function attFetch(opts) {
+    for (let tries = 1; ; tries++) {
+      try {
+        const res = await fetch(CFG.attendanceUrl, { cache: "no-store", ...opts });
+        const data = await res.json();
+        if (data && (data.answers || data.error)) return data;
+        throw new Error("no data");
+      } catch (e) {
+        if (tries >= 3) throw e;
+        await new Promise((r) => setTimeout(r, 1000 * tries));
+      }
+    }
+  }
+
   async function attLoad() {
     if (!CFG.attendanceUrl) return;
     try {
-      const data = await (await fetch(CFG.attendanceUrl, { cache: "no-store" })).json();
+      const data = await attFetch();
       if (!data.ok) throw new Error(data.error);
       state.att.answers = data.answers || {};
       state.att.away = data.away || [];
@@ -1042,11 +1058,27 @@
   // Every tap shows at once and goes into a queue. Whatever is queued is sent in one
   // request; taps made meanwhile go in the next one. So the buttons never wait for Google,
   // and many quick taps cost one or two round trips instead of one each.
-  function attSend(body) {
+  function attSend(body, x) {
     state.att.queue.push({ body });
     state.att.error = "";
-    attRefresh();
+    if (x) attRedrawCard(x); else attRefresh();
     attFlush();
+  }
+
+  // After a tap only that session's card is redrawn (on Home and the Attendance page),
+  // which keeps tapping quick even on slow phones.
+  function attRedrawCard(x) {
+    document.querySelectorAll('[data-att="' + x.id + '|in"]').forEach((b) => {
+      const card = b.closest(".att-session");
+      const open = card.querySelector("details[open]");
+      const tmp = document.createElement("div");
+      tmp.innerHTML = attSession(x, !!card.closest(".att-list.compact"));
+      const fresh = tmp.firstElementChild;
+      if (open && fresh.querySelector("details")) fresh.querySelector("details").open = true;
+      card.replaceWith(fresh);
+    });
+    const err = document.querySelector(".att-msg.err");
+    if (err) err.remove();
   }
 
   async function attFlush() {
@@ -1057,7 +1089,7 @@
       const batch = state.att.queue.slice();
       let data = null;
       try {
-        data = await (await fetch(CFG.attendanceUrl, { method: "POST", body: JSON.stringify({ a: "batch", items: batch.map((q) => q.body) }) })).json();
+        data = await attFetch({ method: "POST", body: JSON.stringify({ a: "batch", items: batch.map((q) => q.body) }) });
       } catch (e) {
         data = { ok: false, error: "no connection" };
       }
@@ -1149,7 +1181,7 @@
       const [id, status] = attBtn.dataset.att.split("|");
       const x = attSessions().find((v) => v.id === id);
       if (!name || !x || attStatus(x, name) === status) return;
-      attSend({ a: "set", session: id, date: x.date, label: x.label, player: name, status });
+      attSend({ a: "set", session: id, date: x.date, label: x.label, player: name, status }, x);
       return;
     }
     const unaway = e.target.closest("[data-unaway]");
