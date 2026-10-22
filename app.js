@@ -488,7 +488,9 @@
     const today = todayStr();
     const items = state.news.map((n) => ({ date: normDate(pick(n, "date")), until: normDate(pick(n, "until")), title: pick(n, "title", "headline"), text: pick(n, "text", "body"), link: pick(n, "link", "url") }))
       .filter((n) => n.title && !(n.date && n.date > today) && !(n.until && n.until < today));
-    items.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+    // Soonest game first (by "until", the game date); rows without one go last.
+    const key = (n) => n.until || "9999";
+    items.sort((a, b) => key(a).localeCompare(key(b)));
     if (!items.length) return empty("No scouting videos for the next game.");
     return '<ul class="news">' + items.slice(0, 6).map((n) => '<li><div class="nd">' + esc(fmtDayYear(n.date)) + '</div><div class="nt">' +
       (n.link ? '<a href="' + esc(n.link) + '" target="_blank" rel="noopener">' + esc(n.title) + "</a>" : esc(n.title)) + "</div>" +
