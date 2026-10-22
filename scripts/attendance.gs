@@ -91,6 +91,8 @@ function setAnswer_(b) {
 function addAway_(b) {
   if (!isDate_(b.from) || !isDate_(b.to) || b.to < b.from) throw new Error("Check the dates");
   if (b.to < today_()) throw new Error("That period is already over");
+  // the hub may send a change twice if Google's first reply got lost
+  if (rows_("away").some((r) => r.player === b.player && r.from === b.from && r.to === b.to)) return;
   sheet_("away").appendRow([b.player, b.from, b.to, now_()]);
 }
 
