@@ -652,11 +652,16 @@
       : STAT_COLS.filter(shown);
     const grp = (view, i) => (mode !== "both" || view === "both" ? "" : (view === "avg" ? "ga" : "gt") + (statCols.findIndex((c) => c[2] === view) === i ? " gstart" : ""));
     const count = (v) => statCols.filter((c) => c[2] === v).length;
-    const groupRow = mode === "both"
-      ? '<tr class="grp-row"><th></th>' + (count("both") > 1 ? '<th colspan="' + (count("both") - 1) + '"></th>' : "") +
-        '<th colspan="' + count("avg") + '" class="ga gstart">Per game</th><th colspan="' + count("tot") + '" class="gt gstart">Totals</th></tr>'
-      : "";
     const k = state.sort.key, d = state.sort.dir;
+    const headTh = ([key, label, view], i, extra) =>
+      '<th class="sortable ' + (key === k ? "sorted" : "") + (key === "name" ? " left pcol" : "") + " " + grp(view, i) + '" data-sort="' + key + '"' + (STAT_INFO[label] ? ' title="' + STAT_INFO[label] + '"' : "") + (extra || "") + ">" +
+        label + (key === k ? '<span class="arr">' + (d < 0 ? "▾" : "▴") + "</span>" : "") + "</th>";
+    // Side by side: "Player" spans both header rows, so the pinned column is one clean block on phones.
+    const head = mode === "both"
+      ? '<tr class="grp-row">' + headTh(statCols[0], 0, ' rowspan="2"') + (count("both") > 1 ? '<th colspan="' + (count("both") - 1) + '"></th>' : "") +
+        '<th colspan="' + count("avg") + '" class="ga gstart">Per game</th><th colspan="' + count("tot") + '" class="gt gstart">Totals</th></tr>' +
+        "<tr>" + statCols.map((c, i) => (i ? headTh(c, i) : "")).join("") + "</tr>"
+      : "<tr>" + statCols.map((c, i) => headTh(c, i)).join("") + "</tr>";
     list.sort((a, b) => (k === "name" ? a.name.localeCompare(b.name) * d : (a[k] - b[k]) * d) || b.ppg - a.ppg);
     const fmt = (o, key) => (["ppg", "tpg", "ftpg", "pfpg"].includes(key) ? fmt1(o[key]) : total(o[key]));
     const modeToggle = '<div class="seg" role="group" aria-label="Show">' + [["avg", "Averages"], ["tot", "Totals"]].map(([m, label]) =>
@@ -664,11 +669,9 @@
     const key2 = statCols.filter(([, label]) => STAT_INFO[label]).map(([, label]) => "<b>" + label + "</b> " + STAT_INFO[label].toLowerCase()).join(" · ");
     const body = list.length
       ? (mode === "both" ? "" : '<div class="card-head stats-head">' + modeToggle + "</div>") +
-        '<div class="table-wrap"><table class="stats-table"><thead>' + groupRow + "<tr>" + statCols.map(([key, label, view], i) =>
-          '<th class="sortable ' + (key === k ? "sorted" : "") + (key === "name" ? " left" : "") + " " + grp(view, i) + '" data-sort="' + key + '"' + (STAT_INFO[label] ? ' title="' + STAT_INFO[label] + '"' : "") + ">" +
-            label + (key === k ? '<span class="arr">' + (d < 0 ? "▾" : "▴") + "</span>" : "") + "</th>").join("") + "</tr></thead><tbody>" +
+        '<div class="table-wrap"><table class="stats-table"><thead>' + head + "</thead><tbody>" +
         list.map((o) => '<tr class="clickable" data-player="' + esc(o.slug) + '">' + statCols.map(([key, , view], i) =>
-          key === "name" ? '<td class="name"><div class="teamcell">' + avatar(playerBySlug(o.slug) || { name: o.name }, "") + "<span>" + esc(o.name) + "</span></div></td>"
+          key === "name" ? '<td class="name pcol"><div class="teamcell">' + avatar(playerBySlug(o.slug) || { name: o.name }, "") + "<span>" + esc(o.name) + "</span></div></td>"
             : '<td class="' + (key === k ? "hi " : "") + grp(view, i) + '">' + fmt(o, key) + "</td>").join("") + "</tr>").join("") +
         "</tbody></table></div>"
       : empty(isCur ? "No stats yet this season. They appear here after the first game is entered." : "No stats for this season yet.");
@@ -813,6 +816,12 @@
     tick();
     countdownTimer = setInterval(tick, 30000);
   }
+
+  // Wide tables: mark when scrolled sideways, so the pinned player column shows its soft edge.
+  document.addEventListener("scroll", (e) => {
+    const w = e.target;
+    if (w.classList && w.classList.contains("table-wrap")) w.classList.toggle("scrolled", w.scrollLeft > 2);
+  }, true);
 
   document.addEventListener("click", (e) => {
     const seasonBtn = e.target.closest("[data-season]");

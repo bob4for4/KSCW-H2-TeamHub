@@ -18,6 +18,7 @@
   --tint-avg: #f1f4fc; /* Stats table: per-game columns */
   --tint-tot: #e3e8f7; /* Stats table: totals columns */
   --hover-veil: rgba(15,23,42,.04);
+  --pin-shadow: rgba(15,23,42,.16);
   --radius: 14px;
   --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
   color-scheme: light;
@@ -26,13 +27,13 @@
   :root:not([data-theme="light"]) {
     --bg: #0b1020; --card: #121a30; --ink: #eef2ff; --ink-2: #c7cfe4; --muted: #8a94b2;
     --line: #222c47; --soft: #18213b; --win: #4ade80; --loss: #fb923c; --us-row: #2a2a1c;
-    --gold-soft: #3a3412; --blue-ink: #a9b8ff; --tint-avg: #16203b; --tint-tot: #1c2850; --hover-veil: rgba(255,255,255,.04); color-scheme: dark;
+    --gold-soft: #3a3412; --blue-ink: #a9b8ff; --tint-avg: #16203b; --tint-tot: #1c2850; --hover-veil: rgba(255,255,255,.04); --pin-shadow: rgba(0,0,0,.45); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0b1020; --card: #121a30; --ink: #eef2ff; --ink-2: #c7cfe4; --muted: #8a94b2;
   --line: #222c47; --soft: #18213b; --win: #4ade80; --loss: #fb923c; --us-row: #2a2a1c;
-  --gold-soft: #3a3412; --blue-ink: #a9b8ff; --tint-avg: #16203b; --tint-tot: #1c2850; --hover-veil: rgba(255,255,255,.04); color-scheme: dark;
+  --gold-soft: #3a3412; --blue-ink: #a9b8ff; --tint-avg: #16203b; --tint-tot: #1c2850; --hover-veil: rgba(255,255,255,.04); --pin-shadow: rgba(0,0,0,.45); color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -449,8 +450,8 @@ th[title]:hover { text-decoration-color: currentColor; }
 /* Stats table: per-game and totals side by side, each with its own tint.
    Every stat column has the same width and centred numbers, so the dotted
    dividers sit exactly halfway between neighbours and both blocks end evenly. */
-.stats-table { --stat-w: 74px; }
-.stats-table th:not(:first-child), .stats-table td:not(.name) {
+.stats-table { --stat-w: 74px; border-collapse: separate; border-spacing: 0; }
+.stats-table th:not(.pcol), .stats-table td:not(.pcol) {
   width: var(--stat-w); min-width: var(--stat-w); padding-left: 6px; padding-right: 6px;
   text-align: center; font-variant-numeric: tabular-nums;
 }
@@ -465,9 +466,17 @@ th[title]:hover { text-decoration-color: currentColor; }
 .stats-table tr.clickable:hover td.ga { background-color: var(--tint-avg); }
 .stats-table tr.clickable:hover td.gt { background-color: var(--tint-tot); }
 .stats-table .grp-row th { padding: 10px 6px 2px; text-align: center; font-size: 10px; letter-spacing: .12em; color: var(--blue-ink); border-bottom: 0; text-decoration: none; }
+/* "Player" spans both header rows and looks like the other column labels */
+.stats-table .grp-row th.pcol { vertical-align: bottom; text-align: left; padding: 4px 8px 10px; font-size: 11px; letter-spacing: .08em; color: var(--muted); border-bottom: 1px solid var(--line); }
+.stats-table .grp-row th.pcol.sorted, .stats-table .grp-row th.pcol:hover { color: var(--ink); }
 @media (max-width: 760px) {
   .stats-table { --stat-w: 58px; }
-  /* Keep the player column in view while the stats scroll sideways */
-  .stats-table .grp-row th:first-child { background: var(--card); }
-  .stats-table th:first-child, .stats-table td.name { position: sticky; left: -16px; z-index: 1; background: var(--card); min-width: 128px; box-shadow: 1px 0 0 var(--line); }
+  /* Keep the player column in view while the stats slide underneath it */
+  .stats-table th.pcol, .stats-table td.pcol { position: sticky; left: -16px; z-index: 2; background: var(--card); min-width: 128px; }
+  .stats-table th.pcol::after, .stats-table td.pcol::after {
+    content: ""; position: absolute; top: 0; bottom: -1px; right: -16px; width: 16px; pointer-events: none;
+    background: linear-gradient(to right, var(--pin-shadow), transparent); opacity: 0; transition: opacity .15s;
+  }
+  .table-wrap.scrolled .stats-table th.pcol::after, .table-wrap.scrolled .stats-table td.pcol::after { opacity: 1; }
+  .stats-table tr.clickable:hover td.pcol { background: var(--card); }
 }
