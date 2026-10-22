@@ -470,7 +470,11 @@ th[title]:hover { text-decoration-color: currentColor; }
 .stats-table .grp-row th.pcol { vertical-align: bottom; text-align: left; padding: 4px 8px 10px; font-size: 11px; letter-spacing: .08em; color: var(--muted); border-bottom: 1px solid var(--line); }
 .stats-table .grp-row th.pcol.sorted, .stats-table .grp-row th.pcol:hover { color: var(--ink); }
 @media (max-width: 760px) {
-  .stats-table { --stat-w: 58px; }
+  .stats-table { --stat-w: 52px; }
+  /* Sideways scrolling snaps to three stops (GP/GS, Per game, Totals) so the
+     movement ends quickly and you can scroll up or down again right away. */
+  .table-wrap.stats-wrap { scroll-snap-type: x mandatory; scroll-padding-left: 128px; overscroll-behavior-x: contain; }
+  .stats-table .snap { scroll-snap-align: start; }
   /* Keep the player column in view while the stats slide underneath it */
   .stats-table th.pcol, .stats-table td.pcol { position: sticky; left: -16px; z-index: 2; background: var(--card); min-width: 128px; }
   .stats-table th.pcol::after, .stats-table td.pcol::after {

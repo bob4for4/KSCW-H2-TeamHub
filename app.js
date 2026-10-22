@@ -654,7 +654,7 @@
     const count = (v) => statCols.filter((c) => c[2] === v).length;
     const k = state.sort.key, d = state.sort.dir;
     const headTh = ([key, label, view], i, extra) =>
-      '<th class="sortable ' + (key === k ? "sorted" : "") + (key === "name" ? " left pcol" : "") + " " + grp(view, i) + '" data-sort="' + key + '"' + (STAT_INFO[label] ? ' title="' + STAT_INFO[label] + '"' : "") + (extra || "") + ">" +
+      '<th class="sortable ' + (key === k ? "sorted" : "") + (key === "name" ? " left pcol" : "") + " " + grp(view, i) + (i === 1 || / gstart/.test(grp(view, i)) ? " snap" : "") + '" data-sort="' + key + '"' + (STAT_INFO[label] ? ' title="' + STAT_INFO[label] + '"' : "") + (extra || "") + ">" +
         label + (key === k ? '<span class="arr">' + (d < 0 ? "▾" : "▴") + "</span>" : "") + "</th>";
     // Side by side: "Player" spans both header rows, so the pinned column is one clean block on phones.
     const head = mode === "both"
@@ -669,7 +669,7 @@
     const key2 = statCols.filter(([, label]) => STAT_INFO[label]).map(([, label]) => "<b>" + label + "</b> " + STAT_INFO[label].toLowerCase()).join(" · ");
     const body = list.length
       ? (mode === "both" ? "" : '<div class="card-head stats-head">' + modeToggle + "</div>") +
-        '<div class="table-wrap"><table class="stats-table"><thead>' + head + "</thead><tbody>" +
+        '<div class="table-wrap stats-wrap"><table class="stats-table"><thead>' + head + "</thead><tbody>" +
         list.map((o) => '<tr class="clickable" data-player="' + esc(o.slug) + '">' + statCols.map(([key, , view], i) =>
           key === "name" ? '<td class="name pcol"><div class="teamcell">' + avatar(playerBySlug(o.slug) || { name: o.name }, "") + "<span>" + esc(o.name) + "</span></div></td>"
             : '<td class="' + (key === k ? "hi " : "") + grp(view, i) + '">' + fmt(o, key) + "</td>").join("") + "</tr>").join("") +
