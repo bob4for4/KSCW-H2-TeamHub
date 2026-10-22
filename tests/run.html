@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hub tests</title>
+<style>
+  :root { --bg: #f4f5f8; --ink: #0f172a; --muted: #64748b; --ok: #15803d; --bad: #c2410c; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0b1020; --ink: #eef2ff; --muted: #8a94b2; --ok: #4ade80; --bad: #fb923c; } }
+  :root[data-theme="dark"] { --bg: #0b1020; --ink: #eef2ff; --muted: #8a94b2; --ok: #4ade80; --bad: #fb923c; }
+  body { margin: 0; padding: 16px; background: var(--bg); color: var(--ink); font: 14px/1.5 system-ui, sans-serif; }
+  h1 { font-size: 18px; margin: 0 0 8px; }
+  #sum { font-weight: 700; margin-bottom: 8px; }
+  li.ok::marker { content: "✓  "; color: var(--ok); }
+  li.bad::marker { content: "✗  "; color: var(--bad); }
+  li.bad { color: var(--bad); }
+  li small { color: var(--muted); }
+  iframe { border: 1px solid #8884; width: 1100px; height: 700px; max-width: 100%; margin-top: 12px; background: #fff; }
+</style>
+</head>
+<body>
+<h1>Attendance tests</h1>
+<div id="sum">Running…</div>
+<ol id="out"></ol>
+<iframe id="hub" title="Hub under test"></iframe>
+<script>
+/* Drives the real hub in the frame against tests/mock_server.py, the way a player would:
+ * fast taps, a slow or failing Google, away periods, reloads, phone width, training rules. */
+const F = document.getElementById("hub");
+const D = () => F.contentDocument;
+const $ = (s) => D().querySelector(s);
+const $$ = (s) => [...D().querySelectorAll(s)];
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const results = [];
+let current = "";
+
+async function waitFor(fn, ms = 8000, what = "condition") {
+  const end = Date.now() + ms;
+  for (;;) {
+    let v; try { v = fn(); } catch (e) { v = false; }
+    if (v) return v;
+    if (Date.now() > end) throw new Error("timed out waiting for " + what);
+    await sleep(50);
+  }
+}
+function check(cond, msg) { if (!cond) throw new Error(msg); }
+const ctl = async (q) => (await fetch("/att/_control?" + q)).json();
+const server = () => ctl("");
+async function load(hash = "attendance", width = 1100) {
+  F.style.width = width + "px";
+  // wait for the new page's load event, not the old page that is still showing
+  const loaded = new Promise((r) => F.addEventListener("load", r, { once: true }));
+  F.src = "/index.html?local=1&t=" + Date.now() + "#" + hash;
+  await loaded;
+  await waitFor(() => D() && D().readyState === "complete" && $("#view") && !/Loading/.test($("#view").textContent), 10000, "hub to load");
+  await waitFor(() => !$$(".att-msg").some((m) => /Loading answers/.test(m.textContent)), 10000, "answers to load");
+}
+const pick = (name) => { const s = $("#att-me"); s.value = name; s.dispatchEvent(new Event("change", { bubbles: true })); };
+const sessions = () => $$(".att-session").filter((a) => a.querySelector("[data-att]"));
+const idOf = (a) => a.querySelector("[data-att]").dataset.att.split("|")[0];
+function btn(id, st) {
+  const b = $('[data-att="' + id + "|" + st + '"]');
+  if (!b) throw new Error("no " + st + " button for " + id + " (on page: " + $$("[data-att]").map((x) => x.dataset.att).join(", ") + "; view: " + $("#view").textContent.slice(0, 80) + ")");
+  return b;
+}
+const idle = () => waitFor(() => !$(".att-saving") && !/Saving/.test((D().getElementById("att-status") || {}).textContent || ""), 30000, "all saves to finish");
+const mine = (data, id, name) => data.answers[id] && data.answers[id][name];
+
+async function test(name, fn) {
+  current = name;
+  await ctl("delay=0&fail=0"); // every test starts with a quick, working backend
+  const t0 = performance.now();
+  try { await fn(); results.push({ name, ok: true, ms: performance.now() - t0 }); }
+  catch (e) { results.push({ name, ok: false, err: e.message }); }
+  const li = document.createElement("li");
+  const r = results[results.length - 1];
+  li.className = r.ok ? "ok" : "bad";
+  li.innerHTML = r.name + (r.ok ? " <small>" + Math.round(r.ms) + " ms</small>" : " — " + r.err);
+  document.getElementById("out").appendChild(li);
+}
+
+async function run() {
+  const ME = "Philipp", OTHER = "Sven";
+  await ctl("reset=1&delay=0&fail=0");
+  await fetch("/att/_control", { method: "POST", body: "" });
+
+  await test("Page loads with trainings and games, nothing blocked", async () => {
+    await load();
+    check(sessions().length >= 4, "expected at least 4 sessions, got " + sessions().length);
+    check($$(".att-session.game").length >= 1 && $$(".att-session.training").length >= 1, "need both games and trainings");
+  });
+
+  await test("Without a name the buttons are off; picking a name turns them on and is remembered", async () => {
+    pick("");
+    check($$(".att-btns button").every((b) => b.disabled), "buttons should be off without a name");
+    pick(ME);
+    check($$(".att-btns button").every((b) => !b.disabled), "buttons should be on");
+    await load();
+    check($("#att-me").value === ME, "name not remembered after reload");
+  });
+
+  await test("Slow Google (2.5 s): tapping In on every session in a row works instantly", async () => {
+    await ctl("delay=2.5");
+    const ids = sessions().map(idOf);
+    const times = [];
+    for (const id of ids) {
+      const t0 = performance.now();
+      btn(id, "in").click(); // the click handler and redraw run in here
+      times.push(performance.now() - t0);
+      await sleep(60);
+    }
+    // the typical tap; a single slow one can come from the browser pausing a background tab
+    const typical = times.slice().sort((a, b) => a - b)[Math.floor(times.length / 2)];
+    check(typical < 100, "a tap typically takes " + Math.round(typical) + " ms to show");
+    ids.forEach((id) => check(btn(id, "in").classList.contains("on-in"), "session " + id + " not shown as In right away"));
+    check($$(".att-btns button").every((b) => !b.disabled), "a button got disabled while saving");
+    check($(".att-saving"), "no 'saving…' hint shown");
+    const before = (await server()).posts;
+    await idle();
+    const s = await server();
+    ids.forEach((id) => check(mine(s, id, ME) === "in", "server has " + mine(s, id, ME) + " for " + id));
+    check(s.posts - before <= 2, ids.length + " taps needed " + (s.posts - before) + " requests (want 1–2)");
+    ids.forEach((id) => check(btn(id, "in").classList.contains("on-in"), "session " + id + " lost In after saving"));
+  });
+
+  await test("Changing your mind fast (In, Out, In, Out) ends on the last tap", async () => {
+    const id = idOf(sessions()[0]);
+    for (const st of ["out", "in", "out"]) { btn(id, st).click(); await sleep(120); }
+    check(btn(id, "out").classList.contains("on-out"), "UI not on Out");
+    await idle();
+    check(mine(await server(), id, ME) === "out", "server not on Out");
+    check(btn(id, "out").classList.contains("on-out"), "UI flipped back after saving");
+  });
+
+  await test("Counts and name lists update, and an open list stays open", async () => {
+    const a = sessions()[1], id = idOf(a);
+    const d = a.querySelector("details"); if (d) d.open = true;
+    btn(id, "out").click();
+    await idle();
+    const again = $('details[data-sid="' + id + '"]');
+    if (d) check(again && again.open, "name list closed after save");
+    const txt = btn(id, "out").closest(".att-session").textContent;
+    check(/1\s*out/.test(txt) && txt.includes(ME), "counts/names not updated: " + txt.slice(0, 120));
+  });
+
+  await test("Another player's answers show after reload", async () => {
+    await ctl("delay=0");
+    const id = idOf(sessions()[2]);
+    await fetch("/att", { method: "POST", body: JSON.stringify({ a: "set", session: id, date: "2099-01-01", player: OTHER, status: "in" }) });
+    await load();
+    check(btn(id, "in").closest(".att-session").textContent.includes(OTHER), OTHER + " missing from the list");
+  });
+
+  await test("Save fails: error shown, answer goes back to what was saved", async () => {
+    await ctl("delay=0.5&fail=1");
+    const id = idOf(sessions()[2]);
+    const before = mine(await server(), id, ME);
+    btn(id, before === "in" ? "out" : "in").click();
+    await idle();
+    check(/Not saved/.test($("#view").textContent), "no error message");
+    const back = before === "in" ? "on-in" : before === "out" ? "on-out" : null;
+    if (back) check(btn(id, before).classList.contains(back), "UI didn't go back to " + before);
+    await ctl("fail=0&delay=0");
+  });
+
+  await test("Typing away dates isn't wiped by a save finishing in the background", async () => {
+    await ctl("delay=1.5");
+    const id = idOf(sessions()[3]);
+    btn(id, btn(id, "in").classList.contains("on-in") ? "out" : "in").click();
+    const f = $("#att-away");
+    f.from.value = "2026-12-20";
+    await idle();
+    check($("#att-away").from.value === "2026-12-20", "From date was wiped");
+    await ctl("delay=0");
+  });
+
+  await test("Away period: shows at once, marks sessions Out · away, can still tap In, can be removed", async () => {
+    await ctl("delay=1");
+    const ts = sessions().filter((a) => a.classList.contains("training"));
+    // clear own answers on the first training so the away period decides it
+    const target = ts[ts.length - 1], id = idOf(target);
+    const date = id.slice(1);
+    await ctl("reset=1");
+    await load();
+    const f = $("#att-away");
+    f.from.value = date; f.to.value = date;
+    f.requestSubmit();
+    check($$(".att-awaylist li").some((li) => li.textContent.includes(ME)), "away period not shown right away");
+    check(btn(id, "out").textContent.includes("away"), "session not shown as Out · away");
+    await idle();
+    check((await server()).away.some((w) => w.player === ME && w.from === date), "away not saved");
+    btn(id, "in").click();
+    check(btn(id, "in").classList.contains("on-in"), "tap In during away didn't show");
+    await idle();
+    $('[data-unaway="' + date + "|" + date + '"]').click();
+    check(!$$(".att-awaylist li").some((li) => li.textContent.includes(ME)), "away not removed right away");
+    await idle();
+    check(!(await server()).away.some((w) => w.player === ME), "away not removed on server");
+    await ctl("delay=0");
+  });
+
+  await test("Home card: answer from Home, same state on the Attendance tab", async () => {
+    await load("home");
+    const a = $(".att-list.compact .att-session [data-att]");
+    check(a, "no Are you in? card");
+    const id = a.dataset.att.split("|")[0];
+    btn(id, "in").click();
+    await idle();
+    await load("attendance");
+    check(btn(id, "in").classList.contains("on-in"), "Home answer not shown on Attendance");
+  });
+
+  await test("Only this month and next are open; a line says when the next month opens", async () => {
+    await load();
+    const d = new Date(), open15 = d.getDate() >= 15;
+    const last = new Date(d.getFullYear(), d.getMonth() + (open15 ? 2 : 1), 0);
+    const lastStr = last.getFullYear() + "-" + String(last.getMonth() + 1).padStart(2, "0") + "-" + String(last.getDate()).padStart(2, "0");
+    const tDates = $$("[data-att^='T']").map((b) => b.dataset.att.slice(1, 11));
+    check(tDates.length && tDates.every((x) => x <= lastStr), "a training after " + lastStr + " is shown");
+    check(tDates.some((x) => x.slice(0, 7) === lastStr.slice(0, 7)), "no trainings in the last open month");
+    const heads = $$(".att-month").map((h) => h.textContent);
+    check(heads.length >= 1 && heads.length <= 2, "month headings: " + heads.join(", "));
+    check(/opens on 15 /.test($("#view").textContent), "no 'opens on 15 …' line");
+  });
+
+  for (const w of [1100, 375]) await test("Buttons line up on every card (" + w + " px wide)", async () => {
+    await load("attendance", w);
+    pick("Philipp");
+    const ins = $$(".att-btns button[data-att$='|in']").map((b) => b.getBoundingClientRect());
+    const outs = $$(".att-btns button[data-att$='|out']").map((b) => b.getBoundingClientRect());
+    check(ins.length > 3, "too few buttons");
+    const spread = (arr, k) => Math.max(...arr.map((r) => r[k])) - Math.min(...arr.map((r) => r[k]));
+    check(spread(ins, "left") < 1 && spread(outs, "right") < 1, "buttons not lined up (left spread " + spread(ins, "left").toFixed(1) + " px)");
+    check(spread(ins, "width") < 1 && spread(outs, "width") < 1, "buttons have different widths");
+    const counts = $$(".att-session .att-count").map((c) => c.getBoundingClientRect().left);
+    check(spread(counts.map((left) => ({ left })), "left") < 1, "the in/out count lines don't start at the same place");
+  });
+
+  await test("Phone width: no sideways scrolling, buttons at least 44 px", async () => {
+    await load("attendance", 375);
+    const doc = D().documentElement;
+    check(doc.scrollWidth <= 376, "page is " + doc.scrollWidth + " px wide");
+    $$(".att-btns button").forEach((b) => check(b.getBoundingClientRect().height >= 44, "button too small"));
+  });
+
+  await test("Training rules: game days skipped, cancelled range, moved and extra trainings", async () => {
+    await load();
+    const games = $$(".att-session.game .att-when").map((e) => e.textContent.split(" · ")[0]);
+    const trains = $$(".att-session.training .att-when").map((e) => e.textContent.split(" · ")[0]);
+    check(!trains.some((t) => games.includes(t)), "a training is planned on a game day");
+    const tIds = $$(".att-session.training").map(idOf).map((x) => x.slice(1));
+    check(tIds.length >= 2, "need two trainings");
+    const [d1, d2] = tIds;
+    const nextDay = new Date(d1 + "T12:00:00Z"); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
+    const extra = nextDay.toISOString().slice(0, 10);
+    const csv = (await (await fetch("/data/Trainings.csv?real=" + Date.now())).text()).trim() + "\n" +
+      "cancelled,," + d1 + ",,,,,,Gym closed\n" +
+      "moved,," + d2 + ",,19:00,20:30,Test Hall,,\n" +
+      "extra,," + extra + ",,18:00,19:30,Extra Gym,,\n";
+    await fetch("/att/_control", { method: "POST", body: csv });
+    await load();
+    const all = $$(".att-session");
+    const byDate = (d) => all.find((a) => a.querySelector("[data-att^='T" + d + "']") || (a.classList.contains("cancelled") && a.textContent.includes("Gym closed") && d === d1));
+    const c = all.find((a) => a.classList.contains("cancelled"));
+    check(c && c.textContent.includes("Gym closed") && !c.querySelector("button"), "cancelled training wrong");
+    const m = byDate(d2);
+    check(m && m.textContent.includes("Test Hall") && m.textContent.includes("19:00") && m.querySelector(".badge.moved"), "moved training wrong");
+    const x = byDate(extra);
+    if (!games.includes(new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }).format(nextDay)))
+      check(x && x.textContent.includes("Extra Gym"), "extra training missing");
+    await fetch("/att/_control", { method: "POST", body: "" });
+  });
+
+  await test("Console has no errors", async () => {
+    check(!window.__hubErrors.length, window.__hubErrors.join(" | "));
+  });
+
+  const bad = results.filter((r) => !r.ok).length;
+  document.getElementById("sum").textContent = (bad ? bad + " failed, " : "All passed: ") + (results.length - bad) + " of " + results.length + " passed";
+  document.title = bad ? "FAIL" : "PASS";
+  window.__results = results;
+}
+window.__hubErrors = [];
+F.addEventListener("load", () => {
+  F.contentWindow.addEventListener("error", (e) => window.__hubErrors.push(e.message));
+  F.contentWindow.addEventListener("unhandledrejection", (e) => window.__hubErrors.push(String(e.reason)));
+});
+run();
+</script>
+</body>
+</html>
