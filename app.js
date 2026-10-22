@@ -9,8 +9,7 @@
   const state = {
     league: null,
     players: [],
-    stats: [],
-    lastSeason: [],
+    stats: [], // rows from every season's stats tab, each tagged with its season index
     awards: [],
     news: [],
     playbook: [],
@@ -103,7 +102,7 @@
   // Reads a tab from the Google Sheet; if the sheet can't be read (not shared,
   // offline, tab renamed), falls back to the CSV copy in data/. Google returns the
   // first tab when a tab name doesn't exist, so the header row is checked too.
-  async function loadTab(name, required) {
+  async function loadTab(name, required, file) {
     const looksRight = (rows) => !!rows && (!rows.length ? true : (required || []).every((c) => c in rows[0]));
     // ?local=1 in the address uses the data/ files only (handy for testing)
     if (CFG.googleSheetId && !/[?&]local=1\b/.test(location.search)) {
@@ -112,7 +111,7 @@
       if (rows && rows.length && looksRight(rows)) return rows;
       console.warn("Google Sheet tab not readable, using data/" + name + ".csv instead:", name);
     }
-    return (await fetchCSV("data/" + encodeURIComponent(name) + ".csv?v=" + Date.now())) || [];
+    return (await fetchCSV("data/" + encodeURIComponent(file || name) + ".csv?v=" + Date.now())) || [];
   }
 
   // ---------- data shaping ----------
@@ -265,7 +264,7 @@
     const games = teamGames(state.league.seasons[idx]);
     const by = {};
     state.stats.forEach((r) => {
-      if (!r.player || r.dnp || r.pts == null) return;
+      if (r.season !== idx || !r.player || r.dnp || r.pts == null) return;
       if (!games.some((g) => statMatchesGame(r, g))) return;
       const k = resolvePlayer(r.player);
       const o = (by[k] = by[k] || { slug: k, name: r.player, gp: 0, pts: 0, tpm: 0, ftm: 0, fta: 0, pf: 0, gs: 0, games: [] });
@@ -276,16 +275,6 @@
     return finishAverages(Object.values(by), trackedIn(Object.values(by).flatMap((o) => o.games)));
   }
 
-  // Last season: one row per player with season totals (gp + totals).
-  // Season totals from the LastSeason tab (one row per player), used when a past
-  // season has no game-by-game rows in the Stats tab.
-  function lastSeasonAverages() {
-    const rows = state.lastSeason.filter((r) => r.player);
-    return finishAverages(rows.map((r) => ({
-      slug: resolvePlayer(r.player), name: r.player, gp: r.gp, pts: r.pts || 0, tpm: r.tpm || 0, ftm: r.ftm || 0, fta: r.fta || 0, pf: r.pf || 0, games: [],
-    })), trackedIn(rows));
-  }
-
   // Which stats were recorded at all in a set of rows.
   function trackedIn(rows) {
     const t = {};
@@ -294,9 +283,7 @@
   }
 
   function statsFor(idx) {
-    const list = playerAverages(idx);
-    if (!list.length && idx > 0) return lastSeasonAverages();
-    return list;
+    return playerAverages(idx);
   }
 
   function finishAverages(list, tracked) {
@@ -490,7 +477,7 @@
         '<div class="stat-tile"><b>' + (rec.gp ? fmt1(rec.pa / rec.gp) : "–") + "</b><span>Opp PPG</span></div></div></section>";
     }
 
-    // Scouting (rows from the News tab)
+    // Scouting (rows from the Scouting tab)
     html += '<section class="card"><div class="card-head"><h3>Scouting</h3></div>' + newsList() + "</section>";
     html += "</div></div>";
     return html;
@@ -825,14 +812,16 @@
       state.clubs = (await res.json()).clubs || [];
     } catch (e) { state.clubs = []; }
     const t = CFG.tabs || {};
-    const [players, stats, lastSeason, awards, news, playbook] = await Promise.all([
-      loadTab(t.players || "Players", ["name"]), loadTab(t.stats || "Stats", ["date", "pts"]), loadTab(t.lastSeason || "LastSeason", ["gp"]),
-      loadTab(t.awards || "Awards", ["award"]), loadTab(t.news || "News", ["title"]), loadTab(t.playbook || "Playbook", ["name", "link"]),
+    // One stats tab per season, e.g. "Stats 2026/27" (local copy: data/Stats-2026-27.csv).
+    const statsTab = (s) => (t.stats || "Stats") + " " + s.season;
+    const [players, awards, news, playbook, ...seasonStats] = await Promise.all([
+      loadTab(t.players || "Players", ["name"]), loadTab(t.awards || "Awards", ["award"]),
+      loadTab(t.news || "News", ["title"]), loadTab(t.playbook || "Playbook", ["name", "link"]),
+      ...state.league.seasons.map((s) => loadTab(statsTab(s), ["date", "pts"], statsTab(s).replace(/[ /]/g, "-"))),
     ]);
     state.playbook = playbook;
     state.players = normPlayers(players);
-    state.stats = stats.map(normStatRow);
-    state.lastSeason = lastSeason.map(normStatRow);
+    state.stats = seasonStats.flatMap((rows, idx) => rows.map((r) => ({ ...normStatRow(r), season: idx })));
     state.awards = awards;
     state.news = news;
 

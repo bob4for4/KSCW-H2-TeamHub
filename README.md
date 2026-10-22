@@ -10,10 +10,9 @@ Team website for KSC Wiedikon Herren 2: home page, schedule and results, standin
 | Standings | Worked out from those results | Automatic |
 | Last season's results and record | basketplan.ch | Automatic |
 | Players (number, position, height, nationality, bio, photo) | Google Sheet, tab `Players` | You |
-| Game stats (points, 3PM, FTM, fouls), this season and last | Google Sheet, tab `Stats` | You (last season is already filled in) |
-| Older seasons as totals only (optional) | Google Sheet, tab `LastSeason` | You |
+| Game stats (points, 3PM, FTM, fouls, starts) | Google Sheet, one tab per season: `Stats 2026/27`, `Stats 2025/26` | You (last season is already filled in) |
 | Awards | Google Sheet, tab `Awards` | You |
-| News | Google Sheet, tab `News`, plus automatic result headlines | You (optional) |
+| Scouting videos | Google Sheet, tab `Scouting` (each post shows 7 days before the game) | You |
 | Other clubs' logos and websites | `data/teams.json` and `assets/teams/` | Already filled in for every team this season |
 
 ## One-time setup
@@ -36,7 +35,7 @@ New results show up on the hub once ProBasket enters them in basketplan (usually
 
 ### 3. Make the Google Sheet
 
-1. Create a new Google Sheet with five tabs named exactly `Players`, `Stats`, `LastSeason`, `Awards`, `News`.
+1. Create a new Google Sheet with tabs named exactly `Players`, `Stats 2026/27`, `Stats 2025/26`, `Awards`, `Scouting`, `Playbook`.
 2. Copy the header row for each tab from the matching file in the `data/` folder (for example `data/Players.csv`), one column name per cell in row 1.
 3. In the `Players` tab, format the `number` column as **Plain text** (Format → Number → Plain text), so jersey numbers like `00` stay as they are.
 4. Click **Share → General access → Anyone with the link → Viewer**. Only you keep edit rights.
@@ -64,19 +63,17 @@ From then on, changes in the sheet show up on the hub the next time someone open
 | photo | Link to an image | Optional. Leave empty to show the jersey number instead |
 | active | yes | Set to `no` to hide someone from the roster |
 
-**Stats**: one row per player per game, for every season. Players who didn't play get no row (or `dnp` = yes). Leave a column empty if you didn't track it: last season only has points, so 3PM, FTM and fouls stay blank and the hub hides those columns for that season.
+**Stats 2026/27** (and `Stats 2025/26` for last season): one row per player per game, one tab per season. Enter this season's games only in this season's tab. Players who didn't play get no row (or `dnp` = yes). Leave a column empty if you didn't track it (fouls, for example): the hub hides a column that has no numbers in that season.
 
-| date | player | pts | 3pm | ftm | fouls | dnp |
-|---|---|---|---|---|---|---|
-| 2026-10-23 | Max Muster | 14 | 2 | 4 | 3 | |
+| date | player | pts | 3pm | ftm | fouls | dnp | gs |
+|---|---|---|---|---|---|---|---|
+| 2026-10-23 | Max Muster | 14 | 2 | 4 | 3 | | 1 |
 
-The date must match the game date on basketplan (format `YYYY-MM-DD`). Averages, leaders, box scores and game logs are worked out from this tab. Last season's 155 rows (from `260504_Final Stats KCSW H2 2025-26.xlsx`) are already in `data/Stats.csv`: copy them into the sheet when you set it up.
-
-**LastSeason** (optional): one row per player with season *totals*: `player, gp, pts, 3pm, ftm, fouls`. Only used for a past season that has no game-by-game rows in `Stats`.
+The date must match the game date on basketplan (format `YYYY-MM-DD`). `gs` is 1 if the player started, 0 if not. A row whose date doesn't match one of that season's games is ignored. Averages, leaders, box scores and game logs are worked out from these tabs. Last season's 155 rows are also kept in `data/Stats-2025-26.csv` as a backup.
 
 **Awards**: `season, award, player, note`, for example `2025/26, Loudmouth Award, Max Muster, Never stopped talking`.
 
-**News**: `date, until, title, text, link`. Optional. A row shows from its `date` (a future date stays hidden until then). If `until` is set, the row is hidden from the day after. Scouting posts use this: `date` is 7 days before the game, `until` is the game date. The hub also adds a headline for each new result.
+**Scouting**: `date, until, title, text, link`. Shown in the Scouting box on Home. A row shows from its `date` (a future date stays hidden until then). If `until` is set, the row is hidden from the day after. Scouting posts use this: `date` is 7 days before the game, `until` is the game date.
 
 ## Next season
 
@@ -86,7 +83,7 @@ Add the new season at the top of `data/seasons.json`, with the basketplan season
 { "id": 32, "label": "2027/28", "league": "H2LR", "team": "KSC Wiedikon Herren 2 H2" }
 ```
 
-The `Stats` tab can keep all seasons. Each row is matched to a season by its game date.
+Then add a new tab `Stats 2027/28` in the sheet with the same header row (`date, player, pts, 3pm, ftm, fouls, dnp, gs`) and an empty `data/Stats-2027-28.csv`. Older seasons' tabs stay as they are.
 
 ## Good to know
 

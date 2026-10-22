@@ -18,12 +18,12 @@ window.HUB_CONFIG = {
   googleSheetId: "1uqdwqKDBaPhrfV_0vpxq2teJHUE5p9HwCo9FDXZT-z0",
 
   // Tab names inside the Google Sheet (or CSV files in data/ when no sheet is set).
+  // Stats has one tab per season: "Stats 2026/27", "Stats 2025/26" (data/Stats-2026-27.csv locally).
   tabs: {
     players: "Players",
     stats: "Stats",
-    lastSeason: "LastSeason",
     awards: "Awards",
-    news: "News",
+    news: "Scouting",
     playbook: "Playbook",
   },
 };
