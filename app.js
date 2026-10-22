@@ -1025,16 +1025,22 @@
     if (focus) { const f = document.querySelector('[data-att="' + focus + '"]'); if (f) f.focus(); }
   }
 
-  // Google sometimes answers with an error page instead of data, mostly right after a quiet
-  // spell. So every request is tried up to 3 times before the hub gives up.
+  // Google sometimes answers with an error page instead of data, or not at all, mostly right
+  // after a quiet spell. So a request with no reply after ATT_TIMEOUT is dropped, and every
+  // request is tried up to 3 times before the hub gives up.
+  const ATT_TIMEOUT = 12000;
   async function attFetch(opts) {
     for (let tries = 1; ; tries++) {
+      const stop = new AbortController();
+      const timer = setTimeout(() => stop.abort(), ATT_TIMEOUT);
       try {
-        const res = await fetch(CFG.attendanceUrl, { cache: "no-store", ...opts });
+        const res = await fetch(CFG.attendanceUrl, { cache: "no-store", ...opts, signal: stop.signal });
         const data = await res.json();
+        clearTimeout(timer);
         if (data && (data.answers || data.error)) return data;
         throw new Error("no data");
       } catch (e) {
+        clearTimeout(timer);
         if (tries >= 3) throw e;
         await new Promise((r) => setTimeout(r, 1000 * tries));
       }
