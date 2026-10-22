@@ -17,7 +17,7 @@
     season: 0, // index into league.seasons (0 = current)
     leagueTeam: "",
     sort: { key: "ppg", dir: -1 },
-    statsMode: "avg", // Stats page: "avg" (per game) or "tot" (season totals)
+    statsMode: "both", // Stats page: "both" (per game + totals side by side), or "avg" / "tot" with a switch
   };
   let countdownTimer = null;
 
@@ -634,10 +634,19 @@
     const all = statsFor(state.season);
     const list = all.filter((o) => o.gp > 0);
     const mode = state.statsMode;
-    const statCols = STAT_COLS.filter(([key, , view]) => {
+    const shown = ([key, , view]) => {
       const base = { tpg: "tpm", tpm: "tpm", ftpg: "ftm", ftm: "ftm", pfpg: "pf", pf: "pf", gs: "gs" }[key];
-      return (view === "both" || view === mode) && (!base || all.tracked[base]);
-    });
+      return (mode === "both" || view === "both" || view === mode) && (!base || all.tracked[base]);
+    };
+    // "both": shared columns, then all per-game columns, then all totals.
+    const statCols = mode === "both"
+      ? ["both", "avg", "tot"].flatMap((v) => STAT_COLS.filter((c) => c[2] === v && shown(c)))
+      : STAT_COLS.filter(shown);
+    const grp = (view, i) => (mode !== "both" || view === "both" ? "" : (view === "avg" ? "ga" : "gt") + (statCols.findIndex((c) => c[2] === view) === i ? " gstart" : ""));
+    const count = (v) => statCols.filter((c) => c[2] === v).length;
+    const groupRow = mode === "both"
+      ? '<tr class="grp-row"><th colspan="' + count("both") + '"></th><th colspan="' + count("avg") + '" class="ga gstart">Per game</th><th colspan="' + count("tot") + '" class="gt gstart">Totals</th></tr>'
+      : "";
     const k = state.sort.key, d = state.sort.dir;
     list.sort((a, b) => (k === "name" ? a.name.localeCompare(b.name) * d : (a[k] - b[k]) * d) || b.ppg - a.ppg);
     const fmt = (o, key) => (["ppg", "tpg", "ftpg", "pfpg"].includes(key) ? fmt1(o[key]) : total(o[key]));
@@ -645,13 +654,13 @@
       '<button type="button" data-statmode="' + m + '" class="' + (m === mode ? "on" : "") + '">' + label + "</button>").join("") + "</div>";
     const key2 = statCols.filter(([, label]) => STAT_INFO[label]).map(([, label]) => "<b>" + label + "</b> " + STAT_INFO[label].toLowerCase()).join(" · ");
     const body = list.length
-      ? '<div class="card-head stats-head">' + modeToggle + "</div>" +
-        '<div class="table-wrap"><table><thead><tr>' + statCols.map(([key, label]) =>
-          '<th class="sortable ' + (key === k ? "sorted" : "") + (key === "name" ? " left" : "") + '" data-sort="' + key + '"' + (STAT_INFO[label] ? ' title="' + STAT_INFO[label] + '"' : "") + ">" +
+      ? (mode === "both" ? "" : '<div class="card-head stats-head">' + modeToggle + "</div>") +
+        '<div class="table-wrap"><table class="stats-table"><thead>' + groupRow + "<tr>" + statCols.map(([key, label, view], i) =>
+          '<th class="sortable ' + (key === k ? "sorted" : "") + (key === "name" ? " left" : "") + " " + grp(view, i) + '" data-sort="' + key + '"' + (STAT_INFO[label] ? ' title="' + STAT_INFO[label] + '"' : "") + ">" +
             label + (key === k ? (d < 0 ? " ▾" : " ▴") : "") + "</th>").join("") + "</tr></thead><tbody>" +
-        list.map((o) => '<tr class="clickable" data-player="' + esc(o.slug) + '">' + statCols.map(([key]) =>
+        list.map((o) => '<tr class="clickable" data-player="' + esc(o.slug) + '">' + statCols.map(([key, , view], i) =>
           key === "name" ? '<td class="name"><div class="teamcell">' + avatar(playerBySlug(o.slug) || { name: o.name }, "") + "<span>" + esc(o.name) + "</span></div></td>"
-            : '<td class="' + (key === k ? "hi" : "") + '">' + fmt(o, key) + "</td>").join("") + "</tr>").join("") +
+            : '<td class="' + (key === k ? "hi " : "") + grp(view, i) + '">' + fmt(o, key) + "</td>").join("") + "</tr>").join("") +
         "</tbody></table></div>"
       : empty(isCur ? "No stats yet this season. They appear here after the first game is entered." : "No stats for this season yet.");
     return '<div class="toolbar"><h2>Stats</h2>' + seasonToggle() + '</div><section class="card">' + body +
