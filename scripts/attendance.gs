@@ -24,25 +24,35 @@ function doGet() {
   return json_(listData_());
 }
 
+// The hub sends {a: "batch", items: [change, …]}: every tap made while the last save
+// was on its way, in tap order. A single change on its own works too.
 function doPost(e) {
   let body;
   try { body = JSON.parse(e.postData.contents); } catch (err) { return json_({ ok: false, error: "Bad request" }); }
+  const items = body.a === "batch" ? body.items || [] : [body];
+  const errors = [];
   const lock = LockService.getScriptLock();
-  lock.waitLock(15000);
+  lock.waitLock(20000);
   try {
     const roster = roster_();
-    if (roster.indexOf(body.player) < 0) return json_({ ok: false, error: "Unknown player" });
-    if (body.a === "set") setAnswer_(body);
-    else if (body.a === "away") addAway_(body);
-    else if (body.a === "unaway") removeAway_(body);
-    else return json_({ ok: false, error: "Unknown action" });
-    sheet_("log").appendRow([now_(), body.a, body.player, JSON.stringify(body)]);
-  } catch (err) {
-    return json_({ ok: false, error: String(err.message || err) });
+    items.forEach((b) => {
+      try {
+        if (roster.indexOf(b.player) < 0) throw new Error("Unknown player");
+        if (b.a === "set") setAnswer_(b);
+        else if (b.a === "away") addAway_(b);
+        else if (b.a === "unaway") removeAway_(b);
+        else throw new Error("Unknown action");
+        sheet_("log").appendRow([now_(), b.a, b.player, JSON.stringify(b)]);
+      } catch (err) {
+        errors.push(String(err.message || err));
+      }
+    });
   } finally {
     lock.releaseLock();
   }
-  return json_(listData_());
+  const out = listData_();
+  if (errors.length) { out.ok = items.length > errors.length; out.error = errors[0]; out.errors = errors; }
+  return json_(out);
 }
 
 function json_(obj) {
