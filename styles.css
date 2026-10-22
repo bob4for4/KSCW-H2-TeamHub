@@ -493,3 +493,48 @@ th[title]:hover { text-decoration-color: currentColor; }
   .table-wrap.scrolled .stats-table th.pcol::after, .table-wrap.scrolled .stats-table td.pcol::after { opacity: 1; }
   .stats-table tr.clickable:hover td.pcol { background: var(--card); }
 }
+
+/* Attendance */
+.att-me { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 16px; }
+.att-me label { font-weight: 700; }
+.att-me select { min-height: 44px; min-width: 180px; font-size: 16px; }
+.att-msg { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
+.att-msg.err { color: var(--loss); font-weight: 600; }
+.att-list { display: grid; gap: 12px; margin-bottom: 16px; }
+.att-list.compact { gap: 0; margin: 0; }
+.att-session { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px 16px; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: var(--radius); }
+.att-session.game { border-left-color: var(--gold); }
+.att-session.cancelled { opacity: .7; border-left-color: var(--line); }
+.att-session.cancelled .att-title { text-decoration: line-through; text-decoration-thickness: 1px; }
+.att-list.compact .att-session { border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 12px 0; background: none; }
+.att-list.compact .att-session:last-child { border-bottom: 0; padding-bottom: 0; }
+.att-kind { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.att-title { font-family: var(--display); font-size: 22px; font-weight: 700; line-height: 1.1; margin-top: 2px; }
+.att-when { font-size: 14px; color: var(--muted); margin-top: 3px; overflow-wrap: anywhere; }
+.att-when a { color: var(--muted); }
+.att-btns { display: flex; gap: 6px; }
+.att-btns button { min-height: 44px; min-width: 72px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--soft); color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; transition: background .15s, color .15s; }
+.att-btns button:hover:not(:disabled) { border-color: var(--muted); }
+.att-btns button:disabled { cursor: default; opacity: .55; }
+.att-btns button.on-in { background: var(--win); border-color: var(--win); color: var(--card); opacity: 1; }
+.att-btns button.on-out { background: var(--loss); border-color: var(--loss); color: var(--card); opacity: 1; }
+.att-note { font-size: 14px; color: var(--muted); font-weight: 600; }
+.att-foot { grid-column: 1 / -1; font-size: 14px; }
+.att-count { color: var(--muted); }
+.att-count b { color: var(--ink); }
+.att-foot.boxtoggle summary { color: var(--muted); font-weight: 400; }
+.att-who { margin-top: 8px; line-height: 1.5; }
+.att-who .lbl { display: inline-block; min-width: 82px; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.badge.moved { background: var(--gold-soft); color: var(--ink); vertical-align: middle; font-family: inherit; }
+.att-away { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; margin: 12px 0 4px; }
+.att-away label { display: grid; gap: 4px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.att-away input { min-height: 44px; padding: 0 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); font: inherit; }
+.att-away button { min-height: 44px; padding: 0 20px; border: 0; border-radius: 10px; background: var(--blue); color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+.att-awaylist { list-style: none; margin: 12px 0 0; padding: 0; }
+.att-awaylist li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.att-awaylist li span { color: var(--muted); }
+.linkbtn { margin-left: auto; min-height: 36px; border: 0; background: none; color: var(--blue-ink); font: inherit; font-weight: 600; cursor: pointer; }
+@media (max-width: 640px) {
+  .att-session { grid-template-columns: 1fr; }
+  .att-btns button { flex: 1; }
+}

@@ -14,6 +14,8 @@
     news: [],
     playbook: [],
     clubs: [],
+    trainings: [], // rows of the Trainings tab (weekly pattern, cancellations, extras)
+    att: { answers: {}, away: [], loaded: false, busy: false, error: "" }, // attendance, from the Apps Script
     season: 0, // index into league.seasons (0 = current)
     leagueTeam: "",
     sort: { key: "ppg", dir: -1 },
@@ -439,6 +441,7 @@
         (CFG.calendarUrl ? '<div class="meta">' + calendarLinks(true) + "</div>" : "");
     } else html += empty("No upcoming games on the schedule.");
     html += "</section>";
+    html += attHomeCard();
 
     // Last result
     if (last) {
@@ -539,8 +542,8 @@
     const webcal = CFG.calendarUrl.replace(/^https?:/, "webcal:");
     const google = "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(webcal);
     const icon = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-    if (compact) return '<a class="cal-link" href="' + esc(webcal) + '">' + icon + "Add all games to your calendar</a>";
-    return '<div class="cal"><div class="cal-text">' + icon + '<div><b>Add all H2 games to your calendar</b><span>Updates automatically when times or venues change.</span></div></div>' +
+    if (compact) return '<a class="cal-link" href="' + esc(webcal) + '">' + icon + "Add all games and trainings to your calendar</a>";
+    return '<div class="cal"><div class="cal-text">' + icon + '<div><b>Add all H2 games and trainings to your calendar</b><span>Updates by itself when times change or a training is cancelled.</span></div></div>' +
       '<div class="cal-actions"><a href="' + esc(webcal) + '">iPhone / Mac / Outlook</a><a href="' + esc(google) + '" target="_blank" rel="noopener">Google Calendar</a><a href="' + esc(CFG.calendarUrl) + '" download="kscw-h2.ics">Download file</a></div></div>';
   }
 
@@ -815,11 +818,200 @@
   }
 
   // ---------- router ----------
+  // ---------- attendance ----------
+  // Players tap In / Out for each training and game. Answers go to a private Google
+  // sheet through a small Apps Script (scripts/attendance.gs); the hub only gets the
+  // answers for upcoming sessions back. Saying In counts as attending.
+  const ATT_DAYS = 21; // how far ahead the Attendance page looks
+  const store = {
+    get(k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } },
+    set(k, v) { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch (e) { /* private mode: not remembered */ } },
+  };
+  const addDays = (d, n) => { const x = asDate(d); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
+  const hhmm = (v) => { const m = String(v || "").trim().match(/^(\d{1,2})[:.](\d{2})/); return m ? m[1].padStart(2, "0") + ":" + m[2] : ""; };
+  const rosterNames = () => state.players.filter((p) => p.active && !/coach/i.test(p.role)).map((p) => p.name);
+  const me = () => { const n = store.get("h2.me"); return rosterNames().includes(n) ? n : ""; };
+  const startsAt = (x) => new Date(x.date + "T" + (x.start || "23:59"));
+  const mapLink = (place, address) => '<a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent([place, address].filter(Boolean).join(", ")) +
+    '" target="_blank" rel="noopener">' + PIN + esc(address || place) + "</a>";
+
+  // Rows of the Trainings tab: weekly pattern plus cancellations, moves and extra sessions.
+  function trainingRows(rows) {
+    return rows.map((r) => ({
+      kind: pick(r, "kind").toLowerCase().trim(), day: pick(r, "day"), date: normDate(pick(r, "date")), until: normDate(pick(r, "until")),
+      start: hhmm(pick(r, "start")), end: hhmm(pick(r, "end")), place: pick(r, "place"), address: pick(r, "address"), note: pick(r, "note"),
+    })).filter((r) => r.kind);
+  }
+
+  // Same rules as expandTrainings() in scripts/attendance.gs and scripts/make_calendar.py. Keep them in step.
+  //   weekly    day (Tue/Fri), start, end, place, address; date / until limit when the pattern applies
+  //   cancelled date (and until for a range, e.g. school holidays); note is shown in the hub
+  //   moved     date plus the new start / end / place / address
+  //   extra     date, start, end, place, address: a one-off training
+  // No training is planned on a day we have a game.
+  function expandTrainings(rows, gameDates, from, to) {
+    const DAYS = { su: 0, so: 0, mo: 1, tu: 2, di: 2, we: 3, mi: 3, th: 4, do: 4, fr: 5, sa: 6 };
+    const byDate = {};
+    const games = new Set(gameDates);
+    for (let d = from; d <= to; d = addDays(d, 1)) {
+      const wd = asDate(d).getUTCDay();
+      rows.forEach((r) => {
+        if (r.kind !== "weekly" || DAYS[String(r.day).slice(0, 2).toLowerCase()] !== wd) return;
+        if ((r.date && d < r.date) || (r.until && d > r.until) || games.has(d)) return;
+        byDate[d] = { id: "T" + d, date: d, start: r.start, end: r.end, place: r.place, address: r.address, note: "" };
+      });
+    }
+    rows.forEach((r) => {
+      if (!r.date) return;
+      if (r.kind === "extra" && r.date >= from && r.date <= to) byDate[r.date] = { id: "T" + r.date, date: r.date, start: r.start, end: r.end, place: r.place, address: r.address, note: r.note || "" };
+      if (r.kind === "moved" && byDate[r.date]) {
+        const t = byDate[r.date];
+        ["start", "end", "place", "address", "note"].forEach((k) => { if (r[k]) t[k] = r[k]; });
+        t.moved = true;
+      }
+    });
+    rows.forEach((r) => {
+      if (r.kind !== "cancelled" || !r.date) return;
+      Object.keys(byDate).forEach((d) => {
+        if (d >= r.date && d <= (r.until || r.date)) { byDate[d].cancelled = true; byDate[d].note = r.note || ""; }
+      });
+    });
+    return Object.keys(byDate).sort().map((d) => byDate[d]);
+  }
+
+  // Trainings and games from today on, until they start (answers can change right up to the start).
+  function attSessions(days) {
+    const s = state.league.seasons[0];
+    const today = todayStr(), to = addDays(today, days);
+    const games = teamGames(s).filter((g) => g.date && !g.withdrawn && !hasScore(g));
+    const list = expandTrainings(state.trainings, games.map((g) => g.date), today, to).map((t) => ({ ...t, type: "training", label: "Training " + t.start }));
+    games.filter((g) => g.date >= today && g.date <= to).forEach((g) => {
+      const v = ourView(g, s);
+      list.push({ id: "G" + g.id, date: g.date, start: g.time, type: "game", game: g, label: (v.home ? "vs " : "@ ") + short(v.opp) });
+    });
+    const now = new Date();
+    return list.filter((x) => startsAt(x) > now).sort((a, b) => startsAt(a) - startsAt(b));
+  }
+
+  // A player's answer; an away period with no answer counts as Out.
+  function attStatus(x, name) {
+    const a = state.att.answers[x.id] && state.att.answers[x.id][name];
+    if (a) return a;
+    return state.att.away.some((w) => w.player === name && w.from <= x.date && x.date <= w.to) ? "away" : "";
+  }
+
+  function attSession(x, compact) {
+    const name = me();
+    const mine = name ? attStatus(x, name) : "";
+    const groups = { in: [], out: [], none: [] };
+    rosterNames().forEach((n) => {
+      const st = attStatus(x, n);
+      (st === "in" ? groups.in : st ? groups.out : groups.none).push(esc(n) + (st === "away" ? ' <span class="muted">(away)</span>' : ""));
+    });
+    const when = fmtDay(x.date) + (x.start ? " · " + x.start + (x.end ? "–" + x.end : "") : "");
+    const where = x.type === "game" ? venueLink(x.game) : x.place ? mapLink(x.place, x.address) : "";
+    const title = x.type === "game" ? esc(x.label) : x.cancelled ? "No training" : esc(x.place || "Training") + (x.moved ? ' <span class="badge moved">Changed</span>' : "");
+    let act;
+    if (x.cancelled) act = '<span class="att-note">' + esc(x.note || "Cancelled") + "</span>";
+    else {
+      const can = CFG.attendanceUrl && name && !state.att.busy;
+      const btn = (st, label) => '<button type="button" data-att="' + esc(x.id + "|" + st) + '" class="' + (mine === st || (st === "out" && mine === "away") ? "on-" + st : "") +
+        '" aria-pressed="' + (mine === st || (st === "out" && mine === "away")) + '"' + (can ? "" : " disabled") + ">" + label + "</button>";
+      act = '<div class="att-btns" role="group" aria-label="' + esc("Your answer for " + when) + '">' + btn("in", "In") + btn("out", mine === "away" ? "Out · away" : "Out") + "</div>";
+    }
+    const counts = '<span class="att-count"><b>' + groups.in.length + "</b> in · <b>" + groups.out.length + "</b> out · " + groups.none.length + " no answer</span>";
+    const who = (label, list) => list.length ? '<div class="att-who"><span class="lbl">' + label + "</span>" + list.join(", ") + "</div>" : "";
+    return '<article class="att-session ' + x.type + (x.cancelled ? " cancelled" : "") + '"><div class="att-info"><span class="att-kind">' + (x.type === "game" ? "Game" : "Training") +
+      '</span><div class="att-title">' + title + '</div><div class="att-when">' + esc(when) + (where ? " · " + where : "") + "</div></div>" + act +
+      (x.cancelled ? "" : compact ? '<div class="att-foot">' + counts + "</div>" :
+        '<details class="att-foot boxtoggle"><summary>' + counts + "</summary>" + who("In", groups.in) + who("Out", groups.out) + who("No answer", groups.none) + "</details>") + "</article>";
+  }
+
+  function attPicker(name) {
+    return '<section class="card att-me"><label for="att-me">I am</label><select id="att-me"><option value="">Pick your name…</option>' +
+      rosterNames().map((n) => '<option' + (n === name ? " selected" : "") + ">" + esc(n) + "</option>").join("") + '</select><span class="muted small">' +
+      (name ? "Saved on this phone." : "Pick once. This phone remembers it.") + "</span></section>";
+  }
+
+  function awayCard(name) {
+    const today = todayStr();
+    const all = state.att.away.filter((w) => w.to >= today).sort((a, b) => a.from.localeCompare(b.from) || a.player.localeCompare(b.player));
+    let html = '<section class="card"><div class="card-head"><h3>Away for a while?</h3></div><p class="muted small">Holidays, injury, work: set it once and you\'re Out for every training and game in that time. If plans change, just tap In.</p>';
+    if (name && CFG.attendanceUrl) {
+      html += '<form class="att-away" id="att-away"><label>From<input type="date" name="from" min="' + today + '" required></label><label>To<input type="date" name="to" min="' + today +
+        '" required></label><button type="submit"' + (state.att.busy ? " disabled" : "") + ">Save</button></form>";
+    }
+    html += all.length ? '<ul class="att-awaylist">' + all.map((w) => "<li><b>" + esc(w.player) + "</b><span>" + esc(fmtDay(w.from)) + " – " + esc(fmtDayYear(w.to)) + "</span>" +
+      (w.player === name ? '<button type="button" class="linkbtn" data-unaway="' + esc(w.from + "|" + w.to) + '">Remove</button>' : "") + "</li>").join("") + "</ul>" : "";
+    return html + "</section>";
+  }
+
+  function attNotice() {
+    if (!CFG.attendanceUrl) return '<p class="att-msg">Attendance isn\'t switched on yet.</p>';
+    if (state.att.error) return '<p class="att-msg err" role="alert">' + esc(state.att.error) + "</p>";
+    if (!state.att.loaded) return '<p class="att-msg">Loading answers…</p>';
+    return "";
+  }
+
+  function viewAttendance() {
+    const name = me();
+    const list = attSessions(ATT_DAYS);
+    return '<div class="toolbar"><h2>Attendance</h2></div>' + attPicker(name) + attNotice() +
+      (list.length ? '<div class="att-list">' + list.map((x) => attSession(x, false)).join("") + "</div>" : empty("No trainings or games in the next three weeks.")) +
+      awayCard(name) + calendarLinks(false);
+  }
+
+  // Home: the next training and the next game, with the In / Out buttons.
+  function attHomeCard() {
+    if (!CFG.attendanceUrl) return "";
+    const list = attSessions(45);
+    const items = ["training", "game"].map((t) => list.find((x) => x.type === t && !x.cancelled)).filter(Boolean).sort((a, b) => startsAt(a) - startsAt(b));
+    if (!items.length) return "";
+    return '<section class="card"><div class="card-head"><h3>Are you in?</h3><a href="#attendance">All sessions →</a></div>' +
+      (me() ? attNotice() : '<p class="att-msg"><a href="#attendance">Pick your name</a> once, then answer right here.</p>') +
+      '<div class="att-list compact">' + items.map((x) => attSession(x, true)).join("") + "</div></section>";
+  }
+
+  const attRoute = () => ["home", "attendance"].includes((location.hash.replace(/^#/, "") || "home").split("/")[0]);
+
+  async function attLoad() {
+    if (!CFG.attendanceUrl) return;
+    try {
+      const data = await (await fetch(CFG.attendanceUrl, { cache: "no-store" })).json();
+      if (!data.ok) throw new Error(data.error);
+      state.att.answers = data.answers || {};
+      state.att.away = data.away || [];
+      state.att.error = "";
+    } catch (e) {
+      state.att.error = "Couldn't load the answers. Check your connection and reload.";
+    }
+    state.att.loaded = true;
+    if (attRoute() && !state.att.busy) render();
+  }
+
+  // Sends one change. The screen updates straight away; if saving fails it goes back.
+  async function attSend(body, undo) {
+    state.att.busy = true;
+    state.att.error = "";
+    render();
+    try {
+      const data = await (await fetch(CFG.attendanceUrl, { method: "POST", body: JSON.stringify(body) })).json();
+      if (!data.ok) throw new Error(data.error || "Not saved");
+      state.att.answers = data.answers || {};
+      state.att.away = data.away || [];
+    } catch (e) {
+      if (undo) undo();
+      state.att.error = "Not saved" + (e instanceof SyntaxError || e instanceof TypeError ? " (no connection)" : ": " + e.message) + ". Please try again.";
+    }
+    state.att.busy = false;
+    if (attRoute()) render();
+  }
+
   function render() {
     clearInterval(countdownTimer);
     const hash = location.hash.replace(/^#/, "") || "home";
     const [route, arg] = hash.split("/");
-    const views = { home: viewHome, schedule: viewSchedule, standings: viewStandings, roster: viewRoster, stats: viewStats, awards: viewAwards, playbook: viewPlaybook, league: viewLeague };
+    const views = { home: viewHome, attendance: viewAttendance, schedule: viewSchedule, standings: viewStandings, roster: viewRoster, stats: viewStats, awards: viewAwards, playbook: viewPlaybook, league: viewLeague };
     if (route === "home") state.season = 0;
     const view = route === "player" ? () => viewPlayer(decodeURIComponent(arg || "")) : views[route] || viewHome;
     $("#view").innerHTML = view();
@@ -862,6 +1054,25 @@
       if (STAT_PAIR[state.sort.key]) state.sort = { key: STAT_PAIR[state.sort.key], dir: state.sort.dir };
       render(); return;
     }
+    const attBtn = e.target.closest("[data-att]");
+    if (attBtn) {
+      const name = me();
+      const [id, status] = attBtn.dataset.att.split("|");
+      const x = attSessions(120).find((v) => v.id === id);
+      if (!name || !x || state.att.busy) return;
+      const map = (state.att.answers[id] = state.att.answers[id] || {});
+      const before = map[name];
+      if (before === status) return;
+      map[name] = status;
+      attSend({ a: "set", session: id, date: x.date, label: x.label, player: name, status }, () => { if (before) map[name] = before; else delete map[name]; });
+      return;
+    }
+    const unaway = e.target.closest("[data-unaway]");
+    if (unaway && !state.att.busy) {
+      const [from, to] = unaway.dataset.unaway.split("|");
+      attSend({ a: "unaway", player: me(), from, to });
+      return;
+    }
     const logBtn = e.target.closest("[data-logbox]");
     if (logBtn) {
       const row = logBtn.closest("tr").nextElementSibling;
@@ -886,6 +1097,15 @@
   });
   document.addEventListener("change", (e) => {
     if (e.target.id === "team-filter") { state.leagueTeam = e.target.value; render(); }
+    if (e.target.id === "att-me") { store.set("h2.me", e.target.value); render(); }
+  });
+  document.addEventListener("submit", (e) => {
+    if (e.target.id !== "att-away") return;
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const from = f.get("from"), to = f.get("to");
+    if (to < from) { state.att.error = "The end date is before the start date."; render(); return; }
+    attSend({ a: "away", player: me(), from, to });
   });
   window.addEventListener("hashchange", () => { render(); window.scrollTo(0, 0); });
 
@@ -909,12 +1129,14 @@
     const t = CFG.tabs || {};
     // One stats tab per season, e.g. "Stats 2026/27" (local copy: data/Stats-2026-27.csv).
     const statsTab = (s) => (t.stats || "Stats") + " " + s.season;
-    const [players, awards, news, playbook, ...seasonStats] = await Promise.all([
+    const [players, awards, news, playbook, trainings, ...seasonStats] = await Promise.all([
       loadTab(t.players || "Players", ["name"]), loadTab(t.awards || "Awards", ["award"]),
       loadTab(t.news || "News", ["title"]), loadTab(t.playbook || "Playbook", ["name", "link"]),
+      loadTab(t.trainings || "Trainings", ["kind", "day"]),
       ...state.league.seasons.map((s) => loadTab(statsTab(s), ["date", "pts"], statsTab(s).replace(/[ /]/g, "-"))),
     ]);
     state.playbook = playbook;
+    state.trainings = trainingRows(trainings);
     state.players = normPlayers(players);
     state.stats = seasonStats.flatMap((rows, idx) => rows.map((r) => ({ ...normStatRow(r), season: idx })));
     state.awards = awards;
@@ -931,6 +1153,7 @@
     const upd = new Date(state.league.updated);
     $("#updated").textContent = "League data last changed " + upd.toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" }) + ".";
     render();
+    attLoad();
   }
   init();
 })();

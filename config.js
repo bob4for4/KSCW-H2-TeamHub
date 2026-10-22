@@ -8,8 +8,12 @@ window.HUB_CONFIG = {
   // Second club colour, used for highlights (active tab, starters).
   gold: "#fadb3c",
 
-  // Calendar feed from basketplan with all of this season's games (update seasonId each season).
-  calendarUrl: "https://www.basketplan.ch/exportTeamGamesICAL.do?teamId=4829&seasonId=31",
+  // Calendar feed with all games and trainings (made by scripts/make_calendar.py every 2 hours).
+  calendarUrl: "https://bob4for4.github.io/KSCW-H2-TeamHub/data/team.ics",
+
+  // Attendance: web app URL of the Apps Script in the private attendance sheet
+  // (see scripts/attendance.gs). Leave empty to switch attendance off.
+  attendanceUrl: "https://script.google.com/macros/s/AKfycbwCf6G5DIb8J0YpG3bmgp8k8Sk-vf5SW1jor0UnZ5wRazeTkW2iqp0ugYhbaGRcEQMQ/exec",
 
   // Google Sheet with players, stats, awards and news.
   // Paste the ID from the sheet's address: docs.google.com/spreadsheets/d/<THIS PART>/edit
@@ -25,5 +29,7 @@ window.HUB_CONFIG = {
     awards: "Awards",
     news: "Scouting",
     playbook: "Playbook",
+    // Weekly training times, cancellations (e.g. school holidays), moved and extra trainings.
+    trainings: "Trainings",
   },
 };

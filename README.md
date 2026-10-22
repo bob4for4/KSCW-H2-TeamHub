@@ -75,6 +75,19 @@ The date must match the game date on basketplan (format `YYYY-MM-DD`). `gs` is 1
 
 **Scouting**: `date, until, title, text, link`. Shown in the Scouting box on Home. A row shows from its `date` (a future date stays hidden until then). If `until` is set, the row is hidden from the day after. Scouting posts use this: `date` is 7 days before the game, `until` is the game date.
 
+## Attendance and trainings
+
+- **Attendance page:** players pick their name once (the phone remembers it) and tap In or Out for each training and game, up to the start time. Saying In counts as attending. "Away for a while?" sets a player Out for a date range.
+- **Where answers go:** the private sheet *KSCW H2 Attendance (private)* in Drive › KSCW H2 › Private (Philipp & Paul only). Its script (copy in `scripts/attendance.gs`) saves the taps. The **Tracker** tab shows each player's training and game rate; **Sessions** shows who said what per session. Both refresh every night and whenever the sheet is opened (or use the H2 menu → Refresh tracker). Share this sheet only with the coach.
+- **Trainings tab** (in the hub sheet), one row per rule. Keep the columns as plain text:
+  - `weekly`: day (Tue, Fri), start, end, place, address. `date` / `until` limit when the pattern applies, e.g. a new time from January.
+  - `cancelled`: date, plus `until` for a range such as school holidays. `note` is shown in the hub, e.g. "Gym closed".
+  - `moved`: date plus the new start / end / place.
+  - `extra`: date, start, end, place: a one-off training.
+  - No training is planned on a day with a game.
+- **Calendar:** `data/team.ics` lists games and trainings. It is rebuilt every 2 hours with the league data, so cancellations disappear from phones by themselves.
+- **If the script is changed:** in Apps Script, Deploy → Manage deployments → edit (pencil) → Version: New version → Deploy. The web app URL stays the same.
+
 ## Next season
 
 Add the new season at the top of `data/seasons.json`, with the basketplan season id, the league code and our team's name as basketplan writes it. For example:
