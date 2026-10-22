@@ -163,6 +163,19 @@ async function run() {
     await ctl("fail=0&delay=0");
   });
 
+  await test("Google hiccups (error page instead of data): loading and saving retry and still work", async () => {
+    await ctl("hiccups=1");
+    await load();
+    check(!/Couldn't load/.test($("#view").textContent), "load gave up after one hiccup");
+    const id = idOf(sessions()[0]);
+    const want = btn(id, "in").classList.contains("on-in") ? "out" : "in";
+    await ctl("hiccups=2");
+    btn(id, want).click();
+    await idle();
+    check(mine(await server(), id, ME) === want, "tap was lost after two hiccups");
+    check(!/Not saved/.test($("#view").textContent), "error shown although the retry worked");
+  });
+
   await test("Typing away dates isn't wiped by a save finishing in the background", async () => {
     await ctl("delay=1.5");
     const id = idOf(sessions()[3]);

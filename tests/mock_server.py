@@ -7,6 +7,7 @@
 made slow or failing from the tests through /att/_control:
     ?delay=2.5       seconds before each reply (Google often takes 2-4 s)
     ?fail=1          every save fails (0 = off)
+    ?hiccups=2       the next 2 requests get Google's HTML error page instead of data
     ?reset=1         forget all answers and away periods
     POST trainings   replace data/Trainings.csv with the posted CSV (empty = real file)
 config.js is served with attendanceUrl pointing at /att.
@@ -23,7 +24,7 @@ import urllib.parse
 
 HUB = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PORT = int(os.environ.get("PORT", "8767"))
-S = {"answers": {}, "away": [], "delay": 0.0, "fail": False, "trainings": None, "posts": 0}
+S = {"answers": {}, "away": [], "delay": 0.0, "fail": False, "trainings": None, "posts": 0, "hiccups": 0}
 
 
 def roster():
@@ -61,6 +62,14 @@ class H(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(b)
 
+    def hiccup(self):
+        """Answer like Google does now and then: an HTML error page, not JSON."""
+        if S["hiccups"] <= 0:
+            return False
+        S["hiccups"] -= 1
+        self.reply(b"<!DOCTYPE html><html><body>Sorry, unable to open the file at this time.</body></html>", "text/html")
+        return True
+
     def do_GET(self):
         url = urllib.parse.urlparse(self.path)
         q = dict(urllib.parse.parse_qsl(url.query))
@@ -69,11 +78,15 @@ class H(http.server.SimpleHTTPRequestHandler):
                 S["delay"] = float(q["delay"])
             if "fail" in q:
                 S["fail"] = q["fail"] == "1"
+            if "hiccups" in q:
+                S["hiccups"] = int(q["hiccups"])
             if q.get("reset") == "1":
                 S["answers"], S["away"], S["posts"] = {}, [], 0
             return self.reply({"ok": True, "delay": S["delay"], "fail": S["fail"], "posts": S["posts"], **list_data()})
         if url.path == "/att":
             time.sleep(S["delay"])
+            if self.hiccup():
+                return
             return self.reply(list_data())
         if url.path == "/config.js":
             s = open(os.path.join(HUB, "config.js"), encoding="utf-8").read()
@@ -90,6 +103,8 @@ class H(http.server.SimpleHTTPRequestHandler):
             S["trainings"] = raw or None
             return self.reply({"ok": True})
         time.sleep(S["delay"])
+        if self.hiccup():
+            return
         S["posts"] += 1
         try:
             body = json.loads(raw)
@@ -119,7 +134,9 @@ class H(http.server.SimpleHTTPRequestHandler):
         elif b.get("a") == "away":
             if not b.get("from") or not b.get("to") or b["to"] < b["from"]:
                 return "Check the dates"
-            S["away"].append({"player": b["player"], "from": b["from"], "to": b["to"]})
+            w = {"player": b["player"], "from": b["from"], "to": b["to"]}
+            if w not in S["away"]:
+                S["away"].append(w)
         elif b.get("a") == "unaway":
             S["away"] = [w for w in S["away"] if not (w["player"] == b["player"] and w["from"] == b["from"] and w["to"] == b["to"])]
         else:
