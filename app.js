@@ -490,27 +490,19 @@
         '<div class="stat-tile"><b>' + (rec.gp ? fmt1(rec.pa / rec.gp) : "–") + "</b><span>Opp PPG</span></div></div></section>";
     }
 
-    // News
-    html += '<section class="card"><div class="card-head"><h3>News</h3></div>' + newsList(s, results) + "</section>";
+    // Scouting (rows from the News tab)
+    html += '<section class="card"><div class="card-head"><h3>Scouting</h3></div>' + newsList() + "</section>";
     html += "</div></div>";
     return html;
   }
 
-  function newsList(s, results) {
+  function newsList() {
     // A news row shows from its date on; with an "until" date it is hidden from the day after.
     const today = todayStr();
     const items = state.news.map((n) => ({ date: normDate(pick(n, "date")), until: normDate(pick(n, "until")), title: pick(n, "title", "headline"), text: pick(n, "text", "body"), link: pick(n, "link", "url") }))
       .filter((n) => n.title && !(n.date && n.date > today) && !(n.until && n.until < today));
-    results.slice(0, 3).forEach((g) => {
-      const v = ourView(g, s);
-      items.push({
-        date: g.date,
-        title: (v.win ? "H2 beat " : "H2 fell to ") + short(v.opp) + " " + v.us + "–" + v.them,
-        text: (v.home ? "Home game at " : "Away game at ") + (g.venue ? g.venue.name : "") + ".",
-      });
-    });
     items.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-    if (!items.length) return empty("No news yet.");
+    if (!items.length) return empty("No scouting videos for the next game.");
     return '<ul class="news">' + items.slice(0, 6).map((n) => '<li><div class="nd">' + esc(fmtDayYear(n.date)) + '</div><div class="nt">' +
       (n.link ? '<a href="' + esc(n.link) + '" target="_blank" rel="noopener">' + esc(n.title) + "</a>" : esc(n.title)) + "</div>" +
       (n.text ? '<div class="small muted">' + esc(n.text) + "</div>" : "") + "</li>").join("") + "</ul>";
