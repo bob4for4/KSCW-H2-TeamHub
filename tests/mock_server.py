@@ -11,7 +11,8 @@ made slow or failing from the tests through /att/_control:
     ?hangs=1         the next request gets no reply for 40 s (Google sometimes just hangs)
     ?reset=1         forget all answers and away periods
     POST trainings   replace data/Trainings.csv with the posted CSV (empty = real file)
-config.js is served with attendanceUrl pointing at /att.
+config.js is served with attendanceUrl pointing at /att and attendance switched on
+(?attoff=1 serves it switched off, as in the real config.js).
 """
 import csv
 import datetime
@@ -25,7 +26,7 @@ import urllib.parse
 
 HUB = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PORT = int(os.environ.get("PORT", "8767"))
-S = {"answers": {}, "away": [], "delay": 0.0, "fail": False, "trainings": None, "posts": 0, "hiccups": 0, "hangs": 0}
+S = {"answers": {}, "away": [], "delay": 0.0, "fail": False, "trainings": None, "posts": 0, "gets": 0, "hiccups": 0, "hangs": 0, "att_off": False}
 
 
 def roster():
@@ -84,14 +85,17 @@ class H(http.server.SimpleHTTPRequestHandler):
                 S["delay"] = float(q["delay"])
             if "fail" in q:
                 S["fail"] = q["fail"] == "1"
+            if "attoff" in q:
+                S["att_off"] = q["attoff"] == "1"
             if "hangs" in q:
                 S["hangs"] = int(q["hangs"])
             if "hiccups" in q:
                 S["hiccups"] = int(q["hiccups"])
             if q.get("reset") == "1":
-                S["answers"], S["away"], S["posts"] = {}, [], 0
-            return self.reply({"ok": True, "delay": S["delay"], "fail": S["fail"], "posts": S["posts"], **list_data()})
+                S["answers"], S["away"], S["posts"], S["gets"] = {}, [], 0, 0
+            return self.reply({"ok": True, "delay": S["delay"], "fail": S["fail"], "posts": S["posts"], "gets": S["gets"], **list_data()})
         if url.path == "/att":
+            S["gets"] += 1
             time.sleep(S["delay"])
             if self.hiccup():
                 return
@@ -99,6 +103,8 @@ class H(http.server.SimpleHTTPRequestHandler):
         if url.path == "/config.js":
             s = open(os.path.join(HUB, "config.js"), encoding="utf-8").read()
             s = re.sub(r'attendanceUrl: "[^"]*"', 'attendanceUrl: "/att"', s)
+            if not S["att_off"]:
+                s = s.replace("attendance: false", "attendance: true")
             return self.reply(s.encode(), "text/javascript")
         if url.path == "/data/Trainings.csv" and S["trainings"]:
             return self.reply(S["trainings"].encode(), "text/csv")

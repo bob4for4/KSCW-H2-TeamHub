@@ -19,7 +19,7 @@
 </style>
 </head>
 <body>
-<h1>Attendance tests</h1>
+<h1>Hub tests</h1>
 <div id="sum">Running…</div>
 <ol id="out"></ol>
 <iframe id="hub" title="Hub under test"></iframe>
@@ -68,7 +68,7 @@ const mine = (data, id, name) => data.answers[id] && data.answers[id][name];
 
 async function test(name, fn) {
   current = name;
-  await ctl("delay=0&fail=0"); // every test starts with a quick, working backend
+  await ctl("delay=0&fail=0&attoff=0"); // every test starts with a quick, working backend, attendance on
   const t0 = performance.now();
   try { await fn(); results.push({ name, ok: true, ms: performance.now() - t0 }); }
   catch (e) { results.push({ name, ok: false, err: e.message }); }
@@ -292,6 +292,42 @@ async function run() {
     if (!games.includes(new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }).format(nextDay)))
       check(x && x.textContent.includes("Extra Gym"), "extra training missing");
     await fetch("/att/_control", { method: "POST", body: "" });
+  });
+
+  await test("Attendance switched off (as in config.js now): no tab, no Home card, no requests", async () => {
+    await ctl("attoff=1&reset=1");
+    await load("home");
+    check(!$('#tabs a[href="#attendance"]'), "Attendance tab still in the menu");
+    check(!/Are you in\?/.test($("#view").textContent), "Are you in? card still on Home");
+    await load("attendance");
+    check(!$(".att-session") && $(".hero"), "#attendance should show Home instead");
+    const s = await server();
+    check(s.gets === 0 && s.posts === 0, "hub still talked to Google: " + s.gets + " loads, " + s.posts + " saves");
+  });
+
+  for (const w of [375, 1100]) await test("Add to home screen: small note at the top right, opens the steps (" + w + " px)", async () => {
+    await load("home", w);
+    const b = $("#a2hs");
+    check(b, "no Add to home screen button");
+    const r = b.getBoundingClientRect(), h1 = $(".masthead h1").getBoundingClientRect(), eb = $(".eyebrow").getBoundingClientRect();
+    const hit = (a, c) => a.left < c.right && c.left < a.right && a.top < c.bottom && c.top < a.bottom;
+    check(r.top < 60, "not near the top (" + Math.round(r.top) + " px down)");
+    check(r.right <= w && r.left >= 0, "sticks out of the screen");
+    check(!hit(r, h1) && !hit(r, eb), "covers the team name or the league line");
+    check(r.height <= 34, "too big (" + Math.round(r.height) + " px high)");
+    b.click();
+    const p = $("#a2hs-panel");
+    check(!p.hidden && /Add to Home Screen|Add to Home screen/.test(p.textContent), "steps not shown");
+    const pr = p.getBoundingClientRect();
+    check(pr.left >= 0 && pr.right <= w, "steps box sticks out of the screen");
+    // every corner of the box must really be on top (not cut off by the header or covered by the tabs)
+    for (const [x, y] of [[pr.left + 4, pr.top + 4], [pr.right - 4, pr.top + 4], [pr.left + 4, pr.bottom - 4], [pr.right - 4, pr.bottom - 4]]) {
+      const el = D().elementFromPoint(x, y);
+      check(el && el.closest("#a2hs-panel"), "part of the steps box is hidden at " + Math.round(x) + "," + Math.round(y));
+    }
+    $("#view").click();
+    check(p.hidden, "steps box doesn't close when tapping elsewhere");
+    check(D().documentElement.scrollWidth <= w + 1, "page scrolls sideways");
   });
 
   await test("Console has no errors", async () => {
