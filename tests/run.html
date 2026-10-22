@@ -176,6 +176,16 @@ async function run() {
     check(!/Not saved/.test($("#view").textContent), "error shown although the retry worked");
   });
 
+  await test("Google hangs on a save: the hub gives up after 12 s, retries and saves", async () => {
+    await load();
+    const id = idOf(sessions()[1]);
+    const want = btn(id, "in").classList.contains("on-in") ? "out" : "in";
+    await ctl("hangs=1");
+    btn(id, want).click();
+    await waitFor(() => !/Saving/.test((D().getElementById("att-status") || {}).textContent || ""), 30000, "the save to finish after the hang");
+    check(mine(await server(), id, ME) === want, "tap lost after Google hung");
+  });
+
   await test("Typing away dates isn't wiped by a save finishing in the background", async () => {
     await ctl("delay=1.5");
     const id = idOf(sessions()[3]);

@@ -8,6 +8,7 @@ made slow or failing from the tests through /att/_control:
     ?delay=2.5       seconds before each reply (Google often takes 2-4 s)
     ?fail=1          every save fails (0 = off)
     ?hiccups=2       the next 2 requests get Google's HTML error page instead of data
+    ?hangs=1         the next request gets no reply for 40 s (Google sometimes just hangs)
     ?reset=1         forget all answers and away periods
     POST trainings   replace data/Trainings.csv with the posted CSV (empty = real file)
 config.js is served with attendanceUrl pointing at /att.
@@ -24,7 +25,7 @@ import urllib.parse
 
 HUB = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PORT = int(os.environ.get("PORT", "8767"))
-S = {"answers": {}, "away": [], "delay": 0.0, "fail": False, "trainings": None, "posts": 0, "hiccups": 0}
+S = {"answers": {}, "away": [], "delay": 0.0, "fail": False, "trainings": None, "posts": 0, "hiccups": 0, "hangs": 0}
 
 
 def roster():
@@ -63,7 +64,12 @@ class H(http.server.SimpleHTTPRequestHandler):
         self.wfile.write(b)
 
     def hiccup(self):
-        """Answer like Google does now and then: an HTML error page, not JSON."""
+        """Answer like Google does now and then: no reply for a long time, or an HTML error page."""
+        if S["hangs"] > 0:
+            S["hangs"] -= 1
+            time.sleep(40)
+            self.reply(b"too late", "text/plain")
+            return True
         if S["hiccups"] <= 0:
             return False
         S["hiccups"] -= 1
@@ -78,6 +84,8 @@ class H(http.server.SimpleHTTPRequestHandler):
                 S["delay"] = float(q["delay"])
             if "fail" in q:
                 S["fail"] = q["fail"] == "1"
+            if "hangs" in q:
+                S["hangs"] = int(q["hangs"])
             if "hiccups" in q:
                 S["hiccups"] = int(q["hiccups"])
             if q.get("reset") == "1":
