@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T06:53:19+00:00",
+ "updated": "2026-10-23T08:45:30+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -243,10 +243,10 @@
      "away": "Opfikon Basket Rams H2",
      "homeClub": "Zug Basket",
      "awayClub": "Opfikon Basket",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Kantonsschule Zug",
       "address": "Lüssiweg 24",
@@ -256,6 +256,32 @@
      "referees": [
       "Sakotic Dragan",
       "Pascu Andrei-Cosmin"
+     ],
+     "score": [
+      107,
+      62
+     ],
+     "quarters": [
+      [
+       23,
+       17
+      ],
+      [
+       24,
+       10
+      ],
+      [
+       35,
+       26
+      ],
+      [
+       25,
+       9
+      ]
+     ],
+     "points": [
+      2,
+      0
      ]
     },
     {
