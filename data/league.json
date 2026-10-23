@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T08:45:30+00:00",
+ "updated": "2026-10-23T22:40:36+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -322,7 +322,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Sportzentrum Zürich A H1",
       "address": "Dübendorfstrasse 48",
@@ -332,6 +332,32 @@
      "referees": [
       "Rakic Bratislav",
       "Luma Ersun"
+     ],
+     "score": [
+      54,
+      64
+     ],
+     "quarters": [
+      [
+       10,
+       17
+      ],
+      [
+       16,
+       16
+      ],
+      [
+       17,
+       19
+      ],
+      [
+       11,
+       12
+      ]
+     ],
+     "points": [
+      0,
+      2
      ]
     },
     {
