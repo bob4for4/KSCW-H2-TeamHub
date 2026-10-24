@@ -175,6 +175,8 @@
       fta: numOrNull(pick(r, "fta")),
       pf: numOrNull(pick(r, "fouls", "pf", "f")),
       gs: (() => { const v = pick(r, "gs", "started", "starter"); return v === "" ? null : /^(1|yes|y|x|true)$/i.test(v) ? 1 : 0; })(),
+      // points in each quarter (columns q1–q4); null when the row has none
+      q: (() => { const q = ["q1", "q2", "q3", "q4"].map((k) => numOrNull(pick(r, k))); return q.some((v) => v == null) ? null : q; })(),
     };
   }
 
@@ -619,6 +621,20 @@
     const curSeason = state.league.seasons[0];
     html += '<div class="grid grid-2" style="margin-top:20px"><section class="card"><div class="card-head"><h3>' + esc(curSeason.season) + " season</h3></div>" + (cur ? tiles(cur, curList.tracked) : empty("No stats entered yet.")) + "</section>" +
       '<section class="card"><div class="card-head"><h3>Last season' + (state.league.seasons[1] ? " · " + esc(state.league.seasons[1].season) : "") + "</h3></div>" + (prev ? tiles(prev, prevList.tracked) : empty("No stats from last season.")) + "</section></div>";
+
+    // Points per quarter: average per game, only on the player page
+    const perQuarter = (o) => {
+      const g = o ? o.games.filter((r) => r.q) : [];
+      return g.length ? { n: g.length, avg: [0, 1, 2, 3].map((i) => g.reduce((s, r) => s + r.q[i], 0) / g.length) } : null;
+    };
+    const qSeasons = [[curSeason.season, perQuarter(cur)], [state.league.seasons[1] ? state.league.seasons[1].season : "", perQuarter(prev)]].filter((x) => x[1]);
+    if (qSeasons.length) {
+      const top = Math.max(...qSeasons.flatMap((x) => x[1].avg), 1);
+      html += '<section class="card" style="margin-top:20px"><div class="card-head"><h3>Points per quarter</h3><span class="muted small">Average per game</span></div><div class="qgrid">' +
+        qSeasons.map(([label, d]) => '<div class="qseason"><div class="lbl">' + esc(label) + ' <span class="muted">· ' + d.n + (d.n === 1 ? " game" : " games") + '</span></div><div class="qbars">' +
+          d.avg.map((v, i) => '<div class="qbar"><b>' + fmt1(v) + '</b><div class="qtrack"><span class="qfill" style="height:' + Math.round((v / top) * 100) + '%"></span></div><em>Q' + (i + 1) + "</em></div>").join("") +
+          "</div></div>").join("") + "</div></section>";
+    }
 
     const won = state.awards.filter((a) => resolvePlayer(pick(a, "player", "winner")) === id);
     if (won.length) {
