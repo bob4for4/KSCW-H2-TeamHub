@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T22:40:36+00:00",
+ "updated": "2026-10-24T06:49:43+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -297,7 +297,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Kantonsschule Wiedikon 1fach Halle B",
       "address": "Eingang Goldbrunnenstr. 80",
@@ -307,6 +307,32 @@
      "referees": [
       "Krasniqi Fisnik",
       "Pascu Andrei-Cosmin"
+     ],
+     "score": [
+      64,
+      72
+     ],
+     "quarters": [
+      [
+       18,
+       21
+      ],
+      [
+       10,
+       13
+      ],
+      [
+       15,
+       22
+      ],
+      [
+       21,
+       16
+      ]
+     ],
+     "points": [
+      0,
+      2
      ]
     },
     {
