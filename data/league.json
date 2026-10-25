@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T06:49:43+00:00",
+ "updated": "2026-10-25T16:41:40+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -399,7 +399,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Kantonsschule Frauenfeld 3F",
       "address": "Sternwartestrasse 5",
@@ -409,6 +409,32 @@
      "referees": [
       "Castro Nicolas",
       "Rakic Bratislav"
+     ],
+     "score": [
+      53,
+      72
+     ],
+     "quarters": [
+      [
+       16,
+       22
+      ],
+      [
+       7,
+       15
+      ],
+      [
+       16,
+       17
+      ],
+      [
+       14,
+       18
+      ]
+     ],
+     "points": [
+      0,
+      2
      ]
     },
     {
