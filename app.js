@@ -385,7 +385,10 @@
   }
 
   function boxScore(g) {
-    const rows = state.stats.filter((r) => !r.dnp && r.player && r.pts != null && statMatchesGame(r, g));
+    // only our own games (other league games on the same day must not show our stats)
+    const idx = state.league.seasons.findIndex((x) => x.games.includes(g));
+    if (idx < 0 || !isUs(g, state.league.seasons[idx])) return "";
+    const rows = state.stats.filter((r) => r.season === idx && !r.dnp && r.player && r.pts != null && statMatchesGame(r, g));
     if (!rows.length) return "";
     rows.sort((a, b) => b.pts - a.pts);
     const t = trackedIn(rows);
