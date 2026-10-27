@@ -1,0 +1,4 @@
+{
+  "_about": "Results taken from the official score sheet, for games basketplan has not updated yet. Used only while basketplan has no score for that game; basketplan's result always wins. Key = basketplan match number. score and quarters are [home, away].",
+  "26-04558": { "score": [47, 59], "quarters": [[8, 21], [17, 11], [6, 10], [16, 17]] }
+}
