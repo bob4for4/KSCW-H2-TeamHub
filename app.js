@@ -1263,6 +1263,17 @@
     try {
       const res = await fetch("data/league.json?v=" + Date.now(), { cache: "no-store" });
       state.league = await res.json();
+      // Results from score sheets that basketplan hasn't entered yet (data/results-manual.json).
+      // Only fills games without a score, so basketplan's own result takes over once it's there.
+      try {
+        const manual = await (await fetch("data/results-manual.json?v=" + Date.now(), { cache: "no-store" })).json();
+        state.league.seasons.forEach((s) => s.games.forEach((g) => {
+          const m = manual[g.number];
+          if (!m || hasScore(g)) return;
+          Object.assign(g, { score: m.score, quarters: m.quarters, state: "gespielt", manual: true,
+            points: m.score[0] > m.score[1] ? [2, 0] : [0, 2] });
+        }));
+      } catch (e) { /* no manual results */ }
     } catch (e) {
       $("#view").innerHTML = empty("Could not load league data (data/league.json).");
       return;

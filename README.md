@@ -91,6 +91,10 @@ The date must match the game date on basketplan (format `YYYY-MM-DD`). `gs` is 1
 - **Testing:** run `python3 tests/mock_server.py` and open http://localhost:8767/tests/run.html. It drives the real hub against a fake Google script that can be made slow or failing, and checks fast tapping, failed saves, away periods, month opening, button alignment and phone width. Run it after every attendance change; all tests should pass before publishing. `osascript -l JavaScript tests/check_syntax.js` checks app.js for typos.
 - **If the script is changed:** in Apps Script, Deploy → Manage deployments → edit (pencil) → Version: New version → Deploy. The web app URL stays the same.
 
+## Results before basketplan has them
+
+If basketplan is slow to enter a result, add it to `data/results-manual.json` (key = basketplan match number, score and quarters as [home, away]). The hub uses it for the score, box score, standings and Home until basketplan has its own result, which then takes over. Old entries can be deleted once basketplan shows the game.
+
 ## Next season
 
 Add the new season at the top of `data/seasons.json`, with the basketplan season id, the league code and our team's name as basketplan writes it. For example:
