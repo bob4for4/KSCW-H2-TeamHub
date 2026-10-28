@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T10:47:28+00:00",
+ "updated": "2026-10-28T22:48:26+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -475,7 +475,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Sporthalle Seefeld",
       "address": "Schmittegass 100",
@@ -485,6 +485,15 @@
      "referees": [
       "Russo Alfio",
       "Ponxha Bashkim"
+     ],
+     "score": [
+      68,
+      73
+     ],
+     "quarters": [],
+     "points": [
+      0,
+      2
      ]
     },
     {
