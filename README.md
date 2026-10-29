@@ -12,7 +12,7 @@ Team website for KSC Wiedikon Herren 2: home page, schedule and results, standin
 | Players (number, position, height, nationality, bio, photo) | Google Sheet, tab `Players` | You |
 | Game stats (points, 3PM, FTM, fouls, starts) | Google Sheet, one tab per season: `Stats 2026/27`, `Stats 2025/26` | You (last season is already filled in) |
 | Awards | Google Sheet, tab `Awards` | You |
-| Scouting videos | Google Sheet, tab `Scouting` (each post shows 7 days before the game) | You |
+| Scouting videos | Google Sheet, tab `Scouting` (each post shows 14 days before the game) | You |
 | Other clubs' logos and websites | `data/teams.json` and `assets/teams/` | Already filled in for every team this season |
 
 ## One-time setup
@@ -73,7 +73,7 @@ The date must match the game date on basketplan (format `YYYY-MM-DD`). `gs` is 1
 
 **Awards**: `season, award, player, note`, for example `2025/26, Loudmouth Award, Max Muster, Never stopped talking`.
 
-**Scouting**: `date, until, title, text, link`. Shown in the Scouting box on Home. A row shows from its `date` (a future date stays hidden until then). If `until` is set, the row is hidden from the day after. Scouting posts use this: `date` is 7 days before the game, `until` is the game date.
+**Scouting**: `date, until, title, text, link`. Shown in the Scouting box on Home. A row shows from its `date` (a future date stays hidden until then). If `until` is set, the row is hidden from the day after. Scouting posts use this: `date` is 14 days before the game, `until` is the game date.
 
 ## Attendance and trainings
 

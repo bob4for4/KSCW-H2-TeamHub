@@ -491,22 +491,27 @@
         "</span></div></td><td>" + r.w + "</td><td>" + r.l + '</td><td class="hi">' + r.pts + "</td></tr>").join("") +
       "</tbody></table></div></section>";
 
-    // Last season
-    const prev = state.league.seasons[1];
-    if (prev) {
-      const rec = record(prev);
-      const pt = standings(prev).find((r) => r.team === prev.team);
-      html += '<section class="card"><div class="card-head"><h3>Last season · ' + esc(prev.season) + '</h3><a href="#schedule" data-season-link="1">Results →</a></div>' +
-        '<div class="statline two"><div class="stat-tile"><b>' + rec.w + "–" + rec.l + "</b><span>Record</span></div>" +
-        (pt ? '<div class="stat-tile"><b>' + ordinal(pt.rank) + "</b><span>" + esc(leagueName(prev)) + "</span></div>" : "") +
-        '<div class="stat-tile"><b>' + (rec.scored ? fmt1(rec.pf / rec.scored) : "–") + "</b><span>PPG</span></div>" +
-        '<div class="stat-tile"><b>' + (rec.scored ? fmt1(rec.pa / rec.scored) : "–") + "</b><span>Opp PPG</span></div></div></section>";
-    }
+    // This season: record, league place, points for and against
+    html += teamCard(0, true);
 
     // Scouting (rows from the Scouting tab)
     html += '<section class="card"><div class="card-head"><h3>Scouting</h3></div>' + newsList() + "</section>";
     html += "</div></div>";
     return html;
+  }
+
+  // Team record, league place and points per game for one season (Home: this season; Stats: chosen season).
+  function teamCard(idx, home) {
+    const s = state.league.seasons[idx];
+    if (!s) return "";
+    const rec = record(s);
+    const pt = standings(s).find((r) => r.team === s.team);
+    return '<section class="card"' + (home ? "" : ' style="margin-bottom:16px"') + '><div class="card-head"><h3>' + (home ? "This season · " : "Team · ") + esc(s.season) +
+      "</h3>" + (home ? '<a href="#schedule">Results →</a>' : "") + "</div>" +
+      '<div class="statline' + (home ? " two" : "") + '"><div class="stat-tile"><b>' + rec.w + "–" + rec.l + "</b><span>Record</span></div>" +
+      '<div class="stat-tile"><b>' + (pt && rec.gp ? ordinal(pt.rank) : "–") + "</b><span>" + esc(leagueName(s)) + "</span></div>" +
+      '<div class="stat-tile"><b>' + (rec.scored ? fmt1(rec.pf / rec.scored) : "–") + "</b><span>PPG</span></div>" +
+      '<div class="stat-tile"><b>' + (rec.scored ? fmt1(rec.pa / rec.scored) : "–") + "</b><span>Opp PPG</span></div></div></section>";
   }
 
   function newsList() {
@@ -724,7 +729,7 @@
             : '<td class="' + (key === k ? "hi " : "") + grp(view, i) + '">' + fmt(o, key) + "</td>").join("") + "</tr>").join("") +
         "</tbody></table></div>"
       : empty(isCur ? "No stats yet this season. They appear here after the first game is entered." : "No stats for this season yet.");
-    return '<div class="toolbar"><h2>Stats</h2>' + seasonToggle() + '</div><section class="card">' + body +
+    return '<div class="toolbar"><h2>Stats</h2>' + seasonToggle() + "</div>" + teamCard(state.season, false) + '<section class="card">' + body +
       (list.length ? '<p class="small muted stat-key">' + key2 + "</p>" : "") +
       '<p class="small muted" style="margin:8px 0 0">' + esc(s.season) + ". Per-game numbers count only games a player played. Tap a column to sort." +
       (all.tracked.gs && list.some((o) => o.games.some((r) => r.gs == null)) ? " GS counts only games where starters are marked on the score sheet." : "") + "</p></section>";
