@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T20:53:02+00:00",
+ "updated": "2026-10-30T22:46:28+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -450,7 +450,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Schulhaus Lättenwiesen",
       "address": "Giebeleichstrasse 48",
@@ -460,6 +460,32 @@
      "referees": [
       "Tomus Alexandru",
       "Luma Ersun"
+     ],
+     "score": [
+      47,
+      59
+     ],
+     "quarters": [
+      [
+       8,
+       21
+      ],
+      [
+       17,
+       11
+      ],
+      [
+       6,
+       10
+      ],
+      [
+       16,
+       17
+      ]
+     ],
+     "points": [
+      0,
+      2
      ]
     },
     {
@@ -534,7 +560,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Türligarten A",
       "address": "Bodmerstrasse 10",
@@ -544,6 +570,32 @@
      "referees": [
       "Karsai Anett",
       "Castro Nicolas"
+     ],
+     "score": [
+      83,
+      36
+     ],
+     "quarters": [
+      [
+       21,
+       15
+      ],
+      [
+       24,
+       9
+      ],
+      [
+       18,
+       4
+      ],
+      [
+       20,
+       8
+      ]
+     ],
+     "points": [
+      2,
+      0
      ]
     },
     {
