@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T22:46:28+00:00",
+ "updated": "2026-10-31T14:44:41+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -535,7 +535,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Kantonsschule Wetzikon HE",
       "address": "Kantonsschulstrasse",
@@ -545,6 +545,32 @@
      "referees": [
       "Hüsler Felix",
       "Rakic Bratislav"
+     ],
+     "score": [
+      61,
+      60
+     ],
+     "quarters": [
+      [
+       14,
+       14
+      ],
+      [
+       20,
+       10
+      ],
+      [
+       13,
+       15
+      ],
+      [
+       14,
+       21
+      ]
+     ],
+     "points": [
+      2,
+      0
      ]
     },
     {
