@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T14:44:41+00:00",
+ "updated": "2026-11-01T10:48:02+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -294,10 +294,10 @@
      "away": "Wohlen Basket H2",
      "homeClub": "KSC Wiedikon",
      "awayClub": "Wohlen Basket",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Kantonsschule Wiedikon 1fach Halle B",
       "address": "Eingang Goldbrunnenstr. 80",
@@ -345,10 +345,10 @@
      "away": "Unicorn 02 Basket H2",
      "homeClub": "BZO",
      "awayClub": "Unicorn 02 Basket",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Sportzentrum Zürich A H1",
       "address": "Dübendorfstrasse 48",
