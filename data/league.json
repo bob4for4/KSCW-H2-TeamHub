@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T10:48:02+00:00",
+ "updated": "2026-11-02T07:35:21+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -396,10 +396,10 @@
      "away": "BBC Schaan H2",
      "homeClub": "CVJM Frauenfeld",
      "awayClub": "BBC Schaan",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Kantonsschule Frauenfeld 3F",
       "address": "Sternwartestrasse 5",
@@ -794,7 +794,10 @@
       "zip": "6300",
       "city": "Zug"
      },
-     "referees": []
+     "referees": [
+      "Schaudt Caspar",
+      "Berceg Adrijana"
+     ]
     },
     {
      "id": "373187",
@@ -816,7 +819,10 @@
       "zip": "8055",
       "city": "Zürich"
      },
-     "referees": []
+     "referees": [
+      "Enkhtsetseg Temuulen",
+      "Luma Ersun"
+     ]
     },
     {
      "id": "373189",
@@ -838,7 +844,10 @@
       "zip": "8957",
       "city": "Spreitenbach"
      },
-     "referees": []
+     "referees": [
+      "Krasniqi Fisnik",
+      "Rakic Bratislav"
+     ]
     },
     {
      "id": "373185",
@@ -860,7 +869,10 @@
       "zip": "8152",
       "city": "Glattbrugg"
      },
-     "referees": []
+     "referees": [
+      "Tomus Alexandru",
+      "Braun David"
+     ]
     },
     {
      "id": "373247",
@@ -882,7 +894,10 @@
       "zip": "6300",
       "city": "Zug"
      },
-     "referees": []
+     "referees": [
+      "Dreifürst Julius",
+      "Brombacher Linus Jonathan"
+     ]
     },
     {
      "id": "373215",
@@ -904,7 +919,10 @@
       "zip": "8957",
       "city": "Spreitenbach"
      },
-     "referees": []
+     "referees": [
+      "Roos Christian",
+      "Luma Ersun"
+     ]
     },
     {
      "id": "373183",
@@ -926,7 +944,10 @@
       "zip": "9490",
       "city": "Vaduz"
      },
-     "referees": []
+     "referees": [
+      "Luma Ersun",
+      "Louis-Marie Eric Alexandre"
+     ]
     },
     {
      "id": "373239",
