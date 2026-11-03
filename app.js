@@ -138,6 +138,7 @@
         since: pick(r, "since", "joined"),
         bio: pick(r, "bio", "about"),
         photo: pick(r, "photo", "photo_url", "image"),
+        license: pick(r, "license", "licence"),
         depth: pick(r, "depth_slot", "depth").toUpperCase(),
         depthOrder: num(pick(r, "depth_order", "order")) || 99,
         active: !/^(no|n|false|0|inactive)$/i.test(pick(r, "active")),
@@ -333,7 +334,7 @@
   // ---------- small render pieces ----------
   function avatar(p, cls) {
     const label = p && p.number !== "" && p.number != null ? p.number : initials(p && p.name);
-    if (p && p.photo) return '<div class="avatar ' + (cls || "") + '"><img src="' + esc(p.photo) + '" alt="" loading="lazy"></div>';
+    if (p && p.photo) return '<div class="avatar photo ' + (cls || "") + '"><img src="' + esc(p.photo) + '" alt="" loading="lazy"></div>';
     return '<div class="avatar ' + (cls || "") + '">' + esc(label) + "</div>";
   }
 
@@ -599,9 +600,9 @@
     const active = state.players.filter((p) => p.active).sort((a, b) => num(a.number) - num(b.number));
     if (!active.length) return "<h2>Roster</h2>" + empty("No players yet. Add them to the <b>" + esc(CFG.tabs.players) + "</b> tab of the sheet.");
     const card = (p) => '<a class="player-card" href="#player/' + esc(p.slug) + '">' +
-      (isStaff(p) ? avatar(p) : '<div class="jersey">' + esc(p.number) + "</div>") + '<div><div class="pname">' + esc(p.name) +
+      (isStaff(p) || p.photo ? avatar(p) : '<div class="jersey">' + esc(p.number) + "</div>") + '<div><div class="pname">' + esc(p.name) +
       (p.nationality ? ' <span title="' + esc(p.nationality) + '">' + flag(p.nationality) + "</span>" : "") + '</div><div class="pmeta">' +
-      [isStaff(p) ? p.role : positions(p), p.height ? p.height + " cm" : ""].filter(Boolean).map(esc).join(" · ") + "</div></div></a>";
+      [!isStaff(p) && p.photo && p.number ? "#" + p.number : "", isStaff(p) ? p.role : positions(p), p.height ? p.height + " cm" : ""].filter(Boolean).map(esc).join(" · ") + "</div></div></a>";
     const players = active.filter((p) => !isStaff(p)), staff = active.filter(isStaff);
     return '<div class="toolbar"><h2>Roster</h2><span class="muted small">' + esc(state.league.seasons[0].season) + " · " + players.length + " players</span></div>" +
       '<div class="roster">' + players.map(card).join("") + "</div>" +
@@ -615,12 +616,21 @@
     const prev = prevList.find((o) => o.slug === id);
     const name = p ? p.name : (cur || prev || {}).name;
     if (!name) return empty("Player not found. <a href=\"#roster\">Back to roster</a>");
+    // "30 (20.08.1996)" from a birth date; a birth year alone gives "about" the age
+    const ageText = (born) => {
+      const m = String(born || "").match(/^(?:(\d{1,2})\.(\d{1,2})\.)?(\d{4})$/);
+      if (!m) return born;
+      const now = new Date();
+      let age = now.getFullYear() - m[3];
+      if (m[1] && (now.getMonth() + 1 < +m[2] || (now.getMonth() + 1 === +m[2] && now.getDate() < +m[1]))) age--;
+      return (m[1] ? age : "~" + age) + " (" + born + ")";
+    };
     const fact = (label, val) => (val ? "<div><span>" + label + "</span><b>" + esc(val) + "</b></div>" : "");
     let html = '<a class="back" href="#roster"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Roster</a><section class="profile-hero">' + avatar(p || { name }, "big") +
       '<div><div class="pos">' + esc([p && p.number ? "#" + p.number : "", p && (isStaff(p) ? p.role : positions(p))].filter(Boolean).join(" · ")) + "</div><h2>" + esc(name) + "</h2>" +
       (p && p.nickname ? '<div class="nick">“' + esc(p.nickname) + "”</div>" : "") +
       '<div class="facts">' + (p ? fact("Position", isStaff(p) ? p.role : positions(p)) + fact("Height", p.height && p.height + " cm") +
-        fact("Nationality", p.nationality && (flag(p.nationality) + " " + p.nationality).trim()) + fact("Born", p.born) + fact("With H2 since", p.since) : "") + "</div></div></section>" +
+        fact("Nationality", p.nationality && (flag(p.nationality) + " " + p.nationality).trim()) + fact("Age", ageText(p.born)) + fact("With H2 since", p.since) + fact("License", p.license) : "") + "</div></div></section>" +
       (p && p.bio ? '<p class="bio">' + esc(p.bio) + "</p>" : "");
 
     const tile = (val, label) => '<div class="stat-tile"><b>' + val + "</b><span>" + label + "</span></div>";
@@ -1301,6 +1311,15 @@
     state.playbook = playbook;
     state.trainings = trainingRows(trainings);
     state.players = normPlayers(players);
+    // Photos, license numbers and birth dates from the Swiss Basketball licenses (data/licenses.json).
+    // A photo, license or birth date filled in on the sheet wins.
+    try {
+      const lic = await (await fetch("data/licenses.json?v=" + Date.now(), { cache: "no-store" })).json();
+      state.players.forEach((p) => {
+        const l = lic[p.name];
+        if (l) { p.photo = p.photo || l.photo; p.license = p.license || l.license; p.born = p.born || l.born; }
+      });
+    } catch (e) { /* no license file */ }
     state.stats = seasonStats.flatMap((rows, idx) => rows.map((r) => ({ ...normStatRow(r), season: idx })));
     state.awards = awards;
     state.news = news;
