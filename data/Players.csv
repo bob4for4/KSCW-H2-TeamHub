@@ -1,9 +1,9 @@
 name,alias,number,position,secondary_position,role,height_cm,nationality,born,nickname,since,bio,photo,active
-Nicolò,,1,PG,SG,Player,180,Italy,,,,,,yes
+Nicolò,,1,PG,SG,Player,182,Italy,,,,,,yes
 Nikos,,2,PG,SG,Player,170,Greece,,,,,,yes
-Joey,,4,SG,PG,Player,175,Ghana,,,,,,yes
-Mo,Moritz,5,SG,PG,Player,180,Switzerland,,,,,,yes
-Sven,,6,C,PF,Player,200,Germany,,,,,,yes
+Joey,,4,SG,PG,Player,173,Ghana,,,,,,yes
+Mo,Moritz,5,SG,PG,Player,178,Switzerland,,,,,,yes
+Sven,,6,C,PF,Player,201,Germany,,,,,,yes
 Daniel,,7,PF,SF,Player,195,Philippines,,,,,,yes
 Flo,,8,SG,PG,Player,180,France,,,,,,yes
 Mike,Michael,9,PG,SG,Player,185,USA,,,,,,yes
@@ -12,9 +12,10 @@ Yves,,11,SF,PF,Player,195,Switzerland,,,,,,yes
 André,,12,SF,SG,Player,185,Latvia,,,,,,yes
 Adam,,13,PF,C,Player,195,Romania,,,,,,yes
 Max,,20,SF,PF,Player,190,Switzerland,,,,,,yes
-Yannik,,22,C,PF,Player,195,Germany,,,,,,yes
-Joti,,24,PF,SF,Player,190,Greece,,,,,,yes
+Yannik,,21,C,PF,Player,192,Germany,,,,,,yes
+Gianluca,Gianluca Libianchi,22,SG,SF,Player,184,Italy,,,,,,yes
+Joti,,24,PF,SF,Player,185,Greece,,,,,,yes
 Lorenzo,,28,SF,PF,Player,190,Italy,,,,,,yes
 Phiphi,,44,SF,SG,Player,185,Switzerland,,,,,,yes
-Philipp,,47,SG,PG,Player,180,Austria,,,,,,yes
+Philipp,,47,SG,PG,Player,181,Austria,,,,,,yes
 Paul,,,,,Coach,180,Austria,,,,,,yes
