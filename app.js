@@ -38,6 +38,15 @@
     .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   const short = (label) => String(label || "").replace(/\s+H\d$/, "");
   const fmt1 = (n) => (Math.round(n * 10) / 10).toFixed(1);
+  // Per-game value rounded to one decimal. Used everywhere a team average is shown, so the same number appears on every page.
+  const perGame = (n, gp) => (gp ? Math.round((n / gp) * 10) / 10 : 0);
+  // Rounds averages to one decimal so the shown parts add up to their shown total (largest remainder).
+  function roundParts(vals) {
+    const tenths = vals.map((v) => v * 10), floor = tenths.map(Math.floor);
+    let left = Math.round(tenths.reduce((a, b) => a + b, 0)) - floor.reduce((a, b) => a + b, 0);
+    tenths.map((t, i) => [t - floor[i], i]).sort((a, b) => b[0] - a[0]).forEach(([, i]) => { if (left-- > 0) floor[i]++; });
+    return floor.map((t) => t / 10);
+  }
   const todayStr = () => {
     const d = new Date();
     return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
@@ -202,17 +211,15 @@
     return r;
   }
 
+  // Our win–loss record (forfeits count as a win or loss). Points averages come from standings().
   function record(s) {
-    // Forfeits count as a win or loss, but their 20–0 is left out of the points averages.
-    let w = 0, l = 0, pf = 0, pa = 0, scored = 0;
+    let w = 0, l = 0;
     teamGames(s).forEach((g) => {
       const v = ourView(g, s);
       if (!v.played || !g.counts) return;
       v.win ? w++ : l++;
-      if (isForfeit(g)) return;
-      pf += v.us; pa += v.them; scored++;
     });
-    return { w, l, pf, pa, gp: w + l, scored };
+    return { w, l, gp: w + l };
   }
 
   // Standings worked out from final results: points, then head-to-head, then point difference.
@@ -504,6 +511,7 @@
   }
 
   // Team record, league place and points per game for one season (Home: this season; Stats: chosen season).
+  // PPG / OPPG come from our standings row, so they match the Standings page (forfeits count 20–0 there, as in the official table).
   function teamCard(idx, home) {
     const s = state.league.seasons[idx];
     if (!s) return "";
@@ -513,8 +521,8 @@
       "</h3>" + (home ? '<a href="#schedule">Results →</a>' : "") + "</div>" +
       '<div class="statline' + (home ? " two" : "") + '"><div class="stat-tile"><b>' + rec.w + "–" + rec.l + "</b><span>Record</span></div>" +
       '<div class="stat-tile"><b>' + (pt && rec.gp ? ordinal(pt.rank) : "–") + "</b><span>" + esc(leagueName(s)) + "</span></div>" +
-      '<div class="stat-tile"><b>' + (rec.scored ? fmt1(rec.pf / rec.scored) : "–") + "</b><span>PPG</span></div>" +
-      '<div class="stat-tile"><b>' + (rec.scored ? fmt1(rec.pa / rec.scored) : "–") + "</b><span>Opp PPG</span></div></div></section>";
+      '<div class="stat-tile"><b>' + (pt && pt.gp ? perGame(pt.pf, pt.gp).toFixed(1) : "–") + "</b><span>PPG</span></div>" +
+      '<div class="stat-tile"><b>' + (pt && pt.gp ? perGame(pt.pa, pt.gp).toFixed(1) : "–") + "</b><span>OPPG</span></div></div></section>";
   }
 
   function newsList() {
@@ -582,9 +590,10 @@
   function viewStandings() {
     const s = season();
     const { key, dir } = state.standSort;
-    const perGame = (n, r) => (r.gp ? n / r.gp : 0);
-    const val = (r) => ({ team: short(r.team), diff: r.pf - r.pa, strk: streakNum(r), ppg: perGame(r.pf, r), oppg: perGame(r.pa, r), diffpg: perGame(r.pf - r.pa, r) }[key] ?? r[key]);
-    const avg = (n, r) => (r.gp ? (n / r.gp).toFixed(1) : "–");
+    // DIFF is the shown PPG minus the shown OPPG, so the row adds up.
+    const diffPg = (r) => Math.round((perGame(r.pf, r.gp) - perGame(r.pa, r.gp)) * 10) / 10;
+    const val = (r) => ({ team: short(r.team), diff: r.pf - r.pa, strk: streakNum(r), ppg: perGame(r.pf, r.gp), oppg: perGame(r.pa, r.gp), diffpg: diffPg(r) }[key] ?? r[key]);
+    const avg = (n, r) => (r.gp ? perGame(n, r.gp).toFixed(1) : "–");
     const signed = (n) => (n > 0 ? "+" : "") + n;
     const rows = standings(s).sort((a, b) => (key === "team" ? val(a).localeCompare(val(b)) : val(a) - val(b)) * dir || a.rank - b.rank);
     const th = ([k, label, info, d]) => "<th" + (d ? ' class="sortable' + (k === key ? " sorted" : "") + (k === "team" ? " left" : "") + '" data-ssort="' + k + '"' : "") +
@@ -596,7 +605,7 @@
       rows.map((r) => '<tr class="' + (r.team === s.team ? "us" : "") + '"><td class="rank">' + r.rank + '</td><td class="name"><div class="teamcell">' + teamMark(r.team, "sm") + "<span>" + esc(short(r.team)) + "</span></div></td>" +
         cell("gp", r.gp) + cell("w", r.w) + cell("l", r.l) + cell("pts", r.pts) + cell("pf", r.pf) + cell("pa", r.pa) +
         cell("diff", signed(r.pf - r.pa)) +
-        cell("ppg", avg(r.pf, r)) + cell("oppg", avg(r.pa, r)) + cell("diffpg", r.gp ? signed(avg(r.pf - r.pa, r)) : "–") + cell("strk", r.streak) + '<td><span class="form">' +
+        cell("ppg", avg(r.pf, r)) + cell("oppg", avg(r.pa, r)) + cell("diffpg", r.gp ? signed(diffPg(r).toFixed(1)) : "–") + cell("strk", r.streak) + '<td><span class="form">' +
         r.form.slice(-5).map((x) => '<i class="' + (x === "W" ? "w" : "") + '" title="' + (x === "W" ? "Win" : "Loss") + '"></i>').join("") + "</span></td></tr>").join("") +
       '</tbody></table></div><p class="small muted" style="margin:12px 0 0">Win = 2 points. Ties split by head-to-head, then point difference. Tap a column to sort. Unofficial, worked out from the <a href="' + esc(s.sourceUrl) + '" target="_blank" rel="noopener">official results on basketplan</a>.</p></section>';
   }
@@ -650,7 +659,7 @@
     // Points per quarter: average per game, only on the player page
     const perQuarter = (o) => {
       const g = o ? o.games.filter((r) => r.q) : [];
-      return g.length ? { n: g.length, avg: [0, 1, 2, 3].map((i) => g.reduce((s, r) => s + r.q[i], 0) / g.length) } : null;
+      return g.length ? { n: g.length, avg: roundParts([0, 1, 2, 3].map((i) => g.reduce((s, r) => s + r.q[i], 0) / g.length)) } : null;
     };
     const qSeasons = [[curSeason.season, perQuarter(cur)], [state.league.seasons[1] ? state.league.seasons[1].season : "", perQuarter(prev)]].filter((x) => x[1]);
     if (qSeasons.length) {
