@@ -85,7 +85,13 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 }
 
 /* "Add to home screen" note, top right of the header */
-.a2hs { position: absolute; top: 10px; right: 0; z-index: 2; text-align: right; }
+.top-actions { position: absolute; top: 10px; right: 16px; z-index: 2; display: flex; align-items: flex-start; gap: 6px; }
+.a2hs { text-align: right; }
+#theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; padding: 0; border-radius: 999px; border: 1px solid rgba(255,255,255,.28);
+  background: rgba(15,23,42,.35); color: #fff; cursor: pointer; }
+#theme-btn:hover { background: rgba(15,23,42,.55); }
+#theme-btn[aria-pressed="true"] { color: var(--gold); }
+#theme-btn svg { width: 15px; height: 15px; }
 #a2hs { display: inline-flex; align-items: center; gap: 5px; min-height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.28);
   background: rgba(15,23,42,.35); color: #fff; font: 600 12px/1 Inter, system-ui, sans-serif; cursor: pointer; }
 #a2hs:hover { background: rgba(15,23,42,.55); }
@@ -99,7 +105,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .a2hs-install { margin-top: 10px; min-height: 36px; padding: 0 14px; border: 0; border-radius: 8px; background: var(--blue); color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
 @media (max-width: 640px) {
   .masthead-inner { padding-top: 46px; }
-  .a2hs { top: 12px; }
+  .top-actions { top: 12px; }
 }
 
 /* ---------- Tabs ---------- */

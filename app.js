@@ -573,6 +573,7 @@
   const STAND_COLS = [
     ["rank", "#", "League position", 1], ["team", "Team", "", 1], ["gp", "GP", "Games played", -1], ["w", "W", "Wins", -1], ["l", "L", "Losses", -1],
     ["pts", "Pts", "League points (2 per win)", -1], ["pf", "PF", "Points for (scored)", -1], ["pa", "PA", "Points against (conceded)", -1],
+    ["ppg", "PPG", "Points per game (scored)", -1], ["oppg", "OPPG", "Opponent points per game (allowed)", -1],
     ["diff", "+/-", "Point difference", -1], ["strk", "Strk", "Current streak", -1], ["form", "Last 5", "Last five games", 0],
   ];
   // Streak as a number for sorting: W3 = 3, L2 = -2.
@@ -581,7 +582,9 @@
   function viewStandings() {
     const s = season();
     const { key, dir } = state.standSort;
-    const val = (r) => ({ team: short(r.team), diff: r.pf - r.pa, strk: streakNum(r) }[key] ?? r[key]);
+    const perGame = (n, r) => (r.gp ? n / r.gp : 0);
+    const val = (r) => ({ team: short(r.team), diff: r.pf - r.pa, strk: streakNum(r), ppg: perGame(r.pf, r), oppg: perGame(r.pa, r) }[key] ?? r[key]);
+    const avg = (n, r) => (r.gp ? (n / r.gp).toFixed(1) : "–");
     const rows = standings(s).sort((a, b) => (key === "team" ? val(a).localeCompare(val(b)) : val(a) - val(b)) * dir || a.rank - b.rank);
     const th = ([k, label, info, d]) => "<th" + (d ? ' class="sortable' + (k === key ? " sorted" : "") + (k === "team" ? " left" : "") + '" data-ssort="' + k + '"' : "") +
       (info ? ' title="' + info + '"' : "") + ">" + label + (k === key ? (dir < 0 ? " ▾" : " ▴") : "") + "</th>";
@@ -591,7 +594,7 @@
       STAND_COLS.map(th).join("") + "</tr></thead><tbody>" +
       rows.map((r) => '<tr class="' + (r.team === s.team ? "us" : "") + '"><td class="rank">' + r.rank + '</td><td class="name"><div class="teamcell">' + teamMark(r.team, "sm") + "<span>" + esc(short(r.team)) + "</span></div></td>" +
         cell("gp", r.gp) + cell("w", r.w) + cell("l", r.l) + cell("pts", r.pts) + cell("pf", r.pf) + cell("pa", r.pa) +
-        cell("diff", (r.pf - r.pa > 0 ? "+" : "") + (r.pf - r.pa)) + cell("strk", r.streak) + '<td><span class="form">' +
+        cell("ppg", avg(r.pf, r)) + cell("oppg", avg(r.pa, r)) + cell("diff", (r.pf - r.pa > 0 ? "+" : "") + (r.pf - r.pa)) + cell("strk", r.streak) + '<td><span class="form">' +
         r.form.slice(-5).map((x) => '<i class="' + (x === "W" ? "w" : "") + '" title="' + (x === "W" ? "Win" : "Loss") + '"></i>').join("") + "</span></td></tr>").join("") +
       '</tbody></table></div><p class="small muted" style="margin:12px 0 0">Win = 2 points. Ties split by head-to-head, then point difference. Tap a column to sort. Unofficial, worked out from the <a href="' + esc(s.sourceUrl) + '" target="_blank" rel="noopener">official results on basketplan</a>.</p></section>';
   }
@@ -1335,9 +1338,36 @@
     const upd = new Date(state.league.updated);
     $("#updated").textContent = "League data last changed " + upd.toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" }) + ".";
     if (!ATT_ON) { const tab = document.querySelector('#tabs a[href="#attendance"]'); if (tab) tab.remove(); }
+    themeToggle();
     homeScreenHint();
     render();
     attLoad();
+  }
+
+  // Top-right corner of the header: holds the moon button and the "Add to home screen" note.
+  function topActions() {
+    let bar = $(".top-actions");
+    if (!bar) { bar = document.createElement("div"); bar.className = "top-actions"; $(".masthead-inner").appendChild(bar); }
+    return bar;
+  }
+
+  // Moon button: switches light/dark. Follows the phone's setting until tapped, then remembers the choice.
+  const isDark = () => (document.documentElement.getAttribute("data-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark";
+  function themeToggle() {
+    if ($("#theme-btn")) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.id = "theme-btn";
+    btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+    const label = () => { const d = isDark(); btn.setAttribute("aria-pressed", String(d)); btn.setAttribute("aria-label", d ? "Switch to light mode" : "Switch to dark mode"); btn.title = btn.getAttribute("aria-label"); };
+    btn.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      store.set("theme", next);
+      label();
+    });
+    label();
+    topActions().appendChild(btn);
   }
 
   // "Add to home screen" note at the top right of the header, so people know the hub works
@@ -1363,7 +1393,7 @@
       "Add to home screen</button>" +
       '<div class="a2hs-panel" id="a2hs-panel" hidden><p>Open the hub like an app: one tap from your home screen, no browser.</p><ul>' +
       steps.map((x) => "<li>" + x + "</li>").join("") + '</ul><button type="button" class="a2hs-install" hidden>Install now</button></div>';
-    $(".masthead-inner").appendChild(box);
+    topActions().prepend(box);
     document.body.appendChild($("#a2hs-panel")); // outside the header, so the tab bar can't cover it
   }
   window.addEventListener("scroll", () => { const p = $("#a2hs-panel"); if (p && !p.hidden) { p.hidden = true; $("#a2hs").setAttribute("aria-expanded", "false"); } }, { passive: true });
