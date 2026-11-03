@@ -401,7 +401,9 @@
   // Open/close box score for any played game: quarters, our player box score (if ours) and referees.
   function boxInner(g) {
     if (!hasScore(g) || isForfeit(g)) return "";
-    return quarterTable(g) + boxScore(g) + (g.referees && g.referees.length ? '<div class="small muted" style="margin-top:10px">Referees: ' + g.referees.map(esc).join(", ") + "</div>" : "");
+    // Some clubs enter only the final score on basketplan, so there are no quarters to show.
+    const noQuarters = !g.quarters || !g.quarters.length ? '<p class="small muted" style="margin:0">Quarter scores not on basketplan.</p>' : "";
+    return noQuarters + quarterTable(g) + boxScore(g) + (g.referees && g.referees.length ? '<div class="small muted" style="margin-top:10px">Referees: ' + g.referees.map(esc).join(", ") + "</div>" : "");
   }
   function boxToggle(g) {
     const inner = boxInner(g);
