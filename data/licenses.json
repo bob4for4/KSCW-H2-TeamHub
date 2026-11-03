@@ -1,0 +1,97 @@
+{
+ "Sven": {
+  "license": "787846",
+  "photo": "assets/players/sven.jpg",
+  "born": "20.08.1996"
+ },
+ "Dimi": {
+  "license": "773092",
+  "photo": "assets/players/dimi.jpg",
+  "born": "26.12.1998"
+ },
+ "André": {
+  "license": "817647",
+  "photo": "assets/players/andre.jpg",
+  "born": "21.12.1995"
+ },
+ "Mo": {
+  "license": "815715",
+  "photo": "assets/players/mo.jpg",
+  "born": "06.08.1999"
+ },
+ "Joey": {
+  "license": "059863",
+  "photo": "assets/players/joey.jpg",
+  "born": "28.06.1995"
+ },
+ "Lorenzo": {
+  "license": "843806",
+  "photo": "assets/players/lorenzo.jpg",
+  "born": "30.08.1998"
+ },
+ "Flo": {
+  "license": "773496",
+  "photo": "assets/players/flo.jpg",
+  "born": "26.06.2001"
+ },
+ "Nicolò": {
+  "license": "768042",
+  "photo": "assets/players/nicolo.jpg",
+  "born": "19.03.1998"
+ },
+ "Max": {
+  "license": "825396",
+  "photo": "assets/players/max.jpg",
+  "born": "29.05.2002"
+ },
+ "Mike": {
+  "license": "845652",
+  "photo": "assets/players/mike.jpg",
+  "born": "07.06.1992"
+ },
+ "Adam": {
+  "license": "836955",
+  "photo": "assets/players/adam.jpg",
+  "born": "02.01.1988"
+ },
+ "Daniel": {
+  "license": "777883",
+  "photo": "assets/players/daniel.jpg",
+  "born": "25.01.1996"
+ },
+ "Paul": {
+  "license": "777886",
+  "photo": "assets/players/paul.jpg",
+  "born": "25.04.1995"
+ },
+ "Joti": {
+  "license": "754861",
+  "photo": "assets/players/joti.jpg",
+  "born": "12.02.1994"
+ },
+ "Philipp": {
+  "license": "777885",
+  "photo": "assets/players/philipp.jpg",
+  "born": "19.12.1996"
+ },
+ "Nikos": {
+  "license": "838711",
+  "photo": "assets/players/nikos.jpg",
+  "born": "08.11.1996"
+ },
+ "Yves": {
+  "license": "843810",
+  "photo": "assets/players/yves.jpg",
+  "born": "18.11.1994"
+ },
+ "Yannik": {
+  "license": "794197",
+  "photo": "assets/players/yannik.jpg",
+  "born": "29.07.1999"
+ },
+ "Phiphi": {
+  "license": "772049",
+  "photo": "assets/players/phiphi.jpg",
+  "born": "26.08.1997"
+ }
+}
