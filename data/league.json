@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T07:35:21+00:00",
+ "updated": "2026-11-04T07:25:56+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -447,10 +447,10 @@
      "away": "KSC Wiedikon Herren 2 H2",
      "homeClub": "Opfikon Basket",
      "awayClub": "KSC Wiedikon",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Schulhaus Lättenwiesen",
       "address": "Giebeleichstrasse 48",
