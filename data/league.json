@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T09:04:16+00:00",
+ "updated": "2026-11-04T11:23:40+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -532,10 +532,10 @@
      "away": "Frauenfeld Herren 1 H2",
      "homeClub": "BZO",
      "awayClub": "CVJM Frauenfeld",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Kantonsschule Wetzikon HE",
       "address": "Kantonsschulstrasse",
@@ -583,10 +583,10 @@
      "away": "Unicorn 02 Basket H2",
      "homeClub": "GRBB",
      "awayClub": "Unicorn 02 Basket",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Türligarten A",
       "address": "Bodmerstrasse 10",
