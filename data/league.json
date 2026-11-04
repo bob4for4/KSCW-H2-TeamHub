@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T07:25:56+00:00",
+ "updated": "2026-11-04T09:04:16+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -498,10 +498,10 @@
      "away": "Zug Basket H2",
      "homeClub": "Unicorn 02 Basket",
      "awayClub": "Zug Basket",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Sporthalle Seefeld",
       "address": "Schmittegass 100",
