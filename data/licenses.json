@@ -93,5 +93,10 @@
   "license": "772049",
   "photo": "assets/players/phiphi.jpg",
   "born": "26.08.1997"
+ },
+ "Gianluca": {
+  "license": "852250",
+  "photo": "assets/players/gianluca.jpg",
+  "born": "28.05.1993"
  }
 }
