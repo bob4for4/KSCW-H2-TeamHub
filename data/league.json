@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T12:59:21+00:00",
+ "updated": "2026-11-08T14:48:25+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -736,10 +736,10 @@
      "away": "Opfikon Basket Rams H2",
      "homeClub": "BZO",
      "awayClub": "Opfikon Basket",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Sportzentrum Zürich A 3fach ",
       "address": "Dübendorfstrasse 48",
