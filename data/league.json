@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T11:23:40+00:00",
+ "updated": "2026-11-08T12:59:21+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -634,10 +634,10 @@
      "away": "Wohlen Basket H2",
      "homeClub": "Zug Basket",
      "awayClub": "Wohlen Basket",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Kantonsschule Zug",
       "address": "Lüssiweg 24",
@@ -647,6 +647,32 @@
      "referees": [
       "Stojic Nikola",
       "Sakotic Dragan"
+     ],
+     "score": [
+      72,
+      90
+     ],
+     "quarters": [
+      [
+       13,
+       18
+      ],
+      [
+       22,
+       27
+      ],
+      [
+       17,
+       23
+      ],
+      [
+       20,
+       22
+      ]
+     ],
+     "points": [
+      0,
+      2
      ]
     },
     {
@@ -659,10 +685,10 @@
      "away": "Unicorn 02 Basket H2",
      "homeClub": "KSC Wiedikon",
      "awayClub": "Unicorn 02 Basket",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Kantonsschule Wiedikon 1fach Halle B",
       "address": "Eingang Goldbrunnenstr. 80",
@@ -672,6 +698,32 @@
      "referees": [
       "Frischknecht Thomas",
       "Brombacher Linus Jonathan"
+     ],
+     "score": [
+      60,
+      54
+     ],
+     "quarters": [
+      [
+       8,
+       17
+      ],
+      [
+       11,
+       7
+      ],
+      [
+       17,
+       19
+      ],
+      [
+       24,
+       11
+      ]
+     ],
+     "points": [
+      2,
+      0
      ]
     },
     {
@@ -687,7 +739,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Sportzentrum Zürich A 3fach ",
       "address": "Dübendorfstrasse 48",
@@ -697,6 +749,32 @@
      "referees": [
       "Milojevic Nemanja",
       "Krasniqi Fisnik"
+     ],
+     "score": [
+      61,
+      50
+     ],
+     "quarters": [
+      [
+       23,
+       15
+      ],
+      [
+       8,
+       16
+      ],
+      [
+       14,
+       10
+      ],
+      [
+       16,
+       9
+      ]
+     ],
+     "points": [
+      2,
+      0
      ]
     },
     {
