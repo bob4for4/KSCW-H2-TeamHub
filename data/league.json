@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T14:48:25+00:00",
+ "updated": "2026-11-09T20:59:13+00:00",
  "seasons": [
   {
    "season": "2026/27",
@@ -790,7 +790,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Weiterführende Schulen (WSV)",
       "address": "Marianumstrasse 43",
@@ -800,6 +800,32 @@
      "referees": [
       "Castro Nicolas",
       "Louis-Marie Eric Alexandre"
+     ],
+     "score": [
+      68,
+      52
+     ],
+     "quarters": [
+      [
+       25,
+       16
+      ],
+      [
+       16,
+       14
+      ],
+      [
+       16,
+       13
+      ],
+      [
+       11,
+       9
+      ]
+     ],
+     "points": [
+      2,
+      0
      ]
     },
     {
