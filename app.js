@@ -222,7 +222,9 @@
     return { w, l, gp: w + l };
   }
 
-  // Standings worked out from final results: points, then head-to-head, then point difference.
+  // Standings worked out from results, ordered like basketplan: points, then fewer games played,
+  // then head-to-head among teams level on both, then point difference.
+  // When basketplan's own table (s.ranking) covers the same games, its order is used as is.
   function standings(s) {
     const t = {};
     const row = (name) => (t[name] = t[name] || { team: name, gp: 0, w: 0, l: 0, pts: 0, pf: 0, pa: 0, form: [] });
@@ -242,7 +244,7 @@
     });
     const rows = Object.values(t);
     const groups = {};
-    rows.forEach((r) => (groups[r.pts] = groups[r.pts] || []).push(r));
+    rows.forEach((r) => (groups[r.pts + "/" + r.gp] = groups[r.pts + "/" + r.gp] || []).push(r));
     Object.values(groups).forEach((grp) => {
       const names = new Set(grp.map((r) => r.team));
       grp.forEach((r) => { r.h2hPts = 0; r.h2hDiff = 0; });
@@ -255,8 +257,16 @@
         h.h2hDiff += g.score[0] - g.score[1]; a.h2hDiff += g.score[1] - g.score[0];
       });
     });
-    rows.sort((a, b) => b.pts - a.pts || b.h2hPts - a.h2hPts || b.h2hDiff - a.h2hDiff ||
+    rows.sort((a, b) => b.pts - a.pts || a.gp - b.gp || b.h2hPts - a.h2hPts || b.h2hDiff - a.h2hDiff ||
       (b.pf - b.pa) - (a.pf - a.pa) || b.pf - a.pf || a.team.localeCompare(b.team));
+    // Official order, but only if it counts the same games (a score-sheet result basketplan
+    // hasn't entered yet would make it stale).
+    const off = {};
+    (s.ranking || []).forEach((o) => (off[o.team] = o));
+    if (s.ranking && rows.every((r) => off[r.team] && off[r.team].gp === r.gp && off[r.team].pts === r.pts)) {
+      rows.sort((a, b) => off[a.team].rank - off[b.team].rank);
+      s.officialOrder = true;
+    } else s.officialOrder = false;
     rows.forEach((r, i) => {
       r.rank = i + 1;
       let n = 0;
@@ -607,7 +617,9 @@
         cell("diff", signed(r.pf - r.pa)) +
         cell("ppg", avg(r.pf, r)) + cell("oppg", avg(r.pa, r)) + cell("diffpg", r.gp ? signed(diffPg(r).toFixed(1)) : "–") + cell("strk", r.streak) + '<td><span class="form">' +
         r.form.slice(-5).map((x) => '<i class="' + (x === "W" ? "w" : "") + '" title="' + (x === "W" ? "Win" : "Loss") + '"></i>').join("") + "</span></td></tr>").join("") +
-      '</tbody></table></div><p class="small muted" style="margin:12px 0 0">Win = 2 points. Ties split by head-to-head, then point difference. Tap a column to sort. Unofficial, worked out from the <a href="' + esc(s.sourceUrl) + '" target="_blank" rel="noopener">official results on basketplan</a>.</p></section>';
+      '</tbody></table></div><p class="small muted" style="margin:12px 0 0">Win = 2 points. Ties split by fewer games played, then head-to-head, then point difference. Tap a column to sort. ' +
+      (s.officialOrder ? 'Order as in the <a href="' + esc(s.rankingUrl || s.sourceUrl) + '" target="_blank" rel="noopener">official table on basketplan</a>.'
+        : 'Includes results basketplan hasn\'t entered yet, so the order may differ from the <a href="' + esc(s.rankingUrl || s.sourceUrl) + '" target="_blank" rel="noopener">official table</a> for now.') + "</p></section>";
   }
 
   function viewRoster() {
