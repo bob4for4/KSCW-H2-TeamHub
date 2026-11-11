@@ -92,12 +92,37 @@ def parse_game(g):
     return game
 
 
+def load_ranking(holding_id):
+    """basketplan's own table, so the hub shows the same order as the official site."""
+    try:
+        root = ET.fromstring(fetch("/showRankingForLeague.do?leagueHoldingId=%s" % holding_id))
+    except Exception as exc:  # the hub falls back to its own calculation
+        print("Ranking not loaded:", exc, file=sys.stderr)
+        return None
+    rows = []
+    for r in root.iter("Ranking"):
+        d, t = r.find("rankingDataVO"), r.find("team")
+        if d is None or t is None:
+            continue
+        rows.append({
+            "rank": as_int(d.get("currentRanking")),
+            "team": t.get("name"),
+            "gp": as_int(d.get("gamesPlayed")),
+            "w": as_int(d.get("victories")),
+            "l": as_int(d.get("defeats")),
+            "pts": as_int(d.get("totalPoints")),
+        })
+    return rows or None
+
+
 def load_season(federation_id, season, league_short):
     holding_id, full_name = find_league_holding(federation_id, season["id"], league_short)
     root = ET.fromstring(fetch("/showLeagueSchedule.do?leagueHoldingId=%s" % holding_id))
     games = [parse_game(g) for g in root.iter("game")]
     games.sort(key=lambda x: (x["date"] or "", x["time"] or ""))
     return {
+        "ranking": load_ranking(holding_id),
+        "rankingUrl": BASE + "/showRankingForLeague.do?leagueHoldingId=%s" % holding_id,
         "season": season["label"],
         "team": season["team"],
         "league": full_name,
