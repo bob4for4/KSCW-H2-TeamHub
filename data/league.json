@@ -1,7 +1,90 @@
 {
- "updated": "2026-11-09T20:59:13+00:00",
+ "updated": "2026-11-11T19:24:25+00:00",
  "seasons": [
   {
+   "ranking": [
+    {
+     "rank": 1,
+     "team": "GRBB Chur Herren 1 H2",
+     "gp": 2,
+     "w": 2,
+     "l": 0,
+     "pts": 4
+    },
+    {
+     "rank": 2,
+     "team": "BBC Schaan H2",
+     "gp": 2,
+     "w": 2,
+     "l": 0,
+     "pts": 4
+    },
+    {
+     "rank": 3,
+     "team": "Opfikon Basket Wolves H2",
+     "gp": 2,
+     "w": 2,
+     "l": 0,
+     "pts": 4
+    },
+    {
+     "rank": 4,
+     "team": "Wohlen Basket H2",
+     "gp": 3,
+     "w": 2,
+     "l": 1,
+     "pts": 4
+    },
+    {
+     "rank": 5,
+     "team": "KSC Wiedikon Herren 2 H2",
+     "gp": 3,
+     "w": 2,
+     "l": 1,
+     "pts": 4
+    },
+    {
+     "rank": 6,
+     "team": "Zug Basket H2",
+     "gp": 4,
+     "w": 2,
+     "l": 2,
+     "pts": 4
+    },
+    {
+     "rank": 7,
+     "team": "BZO Highlanders H2",
+     "gp": 4,
+     "w": 2,
+     "l": 2,
+     "pts": 4
+    },
+    {
+     "rank": 8,
+     "team": "Frauenfeld Herren 1 H2",
+     "gp": 5,
+     "w": 2,
+     "l": 3,
+     "pts": 4
+    },
+    {
+     "rank": 9,
+     "team": "Unicorn 02 Basket H2",
+     "gp": 4,
+     "w": 1,
+     "l": 3,
+     "pts": 2
+    },
+    {
+     "rank": 10,
+     "team": "Opfikon Basket Rams H2",
+     "gp": 5,
+     "w": 0,
+     "l": 5,
+     "pts": 0
+    }
+   ],
+   "rankingUrl": "https://www.basketplan.ch/showRankingForLeague.do?leagueHoldingId=11455",
    "season": "2026/27",
    "team": "KSC Wiedikon Herren 2 H2",
    "league": "H2LR Saison 26/27",
@@ -2464,6 +2547,81 @@
    ]
   },
   {
+   "ranking": [
+    {
+     "rank": 1,
+     "team": "KSC Wiedikon Herren 2 H3",
+     "gp": 16,
+     "w": 14,
+     "l": 2,
+     "pts": 28
+    },
+    {
+     "rank": 2,
+     "team": "BCBE Team one H3",
+     "gp": 16,
+     "w": 13,
+     "l": 3,
+     "pts": 26
+    },
+    {
+     "rank": 3,
+     "team": "Aarau Basket H3",
+     "gp": 16,
+     "w": 8,
+     "l": 8,
+     "pts": 16
+    },
+    {
+     "rank": 4,
+     "team": "Mutschellen Herren 1 H3",
+     "gp": 16,
+     "w": 8,
+     "l": 8,
+     "pts": 16
+    },
+    {
+     "rank": 5,
+     "team": "Ikaros Zürich H3",
+     "gp": 16,
+     "w": 7,
+     "l": 9,
+     "pts": 14
+    },
+    {
+     "rank": 6,
+     "team": "BC Sarnen H3",
+     "gp": 16,
+     "w": 7,
+     "l": 9,
+     "pts": 12
+    },
+    {
+     "rank": 7,
+     "team": "Baden Basket 54 Herren 3 H3",
+     "gp": 16,
+     "w": 6,
+     "l": 10,
+     "pts": 12
+    },
+    {
+     "rank": 8,
+     "team": "Emmen Basket H3",
+     "gp": 16,
+     "w": 6,
+     "l": 10,
+     "pts": 12
+    },
+    {
+     "rank": 9,
+     "team": "BBZU Rockets H3",
+     "gp": 16,
+     "w": 3,
+     "l": 13,
+     "pts": 6
+    }
+   ],
+   "rankingUrl": "https://www.basketplan.ch/showRankingForLeague.do?leagueHoldingId=10677",
    "season": "2025/26",
    "team": "KSC Wiedikon Herren 2 H3",
    "league": "H3LS Saison 25/26",
