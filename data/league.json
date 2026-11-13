@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T19:24:25+00:00",
+ "updated": "2026-11-13T14:58:14+00:00",
  "seasons": [
   {
    "ranking": [
@@ -870,10 +870,10 @@
      "away": "BZO Highlanders H2",
      "homeClub": "BBC Schaan",
      "awayClub": "BZO",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Weiterführende Schulen (WSV)",
       "address": "Marianumstrasse 43",
