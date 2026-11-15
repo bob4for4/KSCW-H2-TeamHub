@@ -1,23 +1,23 @@
 {
- "updated": "2026-11-15T13:01:59+00:00",
+ "updated": "2026-11-15T20:49:13+00:00",
  "seasons": [
   {
    "ranking": [
     {
      "rank": 1,
+     "team": "BZO Highlanders H2",
+     "gp": 5,
+     "w": 3,
+     "l": 2,
+     "pts": 6
+    },
+    {
+     "rank": 2,
      "team": "Frauenfeld Herren 1 H2",
      "gp": 6,
      "w": 3,
      "l": 3,
      "pts": 6
-    },
-    {
-     "rank": 2,
-     "team": "GRBB Chur Herren 1 H2",
-     "gp": 2,
-     "w": 2,
-     "l": 0,
-     "pts": 4
     },
     {
      "rank": 3,
@@ -37,7 +37,7 @@
     },
     {
      "rank": 5,
-     "team": "Wohlen Basket H2",
+     "team": "GRBB Chur Herren 1 H2",
      "gp": 3,
      "w": 2,
      "l": 1,
@@ -45,6 +45,14 @@
     },
     {
      "rank": 6,
+     "team": "Wohlen Basket H2",
+     "gp": 3,
+     "w": 2,
+     "l": 1,
+     "pts": 4
+    },
+    {
+     "rank": 7,
      "team": "Zug Basket H2",
      "gp": 4,
      "w": 2,
@@ -52,16 +60,8 @@
      "pts": 4
     },
     {
-     "rank": 7,
-     "team": "KSC Wiedikon Herren 2 H2",
-     "gp": 4,
-     "w": 2,
-     "l": 2,
-     "pts": 4
-    },
-    {
      "rank": 8,
-     "team": "BZO Highlanders H2",
+     "team": "KSC Wiedikon Herren 2 H2",
      "gp": 4,
      "w": 2,
      "l": 2,
@@ -975,7 +975,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Gewerbliche Berufsschule Chur 3fach",
       "address": "Sennensteinstrasse 20",
@@ -985,6 +985,32 @@
      "referees": [
       "Kalashnikov Sergii",
       "Luma Ersun"
+     ],
+     "score": [
+      65,
+      73
+     ],
+     "quarters": [
+      [
+       13,
+       11
+      ],
+      [
+       18,
+       16
+      ],
+      [
+       9,
+       18
+      ],
+      [
+       25,
+       28
+      ]
+     ],
+     "points": [
+      0,
+      2
      ]
     },
     {
