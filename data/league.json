@@ -1,10 +1,18 @@
 {
- "updated": "2026-11-13T14:58:14+00:00",
+ "updated": "2026-11-15T13:01:59+00:00",
  "seasons": [
   {
    "ranking": [
     {
      "rank": 1,
+     "team": "Frauenfeld Herren 1 H2",
+     "gp": 6,
+     "w": 3,
+     "l": 3,
+     "pts": 6
+    },
+    {
+     "rank": 2,
      "team": "GRBB Chur Herren 1 H2",
      "gp": 2,
      "w": 2,
@@ -12,7 +20,7 @@
      "pts": 4
     },
     {
-     "rank": 2,
+     "rank": 3,
      "team": "BBC Schaan H2",
      "gp": 2,
      "w": 2,
@@ -20,7 +28,7 @@
      "pts": 4
     },
     {
-     "rank": 3,
+     "rank": 4,
      "team": "Opfikon Basket Wolves H2",
      "gp": 2,
      "w": 2,
@@ -28,16 +36,8 @@
      "pts": 4
     },
     {
-     "rank": 4,
-     "team": "Wohlen Basket H2",
-     "gp": 3,
-     "w": 2,
-     "l": 1,
-     "pts": 4
-    },
-    {
      "rank": 5,
-     "team": "KSC Wiedikon Herren 2 H2",
+     "team": "Wohlen Basket H2",
      "gp": 3,
      "w": 2,
      "l": 1,
@@ -53,7 +53,7 @@
     },
     {
      "rank": 7,
-     "team": "BZO Highlanders H2",
+     "team": "KSC Wiedikon Herren 2 H2",
      "gp": 4,
      "w": 2,
      "l": 2,
@@ -61,10 +61,10 @@
     },
     {
      "rank": 8,
-     "team": "Frauenfeld Herren 1 H2",
-     "gp": 5,
+     "team": "BZO Highlanders H2",
+     "gp": 4,
      "w": 2,
-     "l": 3,
+     "l": 2,
      "pts": 4
     },
     {
@@ -921,10 +921,10 @@
      "away": "Frauenfeld Herren 1 H2",
      "homeClub": "KSC Wiedikon",
      "awayClub": "CVJM Frauenfeld",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Kantonsschule Wiedikon 1fach Halle B",
       "address": "Eingang Goldbrunnenstr. 80",
@@ -934,6 +934,32 @@
      "referees": [
       "Lemonnier Alexandre",
       "Rakic Bratislav"
+     ],
+     "score": [
+      56,
+      76
+     ],
+     "quarters": [
+      [
+       16,
+       24
+      ],
+      [
+       13,
+       19
+      ],
+      [
+       13,
+       15
+      ],
+      [
+       14,
+       18
+      ]
+     ],
+     "points": [
+      0,
+      2
      ]
     },
     {
