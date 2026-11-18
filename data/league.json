@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T15:14:45+00:00",
+ "updated": "2026-11-18T17:15:05+00:00",
  "seasons": [
   {
    "ranking": [
@@ -972,10 +972,10 @@
      "away": "BZO Highlanders H2",
      "homeClub": "GRBB",
      "awayClub": "BZO",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Gewerbliche Berufsschule Chur 3fach",
       "address": "Sennensteinstrasse 20",
@@ -1208,7 +1208,10 @@
       "zip": "8957",
       "city": "Spreitenbach"
      },
-     "referees": []
+     "referees": [
+      "Ljubanic Jovan",
+      "Brombacher Linus Jonathan"
+     ]
     },
     {
      "id": "373259",
@@ -1230,7 +1233,10 @@
       "zip": "6300",
       "city": "Zug"
      },
-     "referees": []
+     "referees": [
+      "Vincent Sinthuyan",
+      "Stojic Nikola"
+     ]
     },
     {
      "id": "373258",
@@ -1252,7 +1258,10 @@
       "zip": "5610",
       "city": "Wohlen"
      },
-     "referees": []
+     "referees": [
+      "Lemonnier Alexandre",
+      "Cacioppo Samuel"
+     ]
     },
     {
      "id": "373269",
@@ -1274,7 +1283,10 @@
       "zip": "9490",
       "city": "Vaduz"
      },
-     "referees": []
+     "referees": [
+      "Manojlovic Petar",
+      "Luma Ersun"
+     ]
     },
     {
      "id": "373226",
@@ -1296,7 +1308,10 @@
       "zip": "7000",
       "city": "Chur"
      },
-     "referees": []
+     "referees": [
+      "Rakic Bratislav",
+      "Louis-Marie Eric Alexandre"
+     ]
     },
     {
      "id": "373217",
@@ -1318,7 +1333,10 @@
       "zip": "8152",
       "city": "Glattbrugg"
      },
-     "referees": []
+     "referees": [
+      "Schaudt Caspar",
+      "Tomus Alexandru"
+     ]
     },
     {
      "id": "373235",
@@ -1340,7 +1358,10 @@
       "zip": "8152",
       "city": "Glattbrugg"
      },
-     "referees": []
+     "referees": [
+      "Castro Nicolas",
+      "Jaksic Miodrag"
+     ]
     },
     {
      "id": "373268",
@@ -1362,7 +1383,10 @@
       "zip": "8500",
       "city": "Frauenfeld"
      },
-     "referees": []
+     "referees": [
+      "Russo Alfio",
+      "Luma Ersun"
+     ]
     },
     {
      "id": "373208",
@@ -1384,7 +1408,10 @@
       "zip": "5610",
       "city": "Wohlen"
      },
-     "referees": []
+     "referees": [
+      "Ponxha Bashkim",
+      "Enkhtsetseg Temuulen"
+     ]
     },
     {
      "id": "373272",
