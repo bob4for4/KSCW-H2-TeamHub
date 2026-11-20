@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-18T17:15:05+00:00",
+ "updated": "2026-11-20T12:52:39+00:00",
  "seasons": [
   {
    "ranking": [
     {
      "rank": 1,
      "team": "BZO Highlanders H2",
-     "gp": 5,
-     "w": 3,
+     "gp": 6,
+     "w": 4,
      "l": 2,
-     "pts": 6
+     "pts": 8
     },
     {
      "rank": 2,
@@ -53,7 +53,7 @@
     },
     {
      "rank": 7,
-     "team": "Zug Basket H2",
+     "team": "KSC Wiedikon Herren 2 H2",
      "gp": 4,
      "w": 2,
      "l": 2,
@@ -61,10 +61,10 @@
     },
     {
      "rank": 8,
-     "team": "KSC Wiedikon Herren 2 H2",
-     "gp": 4,
+     "team": "Zug Basket H2",
+     "gp": 5,
      "w": 2,
-     "l": 2,
+     "l": 3,
      "pts": 4
     },
     {
@@ -1023,10 +1023,10 @@
      "away": "BZO Highlanders H2",
      "homeClub": "Zug Basket",
      "awayClub": "BZO",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Kantonsschule Zug",
       "address": "Lüssiweg 24",
@@ -1036,6 +1036,32 @@
      "referees": [
       "Schaudt Caspar",
       "Berceg Adrijana"
+     ],
+     "score": [
+      74,
+      94
+     ],
+     "quarters": [
+      [
+       20,
+       25
+      ],
+      [
+       24,
+       18
+      ],
+      [
+       19,
+       22
+      ],
+      [
+       11,
+       29
+      ]
+     ],
+     "points": [
+      0,
+      2
      ]
     },
     {
