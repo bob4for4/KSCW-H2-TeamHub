@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T12:52:39+00:00",
+ "updated": "2026-11-22T17:49:43+00:00",
  "seasons": [
   {
    "ranking": [
@@ -46,9 +46,9 @@
     {
      "rank": 6,
      "team": "Wohlen Basket H2",
-     "gp": 3,
+     "gp": 4,
      "w": 2,
-     "l": 1,
+     "l": 2,
      "pts": 4
     },
     {
@@ -70,10 +70,10 @@
     {
      "rank": 9,
      "team": "Unicorn 02 Basket H2",
-     "gp": 4,
-     "w": 1,
+     "gp": 5,
+     "w": 2,
      "l": 3,
-     "pts": 2
+     "pts": 4
     },
     {
      "rank": 10,
@@ -1102,7 +1102,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Sporthalle Seefeld",
       "address": "Schmittegass 100",
@@ -1112,6 +1112,15 @@
      "referees": [
       "Krasniqi Fisnik",
       "Rakic Bratislav"
+     ],
+     "score": [
+      81,
+      65
+     ],
+     "quarters": [],
+     "points": [
+      2,
+      0
      ]
     },
     {
