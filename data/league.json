@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T17:49:43+00:00",
+ "updated": "2026-11-23T20:12:57+00:00",
  "seasons": [
   {
    "ranking": [
@@ -1468,7 +1468,10 @@
       "zip": "5610",
       "city": "Wohlen"
      },
-     "referees": []
+     "referees": [
+      "Russo Alfio",
+      "Stojic Nikola"
+     ]
     },
     {
      "id": "373209",
@@ -1490,7 +1493,10 @@
       "zip": "8152",
       "city": "Glattbrugg"
      },
-     "referees": []
+     "referees": [
+      "Ghiringhelli Sebastian",
+      "Braun David"
+     ]
     },
     {
      "id": "373242",
