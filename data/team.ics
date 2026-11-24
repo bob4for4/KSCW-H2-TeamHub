@@ -154,7 +154,8 @@ DTSTAMP:20261001T000000Z
 DTSTART;TZID=Europe/Zurich:20270305T200000
 DTEND;TZID=Europe/Zurich:20270305T220000
 SUMMARY:🏀 KSCW H2 @ BZO Highlanders
-LOCATION:Kantonsschule Wetzikon HE\, Kantonsschulstrasse\, 8620 Wetzikon
+LOCATION:Sportzentrum Zürich A 3fach \, Dübendorfstrasse 48\, 8602 Wangen
+  bei Dübendorf
 DESCRIPTION:Round 2 · 26-04589
 END:VEVENT
 BEGIN:VEVENT

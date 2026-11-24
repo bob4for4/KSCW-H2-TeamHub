@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T20:12:57+00:00",
+ "updated": "2026-11-24T17:43:04+00:00",
  "seasons": [
   {
    "ranking": [
@@ -1194,7 +1194,7 @@
       "city": "Spreitenbach"
      },
      "referees": [
-      "Roos Christian",
+      "Sen Oguz Hakan ",
       "Luma Ersun"
      ]
     },
@@ -1821,10 +1821,10 @@
      "counts": true,
      "state": "noch nicht gespielt",
      "venue": {
-      "name": "Kantonsschule Wetzikon HE",
-      "address": "Kantonsschulstrasse",
-      "zip": "8620",
-      "city": "Wetzikon"
+      "name": "Sportzentrum Zürich A 3fach ",
+      "address": "Dübendorfstrasse 48",
+      "zip": "8602",
+      "city": "Wangen bei Dübendorf"
      },
      "referees": []
     },
@@ -2107,10 +2107,10 @@
      "counts": true,
      "state": "noch nicht gespielt",
      "venue": {
-      "name": "Kantonsschule Wetzikon HE",
-      "address": "Kantonsschulstrasse",
-      "zip": "8620",
-      "city": "Wetzikon"
+      "name": "Sportzentrum Zürich A 3fach ",
+      "address": "Dübendorfstrasse 48",
+      "zip": "8602",
+      "city": "Wangen bei Dübendorf"
      },
      "referees": []
     },
@@ -2195,7 +2195,7 @@
      "counts": true,
      "state": "noch nicht gespielt",
      "venue": {
-      "name": "Sportzentrum Zürich A 3fach ",
+      "name": "Sportzentrum Zürich A H1",
       "address": "Dübendorfstrasse 48",
       "zip": "8602",
       "city": "Wangen bei Dübendorf"
@@ -2305,10 +2305,10 @@
      "counts": true,
      "state": "noch nicht gespielt",
      "venue": {
-      "name": "Kantonsschule Wetzikon HE",
-      "address": "Kantonsschulstrasse",
-      "zip": "8620",
-      "city": "Wetzikon"
+      "name": "Sportzentrum Zürich A H1",
+      "address": "Dübendorfstrasse 48",
+      "zip": "8602",
+      "city": "Wangen bei Dübendorf"
      },
      "referees": []
     },
@@ -2591,10 +2591,10 @@
      "counts": true,
      "state": "noch nicht gespielt",
      "venue": {
-      "name": "Kantonsschule Wetzikon HE",
-      "address": "Kantonsschulstrasse",
-      "zip": "8620",
-      "city": "Wetzikon"
+      "name": "Sportzentrum Zürich A 3fach ",
+      "address": "Dübendorfstrasse 48",
+      "zip": "8602",
+      "city": "Wangen bei Dübendorf"
      },
      "referees": []
     },
