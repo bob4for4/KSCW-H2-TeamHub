@@ -1,18 +1,26 @@
 {
- "updated": "2026-11-24T17:43:04+00:00",
+ "updated": "2026-11-25T02:27:06+00:00",
  "seasons": [
   {
    "ranking": [
     {
      "rank": 1,
      "team": "BZO Highlanders H2",
-     "gp": 6,
-     "w": 4,
+     "gp": 7,
+     "w": 5,
      "l": 2,
-     "pts": 8
+     "pts": 10
     },
     {
      "rank": 2,
+     "team": "Opfikon Basket Wolves H2",
+     "gp": 3,
+     "w": 3,
+     "l": 0,
+     "pts": 6
+    },
+    {
+     "rank": 3,
      "team": "Frauenfeld Herren 1 H2",
      "gp": 6,
      "w": 3,
@@ -20,16 +28,8 @@
      "pts": 6
     },
     {
-     "rank": 3,
-     "team": "BBC Schaan H2",
-     "gp": 2,
-     "w": 2,
-     "l": 0,
-     "pts": 4
-    },
-    {
      "rank": 4,
-     "team": "Opfikon Basket Wolves H2",
+     "team": "BBC Schaan H2",
      "gp": 2,
      "w": 2,
      "l": 0,
@@ -53,15 +53,15 @@
     },
     {
      "rank": 7,
-     "team": "KSC Wiedikon Herren 2 H2",
-     "gp": 4,
+     "team": "Zug Basket H2",
+     "gp": 5,
      "w": 2,
-     "l": 2,
+     "l": 3,
      "pts": 4
     },
     {
      "rank": 8,
-     "team": "Zug Basket H2",
+     "team": "KSC Wiedikon Herren 2 H2",
      "gp": 5,
      "w": 2,
      "l": 3,
@@ -70,9 +70,9 @@
     {
      "rank": 9,
      "team": "Unicorn 02 Basket H2",
-     "gp": 5,
+     "gp": 6,
      "w": 2,
-     "l": 3,
+     "l": 4,
      "pts": 4
     },
     {
@@ -1074,10 +1074,10 @@
      "away": "BZO Highlanders H2",
      "homeClub": "KSC Wiedikon",
      "awayClub": "BZO",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Kantonsschule Wiedikon 1fach Halle B",
       "address": "Eingang Goldbrunnenstr. 80",
@@ -1087,6 +1087,32 @@
      "referees": [
       "Enkhtsetseg Temuulen",
       "Luma Ersun"
+     ],
+     "score": [
+      59,
+      70
+     ],
+     "quarters": [
+      [
+       16,
+       19
+      ],
+      [
+       13,
+       8
+      ],
+      [
+       19,
+       20
+      ],
+      [
+       11,
+       23
+      ]
+     ],
+     "points": [
+      0,
+      2
      ]
     },
     {
@@ -1136,7 +1162,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Schulhaus Lättenwiesen",
       "address": "Giebeleichstrasse 48",
@@ -1146,6 +1172,15 @@
      "referees": [
       "Tomus Alexandru",
       "Braun David"
+     ],
+     "score": [
+      84,
+      65
+     ],
+     "quarters": [],
+     "points": [
+      2,
+      0
      ]
     },
     {
