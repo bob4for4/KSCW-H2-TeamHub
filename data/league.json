@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T02:27:06+00:00",
+ "updated": "2026-11-25T14:20:50+00:00",
  "seasons": [
   {
    "ranking": [
@@ -1125,10 +1125,10 @@
      "away": "Wohlen Basket H2",
      "homeClub": "Unicorn 02 Basket",
      "awayClub": "Wohlen Basket",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Sporthalle Seefeld",
       "address": "Schmittegass 100",
