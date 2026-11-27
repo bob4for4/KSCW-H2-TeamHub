@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T13:54:43+00:00",
+ "updated": "2026-11-27T22:42:54+00:00",
  "seasons": [
   {
    "ranking": [
@@ -21,6 +21,14 @@
     },
     {
      "rank": 3,
+     "team": "GRBB Chur Herren 1 H2",
+     "gp": 4,
+     "w": 3,
+     "l": 1,
+     "pts": 6
+    },
+    {
+     "rank": 4,
      "team": "Frauenfeld Herren 1 H2",
      "gp": 6,
      "w": 3,
@@ -28,19 +36,11 @@
      "pts": 6
     },
     {
-     "rank": 4,
+     "rank": 5,
      "team": "BBC Schaan H2",
      "gp": 2,
      "w": 2,
      "l": 0,
-     "pts": 4
-    },
-    {
-     "rank": 5,
-     "team": "GRBB Chur Herren 1 H2",
-     "gp": 3,
-     "w": 2,
-     "l": 1,
      "pts": 4
     },
     {
@@ -53,7 +53,7 @@
     },
     {
      "rank": 7,
-     "team": "Zug Basket H2",
+     "team": "KSC Wiedikon Herren 2 H2",
      "gp": 5,
      "w": 2,
      "l": 3,
@@ -61,10 +61,10 @@
     },
     {
      "rank": 8,
-     "team": "KSC Wiedikon Herren 2 H2",
-     "gp": 5,
+     "team": "Zug Basket H2",
+     "gp": 6,
      "w": 2,
-     "l": 3,
+     "l": 4,
      "pts": 4
     },
     {
@@ -1193,10 +1193,10 @@
      "away": "GRBB Chur Herren 1 H2",
      "homeClub": "Zug Basket",
      "awayClub": "GRBB",
-     "final": false,
+     "final": true,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "homologiert",
      "venue": {
       "name": "Kantonsschule Zug",
       "address": "Lüssiweg 24",
@@ -1206,6 +1206,36 @@
      "referees": [
       "Dreifürst Julius",
       "Brombacher Linus Jonathan"
+     ],
+     "score": [
+      89,
+      90
+     ],
+     "quarters": [
+      [
+       22,
+       23
+      ],
+      [
+       18,
+       19
+      ],
+      [
+       19,
+       24
+      ],
+      [
+       19,
+       12
+      ],
+      [
+       11,
+       12
+      ]
+     ],
+     "points": [
+      0,
+      2
      ]
     },
     {
