@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T10:52:22+00:00",
+ "updated": "2026-11-27T13:54:43+00:00",
  "seasons": [
   {
    "ranking": [
@@ -1287,7 +1287,7 @@
      "id": "373259",
      "number": "26-04616",
      "date": "2026-12-03",
-     "time": "20:30",
+     "time": "20:15",
      "round": 2,
      "home": "Zug Basket H2",
      "away": "KSC Wiedikon Herren 2 H2",
@@ -1625,7 +1625,7 @@
      "id": "373188",
      "number": "26-04545",
      "date": "2027-01-21",
-     "time": "20:30",
+     "time": "20:15",
      "round": 1,
      "home": "Zug Basket H2",
      "away": "Opfikon Basket Wolves H2",
@@ -1823,7 +1823,7 @@
      "id": "373206",
      "number": "26-04563",
      "date": "2027-02-04",
-     "time": "20:30",
+     "time": "20:15",
      "round": 1,
      "home": "Zug Basket H2",
      "away": "Unicorn 02 Basket H2",
@@ -2109,7 +2109,7 @@
      "id": "373224",
      "number": "26-04581",
      "date": "2027-03-04",
-     "time": "20:30",
+     "time": "20:15",
      "round": 1,
      "home": "Zug Basket H2",
      "away": "BBC Schaan H2",
@@ -2307,7 +2307,7 @@
      "id": "373264",
      "number": "26-04621",
      "date": "2027-03-18",
-     "time": "20:30",
+     "time": "20:15",
      "round": 2,
      "home": "Zug Basket H2",
      "away": "Frauenfeld Herren 1 H2",
