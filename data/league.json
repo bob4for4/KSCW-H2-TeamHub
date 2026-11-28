@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T22:42:54+00:00",
+ "updated": "2026-11-28T07:46:37+00:00",
  "seasons": [
   {
    "ranking": [
@@ -13,6 +13,14 @@
     },
     {
      "rank": 2,
+     "team": "Frauenfeld Herren 1 H2",
+     "gp": 7,
+     "w": 4,
+     "l": 3,
+     "pts": 8
+    },
+    {
+     "rank": 3,
      "team": "Opfikon Basket Wolves H2",
      "gp": 3,
      "w": 3,
@@ -20,19 +28,11 @@
      "pts": 6
     },
     {
-     "rank": 3,
+     "rank": 4,
      "team": "GRBB Chur Herren 1 H2",
      "gp": 4,
      "w": 3,
      "l": 1,
-     "pts": 6
-    },
-    {
-     "rank": 4,
-     "team": "Frauenfeld Herren 1 H2",
-     "gp": 6,
-     "w": 3,
-     "l": 3,
      "pts": 6
     },
     {
@@ -70,9 +70,9 @@
     {
      "rank": 9,
      "team": "Unicorn 02 Basket H2",
-     "gp": 6,
+     "gp": 7,
      "w": 2,
-     "l": 4,
+     "l": 5,
      "pts": 4
     },
     {
@@ -1251,7 +1251,7 @@
      "final": false,
      "withdrawn": false,
      "counts": true,
-     "state": "noch nicht gespielt",
+     "state": "gespielt",
      "venue": {
       "name": "Sporthalle Seefeld",
       "address": "Schmittegass 100",
@@ -1261,6 +1261,15 @@
      "referees": [
       "Sen Oguz Hakan ",
       "Luma Ersun"
+     ],
+     "score": [
+      82,
+      83
+     ],
+     "quarters": [],
+     "points": [
+      0,
+      2
      ]
     },
     {
